@@ -4,8 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>TESTANDO</p>
+        <!-- BARRA LATERAL -->
+    <aside class="sidebar">
+        <button class="icon-btn" title="Menu">
+            <i data-lucide="menu" size="28"></i>
+        </button>
+        
+        <div class="sidebar-spacer"></div>
+
+        <button class="icon-btn" title="Início">
+            <i data-lucide="home" size="24"></i>
+        </button>
+        <button class="icon-btn" title="Relatórios">
+            <i data-lucide="clipboard-check" size="24"></i>
+        </button>
+        <button class="icon-btn" title="Carrinho">
+            <i data-lucide="shopping-cart" size="24"></i>
+        </button>
+    </aside>
+
+    <!-- ÁREA DE CONTEÚDO -->
+    <div class="main-wrapper">
+        <!-- CABEÇALHO -->
+        <header>
+            <div class="brand-logo">
+                <!-- Substitua pela imagem real do logo se necessário -->
+                <i data-lucide="settings" size="32"></i>
+                <span>DDA DMC</span>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="">
+                <i data-lucide="search" class="search-icon"></i>
+            </div>
+
+            <div class="header-actions">
+                <button class="notification-btn" title="Notificações">
+                    <i data-lucide="bell" size="22"></i>
+                    <span class="badge">1</span>
+                </button>
+                <button class="action-btn" title="Perfil">
+                    <i data-lucide="user" size="24"></i>
+                </button>
+                <button class="action-btn" title="Sair">
+                    <i data-lucide="log-out" size="24"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- CARDS / CONTEÚDO -->
+        <main class="content">
+            <div class="cards-grid">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+    </script>
 </body>
 </html>
