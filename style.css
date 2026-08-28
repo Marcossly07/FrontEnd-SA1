@@ -1,8 +1,11 @@
 body{
     margin: 0;
 }
+html{
+    background-color: #8c929e;
+}
 nav{
-    background-color: #5170ff;
+    background-color: #233559;
     color: white;
     border-color: #5170ff;
     width: 100%;
@@ -15,13 +18,12 @@ main{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-left: 20px;
+    color: white;
 }
-main h2{
-        margin-left: 10px;
-}
+
 form{
     margin-top: 10px;
-    margin-left: 10px;
 }
 form input{
     height: 20px;
@@ -29,10 +31,7 @@ form input{
 form button{
     height: 24px;
 }
-.filtro{
-    margin-left: 10px;
-    background-color: #68a0b2;
-}
+
 .filtro h2{
     color: white;
 }
@@ -43,12 +42,14 @@ form button{
     color: white;
 }
 table{
-    margin-left: 10px;
     margin-top: 10px;
+    background-color:   #686868;
+
 }
 table button{
     width: 100%;
 }
-table{
-    background-color: white;
+
+table, th, td {
+    border: 1px solid #3f3f3f;
 }
