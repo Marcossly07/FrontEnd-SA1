@@ -26,7 +26,6 @@ main{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-left: 20px;
     color: white;
     font-weight: bold;
     font-family: 'Nexa-Heavy',sans-serif;
@@ -41,9 +40,15 @@ form input{
 form button{
     height: 24px;
 }
-
-.filtro h2{
+.adicionar-cor{
+    width: 100%;
+    background-color: #7a7e86;
+}
+.filtro{
     color: white;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: #7a7e86;
 }
 .pouca_quantidade{
     background-color:red;
@@ -65,11 +70,15 @@ table, th, td {
 }
 .saida{
     margin-bottom: 30px;
+    margin-left: 20px;
 }
 nav img{
     position: absolute;
     top: 0px;
     left: 10px;
+}
+.entrada{
+    margin-left: 20px;
 }
 @media (max-width:600px){
     nav img{
