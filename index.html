@@ -12,18 +12,19 @@
     </header>
     <main>
         <section class="filtro">
+            <h2>Filtro</h2>
             <form>
-                <input type="number" placeholder="Id">
-                <input type="text" placeholder="Nome">
-                <input type="number" placeholder="Quantidade">
-                <input type="number" placeholder="Preço">
+                <input type="number" placeholder="Id" readonly>
+                <input type="text" placeholder="Classe" value="Classe K" readonly>
+                <input type="number" placeholder="Quantidade" readonly>
+                <input type="number" placeholder="Preço" readonly>
                 <button type="submit">Buscar</button>
             </form>
             <table border="1">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nome</th>
+                        <th>Classe</th>
                         <th>Quantidade</th>
                         <th>Preço</th>
                         <th>Função</th>
@@ -57,6 +58,102 @@
                         <td>12</td>
                         <td>R$6.000,00</td>
                         <td><button>Vender</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="entrada">
+            <h2>Entradas</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Classe</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Função</th>
+                    </tr>
+                    <tr>
+                        <td>45</td>
+                        <td>Classe S</td>
+                        <td>7</td>
+                        <td>R$2.100,00</td>
+                        <td><button>Vender</button></td>
+                    </tr>
+                                        <tr>
+                        <td>46</td>
+                        <td>Classe S</td>
+                        <td>9</td>
+                        <td>R$2.700,00</td>
+                        <td><button>Vender</button></td>
+                    </tr>
+                                        <tr>
+                        <td>47</td>
+                        <td>Classe S</td>
+                        <td>10</td>
+                        <td>R$3.000,00</td>
+                        <td><button>Vender</button></td>
+                    </tr>
+                                        <tr>
+                        <td>48</td>
+                        <td>Classe K</td>
+                        <td>4</td>
+                        <td>R$2.000,00</td>
+                        <td><button>Vender</button></td>
+                    </tr>
+                </thead>
+            </table>
+        </section>
+        <section class="saida">
+            <h2>Saídas</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Classe</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Vendedor</th>
+                        <th>Data</th>
+                        <th>Nota fiscal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>41</td>
+                        <td>Classe N</td>
+                        <td>12</td>
+                        <td>R$5.760,00</td>
+                        <td>Jadson</td>
+                        <td>28/08/2026</td>
+                        <td><button>Imprimir</button></td>
+                    </tr>
+                                        <tr>
+                        <td>42</td>
+                        <td>Classe N</td>
+                        <td>8</td>
+                        <td>R$3.840,00</td>
+                        <td>Abnadiel</td>
+                        <td>27/08/2026</td>
+                        <td><button>Imprimir</button></td>
+                    </tr>
+                                        <tr>
+                        <td>43</td>
+                        <td>Classe N</td>
+                        <td>11</td>
+                        <td>R$5.280,00</td>
+                        <td>Abnadiel</td>
+                        <td>26/08/2026</td>
+                        <td><button>Imprimir</button></td>
+                    </tr>
+                                        <tr>
+                        <td>44</td>
+                        <td>Classe N</td>
+                        <td>10</td>
+                        <td>R$4.800,00</td>
+                        <td>Jadson</td>
+                        <td>25/08/2026</td>
+                        <td><button>Imprimir</button></td>
                     </tr>
                 </tbody>
             </table>

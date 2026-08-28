@@ -16,6 +16,9 @@ main{
     flex-direction: column;
     gap: 10px;
 }
+main h2{
+        margin-left: 10px;
+}
 form{
     margin-top: 10px;
     margin-left: 10px;
@@ -30,10 +33,14 @@ form button{
     margin-left: 10px;
     background-color: #68a0b2;
 }
+.filtro h2{
+    color: white;
+}
 .pouca_quantidade{
     background-color:red;
     font-weight: bolder;
     width: 100%;
+    color: white;
 }
 table{
     margin-left: 10px;
@@ -41,4 +48,7 @@ table{
 }
 table button{
     width: 100%;
+}
+table{
+    background-color: white;
 }
