@@ -1,0 +1,100 @@
+@font-face {
+    font-family: 'Nexa-ExtraLight';
+    src: url(fonts/Nexa-ExtraLight.ttf) format(ttf);
+}
+@font-face {
+    font-family: 'Nexa-Heavy';
+    src: url(fonts/Nexa-Heavy.ttf) format(ttf);
+}
+body{
+    margin: 0;
+    background-color: #8c929e;
+}
+
+nav{
+    background-color: #233559;
+    color: white;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nexa-Heavy',sans-serif;
+    
+}
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Nexa-Heavy',sans-serif;
+}
+
+form{
+    margin-top: 10px;
+}
+form input{
+    height: 20px;
+}
+form button{
+    height: 24px;
+}
+.adicionar-cor{
+    width: 100%;
+    background-color: #7a7e86;
+}
+.filtro{
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: #7a7e86;
+}
+.pouca_quantidade{
+    background-color:red;
+    font-weight: bolder;
+    width: 100%;
+    color: white;
+}
+table{
+    margin-top: 10px;
+    background-color:   #686868;
+
+}
+table button{
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid #3f3f3f;
+}
+.saida{
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+nav img{
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+.entrada{
+    margin-left: 20px;
+}
+@media (max-width:600px){
+    nav img{
+        left: 0px;
+        width: 70px;
+        height: 70px;
+    }
+    .tabela-responsiva{
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+}
+
