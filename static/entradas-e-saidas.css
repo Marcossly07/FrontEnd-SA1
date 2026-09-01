@@ -44,6 +44,19 @@ form button{
     width: 100%;
     background-color: #7a7e86;
 }
+header{
+    border: black 4px solid;
+}
+
+.logo{
+   display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 100px;
+    max-width: 200px;
+    height: auto;
+}
 .filtro{
     color: white;
     margin-left: 20px;
