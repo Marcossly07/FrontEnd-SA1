@@ -1,73 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tela inicial</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
-<body>
-        <!-- BARRA LATERAL -->
-    <aside class="sidebar">
-        <button class="icon-btn" title="Menu">
-            <i data-lucide="menu" size="28"></i>
-        </button>
-        
-        <div class="sidebar-spacer"></div>
 
-        <button class="icon-btn" title="Início">
-            <i data-lucide="home" size="24"></i>
-        </button>
-        <button class="icon-btn" title="Relatórios">
-            <i data-lucide="clipboard-check" size="24"></i>
-        </button>
-        <button class="icon-btn" title="Carrinho">
-            <i data-lucide="shopping-cart" size="24"></i>
-        </button>
+<body>
+    <!-- Menu do lado -->
+    <aside class="sidebar">
+        <span class="material-symbols-outlined menu-icon">
+            menu
+        </span>
+        <a href="index.html" class="nav-item ativo">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">
+                folder
+            </span>
+        </a>
+        <a href="/FrontEnd-SA1/templates/entradas-e-saidas.html" class="nav-item">
+            <span class="material-symbols-outlined">
+                assignment
+            </span>
+        </a>
     </aside>
 
-    <!-- ÁREA DE CONTEÚDO -->
-    <div class="main-wrapper">
-        <!-- CABEÇALHO -->
-        <header>
-            <div class="brand-logo">
-                <!-- Substitua pela imagem real do logo se necessário -->
-                <i data-lucide="settings" size="32"></i>
-                <span>DDA DMC</span>
+    <div class="main-container">
+
+
+        <header class="topbar">
+            <div class="logo">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+                <img class="logo" src="img/logo-dda.png" alt="logo">
             </div>
 
-            <div class="search-container">
-                <input type="text" placeholder="">
-                <i data-lucide="search" class="search-icon"></i>
+            <div class="search-box">
+                <input placeholder="Pesquisar..." type="text">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
             </div>
 
-            <div class="header-actions">
-                <button class="notification-btn" title="Notificações">
-                    <i data-lucide="bell" size="22"></i>
-                    <span class="badge">1</span>
-                </button>
-                <button class="action-btn" title="Perfil">
-                    <i data-lucide="user" size="24"></i>
-                </button>
-                <button class="action-btn" title="Sair">
-                    <i data-lucide="log-out" size="24"></i>
-                </button>
+            <div class="user-menu">
+                <div class="badge-icon">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    <span class="count">
+                        1
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+                </div>
+                <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
             </div>
         </header>
 
-        <!-- CARDS / CONTEÚDO -->
-        <main class="content">
+        <!-- parte do meio de cima dos botões grandes -->
+        <main class="dashboard-content">
+
+            <!-- os  botões grande do meio-->
             <div class="cards-grid">
-                <div class="card"></div>
-                <div class="card"></div>
-                <div class="card"></div>
+
+                <div class="card card-cinza">
+                    <div class="title">TOTAL DE ITENS CADASTRADOS</div>
+                    <div class="value">278</div>
+                    <div class="subtitle green">___________ 70%</div>
+                </div>
+
+                <div class="card card-vermelho">
+                    <div class="title">ALERTA DE ESTOQUE MINIMO</div>
+                    <div class="value">12</div>
+                    <div class="subtitle">___________ pastilha de freio</div>
+                </div>
+
+                <div class="card card-azul">
+                    <div class="title">DADOS DE</div>
+                    <div class="main-text" style="font-size: 28px;">ESTOQUE</div>
+                    <svg class="graph-line" viewBox="0 0 100 40">
+                        <polyline points="0,30 30,30 50,10 70,20 95,5" fill="none" stroke="#76ff03" stroke-width="3" />
+                        <polyline points="85,5 95,5 95,15" fill="none" stroke="#76ff03" stroke-width="3" />
+                    </svg>
+                </div>
+
+                <div class="card card-amarelo">
+                    <div class="title">
+                        PASTILHAS EM ALTA
+                    </div>
+                    <div class="main-text">
+                        PASTILHAS DE CERÂMICA</div>
+                    <div class="subtitle black">
+                        _____________ 10,3%
+                    </div>
+                </div>
+
+                <div class="card card-verde">
+                    <div class="title">
+                        ALTO ESTOQUE
+                    </div>
+                    <div class="main-text">
+                        PASTILHAS SEMIMETÁLICAS
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- parte branca de baixo, vou colocar os graficos -->
+            <div class="parte-branca-do-meio">
+               <img class="grafico" src="/FrontEnd-SA1/img/grafico.png" alt="">
+
+            </div>
+
         </main>
     </div>
-
-    <script>
-        // Inicializa os ícones do Lucide
-        lucide.createIcons();
-    </script>
 </body>
+
 </html>
