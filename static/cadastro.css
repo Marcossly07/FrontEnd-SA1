@@ -73,6 +73,7 @@ a{
     justify-content: center;
     align-items: center;
     border-radius: 6px;
+    border: solid;
 }
 
 @media(max-width: 2000px){
