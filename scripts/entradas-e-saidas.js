@@ -1,4 +1,4 @@
-let produtos_cadastrados=[{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"1",preco:"1454"},{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"1",preco:"1454"},{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"1",preco:"1454"},{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"134",preco:"1454"},{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"1",preco:"1454"},];
+let produtos_cadastrados=[{id:"43",nome:"hilquias",classe:"Classe K",quantidade:"1",preco:"1454"}];
 const tbody=document.getElementById("minha-tabela-filtro");
 let linhas="";
 let formulario=document.getElementById("form-id");
