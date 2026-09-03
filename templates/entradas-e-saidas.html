@@ -21,11 +21,8 @@
         <div class="adicionar-cor">
         <section class="filtro">
             <h2>Filtro</h2>
-            <form>
-                <input type="number" placeholder="Id" readonly>
-                <input type="text" placeholder="Classe" value="Classe K" readonly>
-                <input type="number" placeholder="Quantidade" readonly>
-                <input type="number" placeholder="Preço" readonly>
+            <form id="form-id">
+                <input type="text" placeholder="Classe" id="input-id">
                 <button type="submit">Buscar</button>
             </form>
             <div class="tabela-responsiva">
@@ -39,35 +36,8 @@
                             <th>Função</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Classe K</td>
-                            <td>10</td>
-                            <td>R$5.000,00</td>
-                            <td><button>Nota Fiscal</button></td>
-                        </tr>
-                        <tr class="pouca_quantidade">
-                            <td>31</td>
-                            <td>Classe K</td>
-                            <td>1</td>
-                            <td>R$500,00</td>
-                            <td><button>Solicitar</button></td>
-                        </tr>
-                        <tr>
-                            <td>33</td>
-                            <td>Classe K</td>
-                            <td>4</td>
-                            <td>R$2.000,00</td>
-                            <td><button>Nota Fiscal</button></td>
-                        </tr>
-                        <tr>
-                            <td>40</td>
-                            <td>Classe K</td>
-                            <td>12</td>
-                            <td>R$6.000,00</td>
-                            <td><button>Nota Fiscal</button></td>
-                        </tr>
+                    <tbody id="minha-tabela-filtro">
+                        
                     </tbody>
                 </table>
             </div>
@@ -86,96 +56,13 @@
                             <th>Nota Fiscal</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>45</td>
-                            <td>Classe S</td>
-                            <td>7</td>
-                            <td>R$2.100,00</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>46</td>
-                            <td>Classe S</td>
-                            <td>9</td>
-                            <td>R$2.700,00</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>47</td>
-                            <td>Classe S</td>
-                            <td>10</td>
-                            <td>R$3.000,00</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>48</td>
-                            <td>Classe K</td>
-                            <td>4</td>
-                            <td>R$2.000,00</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <section class="saida">
-            <h2>Saídas</h2>
-            <div class="tabela-responsiva">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Classe</th>
-                            <th>Quantidade</th>
-                            <th>Preço</th>
-                            <th>Responsável</th>
-                            <th>Data</th>
-                            <th>Nota fiscal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>41</td>
-                            <td>Classe N</td>
-                            <td>12</td>
-                            <td>R$5.760,00</td>
-                            <td>Jadson</td>
-                            <td>28/08/2026</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>42</td>
-                            <td>Classe N</td>
-                            <td>8</td>
-                            <td>R$3.840,00</td>
-                            <td>Abnadiel</td>
-                            <td>27/08/2026</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>43</td>
-                            <td>Classe N</td>
-                            <td>11</td>
-                            <td>R$5.280,00</td>
-                            <td>Abnadiel</td>
-                            <td>26/08/2026</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
-                        <tr>
-                            <td>44</td>
-                            <td>Classe N</td>
-                            <td>10</td>
-                            <td>R$4.800,00</td>
-                            <td>Jadson</td>
-                            <td>25/08/2026</td>
-                            <td><button>Imprimir</button></td>
-                        </tr>
+                    <tbody id="tabela-entradas">
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
+    <script src="/scripts/entradas-e-saidas.js"></script>
 </body>
 
 </html>
