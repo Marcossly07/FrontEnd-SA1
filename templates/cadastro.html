@@ -15,20 +15,20 @@
         <h1>Cadastro/Retirada</h1>
     </Header>
     <main class="main">
-
+        
         <div class="area-de-interacao">
-            <form>
+            <form id="cadastro">
                 <label for="cadastrante">Cadastrante:</label>
                 <br>
-                <input type="text" name="cadastrante" id="cadastrante" placeholder="Digite o nome do cadastrante">
+                <input type="text" name="cadastrante" id="cadastrante" placeholder="Digite o nome do cadastrante" required>
                 <br><br>
                 <label for="senha">Senha:</label>
                 <br>
-                <input type="password" name="senha" id="senha" placeholder="Digite a senha">
+                <input type="password" name="senha" id="senha" placeholder="Digite a senha" required>
                 <br><br>
                 <label for="quantidade">Quantidade(pacote):</label>
                 <br>
-                <input type="number" min="1" max="100" name="quantidade" id="quantidade" placeholder="UND">
+                <input type="number" min="1" max="100" name="quantidade" id="quantidade" placeholder="UND" required>
                 <br><br>
                 <label for="fornecedor">Fornecedor:</label>
                 <br>
@@ -42,12 +42,12 @@
                 <label for="classe">Classe:</label>
                 <br>
                 <select name="classe" id="classe">
-                    <option value="">P</option>
-                    <option value="">M</option>
-                    <option value="">K</option>
-                    <option value="">N</option>
-                    <option value="">S</option>
-                    <option value="">H</option>
+                    <option >P</option>
+                    <option >M</option>
+                    <option >K</option>
+                    <option >N</option>
+                    <option >S</option>
+                    <option >H</option>
                 </select>
                 <br><br>
                 
@@ -74,6 +74,7 @@
             </form>
         </div>
     </main>
+    <script src="/scripts/cadastro.js"></script>
 </body>
 
 </html>
