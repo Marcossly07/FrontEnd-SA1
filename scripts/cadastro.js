@@ -24,6 +24,7 @@ forms.addEventListener("submit", function(event){
         folhaCadastro["Solicitação"] = solicitacao;
         estoquePastilhas.push(folhaCadastro);
         console.log("Senha certa");
+        localStorage.setItem("dadosDoAluno", JSON.stringify(estoquePastilhas));
     }
     else{
         alert("Cadastrante ou senha errado!");
