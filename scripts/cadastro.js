@@ -1,6 +1,20 @@
 const forms = document.getElementById("cadastro");
-let estoquePastilhas = []
-let confirmarSenha = false
+const paragrafoCadastrante = document.getElementById("paragrafo-cadastrante")
+const paragrafoData = document.getElementById("paragrafo-data")
+const dataAtual = new Date()
+const ano = dataAtual.getFullYear();
+const mes = dataAtual.getMonth() + 1; // Soma 1 porque começa do zero
+const dia = dataAtual.getDate();
+const paragrafoQuantidade = document.getElementById("paragrafo-quantidade")
+const paragrafoValorUnidade = document.getElementById("paragrafo-valor-unidade")
+const paragrafoValorPacote = document.getElementById("paragrafo-valor-pacote")
+const paragrafoValorTotal = document.getElementById("paragrafo-valor-total")
+const valorPacontePastilha = 900
+const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
+const paragrafoClasse = document.getElementById("paragrafo-classe")
+const paragrafoTipo = document.getElementById("paragrafo-tipo")
+
+let estoquePastilhas = JSON.parse(localStorage.getItem("dadosDoAluno")) || [];
 
 
 forms.addEventListener("submit", function(event){
@@ -11,7 +25,7 @@ forms.addEventListener("submit", function(event){
     const quantidade = document.getElementById("quantidade").value;
     const fornecedor = document.getElementById("fornecedor").value;
     const classe = document.getElementById("classe").value;
-    const solicitacao = document.getElementById("solicitacao").value;
+    const tipo = document.getElementById("tipo").value;
 
     
     if(senha === "123" && cadastrante === "Jadson"){
@@ -21,13 +35,14 @@ forms.addEventListener("submit", function(event){
         folhaCadastro["Quantidade"] = quantidade;
         folhaCadastro["Fornecedor"] = fornecedor;
         folhaCadastro["Classe"] = classe;
-        folhaCadastro["Solicitação"] = solicitacao;
+        folhaCadastro["Tipo"] = tipo;
         estoquePastilhas.push(folhaCadastro);
         console.log("Senha certa");
         localStorage.setItem("dadosDoAluno", JSON.stringify(estoquePastilhas));
     }
+    
     else{
-        alert("Cadastrante ou senha errado!");
+        // alert("Cadastrante ou senha errado!");
         console.log("Senha errada");
     }
     console.log(estoquePastilhas);

@@ -9,7 +9,6 @@ formulario.addEventListener('submit', function (event) {
     event.preventDefault();
     const inputid = document.getElementById("input-id").value;
     for (let i = 0; i < produtos_cadastrados.length; i++) {
-        console.log(inputid)
         if (produtos_cadastrados[i].Classe == inputid) {
             linhas=``;
             if (produtos_cadastrados[i].Quantidade < 2) {
@@ -23,6 +22,7 @@ formulario.addEventListener('submit', function (event) {
                 </tr>
                 `;
             } else {
+                console.log("entrei no else");
                 linhas += `
                 <tr>
                 <td>${produtos_cadastrados[i].Id}</td>
