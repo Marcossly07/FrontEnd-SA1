@@ -41,7 +41,7 @@ formulario.addEventListener('submit', function (event) {
 const tbodyEntradas = document.getElementById("tabela-entradas");
 let linhas_entradas = "";
 for (let i = 0; i < produtos_cadastrados.length; i++) {
-    if (produtos_cadastrados[i].quantidade < 2) {
+    if (produtos_cadastrados[i].Quantidade < 2) {
         linhas_entradas += `
             <tr class="pouca_quantidade">
                 <td>${produtos_cadastrados[i].Id}</td>
