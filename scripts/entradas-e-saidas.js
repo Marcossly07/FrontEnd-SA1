@@ -7,10 +7,10 @@ let linhas = "";
 let formulario = document.getElementById("form-id");
 formulario.addEventListener('submit', function (event) {
     event.preventDefault();
-    const inputid = document.getElementById("input-id").value;
+    linhas=``;
+    const inputid = document.getElementById("input-id").value.toUpperCase();
     for (let i = 0; i < produtos_cadastrados.length; i++) {
         if (produtos_cadastrados[i].Classe == inputid) {
-            linhas=``;
             if (produtos_cadastrados[i].Quantidade < 2) {
                 linhas += `
                 <tr class="pouca_quantidade">
@@ -22,7 +22,6 @@ formulario.addEventListener('submit', function (event) {
                 </tr>
                 `;
             } else {
-                console.log("entrei no else");
                 linhas += `
                 <tr>
                 <td>${produtos_cadastrados[i].Id}</td>
@@ -34,18 +33,15 @@ formulario.addEventListener('submit', function (event) {
                 `};
             tbody.innerHTML = linhas;
         }
-        else{
-            tbody.innerHTML = ``;
-        }
 
     }
 
 })
-console.log(produtos_cadastrados.length)
+
 const tbodyEntradas = document.getElementById("tabela-entradas");
 let linhas_entradas = "";
 for (let i = 0; i < produtos_cadastrados.length; i++) {
-    if (produtos_cadastrados[i].quantidade < 2) {
+    if (produtos_cadastrados[i].Quantidade < 2) {
         linhas_entradas += `
             <tr class="pouca_quantidade">
                 <td>${produtos_cadastrados[i].Id}</td>
