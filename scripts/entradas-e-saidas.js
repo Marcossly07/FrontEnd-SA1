@@ -17,7 +17,8 @@ formulario.addEventListener('submit', function (event) {
                 <td>${produtos_cadastrados[i].Id}</td>
                 <td>${produtos_cadastrados[i].Classe}</td>
                 <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 900},00</td>
+                <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
+                <td>${produtos_cadastrados[i].Tipo}</td>
                 <td><button>Solicitar</button></td>
                 </tr>
                 `;
@@ -27,7 +28,8 @@ formulario.addEventListener('submit', function (event) {
                 <td>${produtos_cadastrados[i].Id}</td>
                 <td>${produtos_cadastrados[i].Classe}</td>
                 <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 900},00</td>
+                <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
+                <td>${produtos_cadastrados[i].Tipo}</td>
                 <td><button>Nota Fiscal</button></td>
                 </tr>
                 `};
@@ -41,25 +43,43 @@ formulario.addEventListener('submit', function (event) {
 const tbodyEntradas = document.getElementById("tabela-entradas");
 let linhas_entradas = "";
 for (let i = 0; i < produtos_cadastrados.length; i++) {
-    if (produtos_cadastrados[i].Quantidade < 2) {
-        linhas_entradas += `
-            <tr class="pouca_quantidade">
-                <td>${produtos_cadastrados[i].Id}</td>
-                <td>${produtos_cadastrados[i].Classe}</td>
-                <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 900},00</td>
-                <td><button>Solicitar</button></td>
-            </tr>
-    `;
-    } else {
-        linhas_entradas += `
-            <tr>
-                <td>${produtos_cadastrados[i].Id}</td>
-                <td>${produtos_cadastrados[i].Classe}</td>
-                <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 900},00</td>
-                <td><button>Imprimir</button></td>
-            </tr>
-    `};
+    if (produtos_cadastrados[i].Tipo=="Cadastro"){
+        if (produtos_cadastrados[i].Quantidade < 2) {
+            linhas_entradas += `
+                <tr class="pouca_quantidade">
+                    <td>${produtos_cadastrados[i].Id}</td>
+                    <td>${produtos_cadastrados[i].Classe}</td>
+                    <td>${produtos_cadastrados[i].Quantidade}</td>
+                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
+                    <td><button>Solicitar</button></td>
+                </tr>
+        `;
+        } else {
+            linhas_entradas += `
+                <tr>
+                    <td>${produtos_cadastrados[i].Id}</td>
+                    <td>${produtos_cadastrados[i].Classe}</td>
+                    <td>${produtos_cadastrados[i].Quantidade}</td>
+                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
+                    <td><button>Imprimir</button></td>
+                </tr>
+        `};
+    };
     tbodyEntradas.innerHTML = linhas_entradas;
 }
+const tbodySaidas = document.getElementById("tabela-saidas");
+let linhas_saidas = "";
+for (let i = 0; i < produtos_cadastrados.length; i++) {
+    if (produtos_cadastrados[i].Tipo=="Retirada"){
+        
+            linhas_saidas += `
+                <tr>
+                    <td>${produtos_cadastrados[i].Id}</td>
+                    <td>${produtos_cadastrados[i].Classe}</td>
+                    <td>${produtos_cadastrados[i].Quantidade}</td>
+                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
+                    <td><button>Imprimir</button></td>
+                </tr>
+        `};
+    };
+    tbodySaidas.innerHTML = linhas_saidas;
