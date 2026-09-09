@@ -13,5 +13,3 @@ for (let i=0;i<objetoFinal.length;i++){
     }
 }
 alerta_estoque.textContent=quantidade_estoque;
-
-
