@@ -5,7 +5,6 @@ const paragrafoQuantidade = document.getElementById("paragrafo-quantidade")
 const paragrafoValorUnidade = document.getElementById("paragrafo-valor-unidade")
 const paragrafoValorPacote = document.getElementById("paragrafo-valor-pacote")
 const paragrafoValorTotal = document.getElementById("paragrafo-valor-total")
-const valorPacontePastilha = 900
 const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
 const paragrafoClasse = document.getElementById("paragrafo-classe")
 const paragrafoTipo = document.getElementById("paragrafo-tipo")
@@ -23,7 +22,6 @@ forms.addEventListener("input", function (){
     const classe = document.getElementById("classe").value;
     const tipo = document.getElementById("tipo").value;
 
-    const unidade = 9
     const pacote = 90
     const quantidadeText = quantidade
     const quantidadeNumr = Number(quantidadeText)
@@ -35,8 +33,8 @@ forms.addEventListener("input", function (){
 
     paragrafoCadastrante.textContent = `Cadastrante: ${cadastrante}`;
     paragrafoData.textContent = `Data: ${dia}/${mes}/${ano}`
-    paragrafoQuantidade.textContent = `Quantidade: ${quantidade}`
-    paragrafoValorUnidade.textContent = `Valor por unidade: R$${unidade},00`
+    paragrafoQuantidade.textContent = `Quantidade: ${quantidade}und (pacote)`
+    paragrafoValorUnidade.textContent = `Valor por unidade: R$9,00`
     paragrafoValorPacote.textContent = `Valor por pacote: R$${pacote},00`
     paragrafoValorTotal.textContent = `Valor total: R$${valorTotal},00`
     paragrafoFornecedor.textContent = `Fornecedor: ${fornecedor}`
@@ -67,11 +65,11 @@ forms.addEventListener("submit", function(event){
         estoquePastilhas.push(folhaCadastro);
         console.log("Senha certa");
         localStorage.setItem("dadosDoAluno", JSON.stringify(estoquePastilhas));
-
+        alert("Cadastro realizado com sucesso.")
     }
     
     else{
-        // alert("Cadastrante ou senha errado!");
+        alert("Cadastrante ou senha errado!");
         console.log("Senha errada");
     }
     console.log(estoquePastilhas);
