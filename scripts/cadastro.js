@@ -78,8 +78,10 @@ forms.addEventListener("submit", function(event){
             }
             localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
             localStorage.setItem("contador", JSON.stringify(contador));
+                        if (quantidade==1){
+                    alert("POUCA QUANTIDADE!");
+                }
             alert("Pastilha cadastrada com sucesso!");
-
         }
         else{
             if(!estoquePastilhas[fornecedor]?.[classe]){
@@ -100,6 +102,9 @@ forms.addEventListener("submit", function(event){
                     historicoRetiradas.push(retiradaObj);
                     if (estoquePastilhas[fornecedor][classe]["Quantidade"]==0){
                         delete estoquePastilhas[fornecedor][classe];
+                    }
+                    else if(estoquePastilhas[fornecedor][classe]["Quantidade"]==1){
+                        alert("POUCA QUANTIDADE!");
                     }
                     localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
                     localStorage.setItem("retiradas", JSON.stringify(historicoRetiradas));
