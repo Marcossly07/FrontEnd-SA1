@@ -8,8 +8,9 @@ const paragrafoValorTotal = document.getElementById("paragrafo-valor-total")
 const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
 const paragrafoClasse = document.getElementById("paragrafo-classe")
 const paragrafoTipo = document.getElementById("paragrafo-tipo")
+let contador=0;
 
-let estoquePastilhas = JSON.parse(localStorage.getItem("dadosDoAluno")) || [];
+let estoquePastilhas = JSON.parse(localStorage.getItem("estoque")) || {};
 
 forms.addEventListener("input", function (){
     const dataAtual = new Date()
@@ -55,22 +56,25 @@ forms.addEventListener("submit", function(event){
     
     
     if(senha === "123" && cadastrante === "Jadson"){
-        let folhaCadastro = {}
-        folhaCadastro["Id"] = estoquePastilhas.length ;
-        folhaCadastro["Cadastrante"] = cadastrante;
-        folhaCadastro["Quantidade"] = quantidade;
-        folhaCadastro["Fornecedor"] = fornecedor;
-        folhaCadastro["Classe"] = classe;
-        folhaCadastro["Tipo"] = tipo;
-        estoquePastilhas.push(folhaCadastro);
-        console.log("Senha certa");
-        localStorage.setItem("dadosDoAluno", JSON.stringify(estoquePastilhas));
-        alert("Cadastro realizado com sucesso.")
-    }
-    
-    else{
-        alert("Cadastrante ou senha errado!");
-        console.log("Senha errada");
+        
+        if(tipo=="Cadastro"){
+            if(!estoquePastilhas[fornecedor]){
+                estoquePastilhas[fornecedor]={};
+            }
+            if(estoquePastilhas[fornecedor][classe]){
+                let quantidadeAtual=Number(estoquePastilhas[fornecedor][classe]["Quantidade"]) || 0;
+                estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidadeAtual+Number(quantidade);
+            }
+            else{
+                contador=contador+1
+                estoquePastilhas[fornecedor][classe]={};
+                estoquePastilhas[fornecedor][classe]["Id"]=contador;
+                estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidade;
+            }
+            localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
+            alert("Pastilha cadastrada com sucesso!");
+
+        }
     }
     console.log(estoquePastilhas);
 });

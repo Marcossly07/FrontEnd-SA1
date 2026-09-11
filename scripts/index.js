@@ -1,4 +1,4 @@
-const dadosSalvos = localStorage.getItem("dadosDoAluno");
+const dadosSalvos = localStorage.getItem("estoque");
 const objetoFinal = JSON.parse(dadosSalvos);
 console.log(objetoFinal.length);
 
