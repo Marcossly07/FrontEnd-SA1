@@ -1,85 +1,86 @@
 const dadosSalvos = localStorage.getItem("estoque");
 const objetoFinal = JSON.parse(dadosSalvos);
 console.log(objetoFinal)
+const dadosRetiradas = localStorage.getItem("retiradas")
+const retiradasHistorico = JSON.parse(dadosRetiradas);
 let produtos_cadastrados = objetoFinal;
 const tbody = document.getElementById("minha-tabela-filtro");
 let linhas = "";
 let formulario = document.getElementById("form-id");
 formulario.addEventListener('submit', function (event) {
     event.preventDefault();
-    linhas=``;
+    linhas = ``;
     const inputid = document.getElementById("input-id").value.toUpperCase();
-    for (let i = 0; i < produtos_cadastrados.length; i++) {
-        if (produtos_cadastrados[i].Classe == inputid) {
-            if (produtos_cadastrados[i].Quantidade < 2) {
-                linhas += `
-                <tr class="pouca_quantidade">
-                <td>${produtos_cadastrados[i].Id}</td>
-                <td>${produtos_cadastrados[i].Classe}</td>
-                <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
-                <td>${produtos_cadastrados[i].Tipo}</td>
-                <td><button>Solicitar</button></td>
-                </tr>
-                `;
-            } else {
-                linhas += `
-                <tr>
-                <td>${produtos_cadastrados[i].Id}</td>
-                <td>${produtos_cadastrados[i].Classe}</td>
-                <td>${produtos_cadastrados[i].Quantidade}</td>
-                <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
-                <td>${produtos_cadastrados[i].Tipo}</td>
-                <td><button>Nota Fiscal</button></td>
-                </tr>
-                `};
-            tbody.innerHTML = linhas;
-        }
-
+    if (objetoFinal) {
+        Object.keys(objetoFinal).forEach(chave => {
+            console.log("CHAVE", chave);
+            Object.keys(objetoFinal[chave]).forEach(classe => {
+                console.log("CLASSE", classe);
+                if (classe == inputid) {
+                    linhas += `
+                        <tr>
+                        <td>${objetoFinal[chave][classe]["Id"]}</td>
+                        <td>${chave}</td>
+                        <td>${inputid}</td>
+                        <td>${objetoFinal[chave][classe]["Quantidade"]}</td>
+                        <td>${objetoFinal[chave][classe]["Quantidade"] * 90},00</td>
+                        <td><button>Nota Fiscal</button></td>
+                        </tr>
+                    `;
+                }
+                tbody.innerHTML = linhas;
+            })
+        });
     }
-
 })
 
 const tbodyEntradas = document.getElementById("tabela-entradas");
 let linhas_entradas = "";
-for (let i = 0; i < produtos_cadastrados.length; i++) {
-    if (produtos_cadastrados[i].Tipo=="Cadastro"){
-        if (produtos_cadastrados[i].Quantidade < 2) {
+Object.keys(objetoFinal).forEach(chave => {
+    Object.keys(objetoFinal[chave]).forEach(classe => {
+        if(objetoFinal[chave][classe]["Quantidade"]>1){
+            linhas_entradas += `
+                <tr>
+                    <td>${objetoFinal[chave][classe]["Id"]}</td>
+                    <td>${chave}</td>
+                    <td>${classe}</td>
+                    <td>${objetoFinal[chave][classe]["Quantidade"]}</td>
+                    <td>${objetoFinal[chave][classe]["Quantidade"] * 90},00</td>
+                    <td><button>Nota Fiscal</button></td>
+                </tr>
+            `;}
+        else{
+            console.log(objetoFinal[chave][classe]["Quantidade"])
             linhas_entradas += `
                 <tr class="pouca_quantidade">
-                    <td>${produtos_cadastrados[i].Id}</td>
-                    <td>${produtos_cadastrados[i].Classe}</td>
-                    <td>${produtos_cadastrados[i].Quantidade}</td>
-                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
-                    <td><button>Solicitar</button></td>
-                </tr>
-        `;
-        } else {
-            linhas_entradas += `
-                <tr>
-                    <td>${produtos_cadastrados[i].Id}</td>
-                    <td>${produtos_cadastrados[i].Classe}</td>
-                    <td>${produtos_cadastrados[i].Quantidade}</td>
-                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
-                    <td><button>Imprimir</button></td>
-                </tr>
-        `};
-    };
+                    <td>${objetoFinal[chave][classe]["Id"]}</td>
+                    <td>${chave}</td>
+                    <td>${classe}</td>
+                    <td>${objetoFinal[chave][classe]["Quantidade"]}</td>
+                    <td>${objetoFinal[chave][classe]["Quantidade"] * 90},00</td>
+                    <td><button><a href="../templates/cadastro.html" class="link">Solicitar</a></button></td>
+                </tr>`;
+        }
+    })
+
     tbodyEntradas.innerHTML = linhas_entradas;
-}
+})
 const tbodySaidas = document.getElementById("tabela-saidas");
 let linhas_saidas = "";
-for (let i = 0; i < produtos_cadastrados.length; i++) {
-    if (produtos_cadastrados[i].Tipo=="Retirada"){
-        
-            linhas_saidas += `
-                <tr>
-                    <td>${produtos_cadastrados[i].Id}</td>
-                    <td>${produtos_cadastrados[i].Classe}</td>
-                    <td>${produtos_cadastrados[i].Quantidade}</td>
-                    <td>R$${produtos_cadastrados[i].Quantidade * 90},00</td>
-                    <td><button>Imprimir</button></td>
-                </tr>
-        `};
+if (retiradasHistorico) {
+    for (let i = 0; i < retiradasHistorico.length; i++) {
+        linhas_saidas += `
+        <tr>
+            <td>${retiradasHistorico[i].Id}</td>
+            <td>${retiradasHistorico[i].Fornecedor}</td>
+            <td>${retiradasHistorico[i].Classe}</td>
+            <td>${retiradasHistorico[i].Quantidade}</td>
+            <td>R$${retiradasHistorico[i].Quantidade * 90},00</td>
+            <td><button>Imprimir</button></td>
+        </tr>
+            `;
     };
     tbodySaidas.innerHTML = linhas_saidas;
+
+}
+

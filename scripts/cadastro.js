@@ -8,9 +8,12 @@ const paragrafoValorTotal = document.getElementById("paragrafo-valor-total")
 const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
 const paragrafoClasse = document.getElementById("paragrafo-classe")
 const paragrafoTipo = document.getElementById("paragrafo-tipo")
-let contador=0;
+
+
 
 let estoquePastilhas = JSON.parse(localStorage.getItem("estoque")) || {};
+let historicoRetiradas=JSON.parse(localStorage.getItem("retiradas"))||[];
+let contador=JSON.parse(localStorage.getItem("contador"))||[];
 
 forms.addEventListener("input", function (){
     const dataAtual = new Date()
@@ -43,7 +46,6 @@ forms.addEventListener("input", function (){
     paragrafoTipo.textContent = `Tipo: ${tipo}`
 });
 
-
 forms.addEventListener("submit", function(event){
     event.preventDefault();
     
@@ -56,7 +58,9 @@ forms.addEventListener("submit", function(event){
     
     
     if(senha === "123" && cadastrante === "Jadson"){
-        
+        if (contador.length==0){
+            contador.push(Number(0));
+        }
         if(tipo=="Cadastro"){
             if(!estoquePastilhas[fornecedor]){
                 estoquePastilhas[fornecedor]={};
@@ -64,17 +68,48 @@ forms.addEventListener("submit", function(event){
             if(estoquePastilhas[fornecedor][classe]){
                 let quantidadeAtual=Number(estoquePastilhas[fornecedor][classe]["Quantidade"]) || 0;
                 estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidadeAtual+Number(quantidade);
+                contador[0]=Number(contador[0])+Number(1);
             }
             else{
-                contador=contador+1
+                contador[0]=Number(contador[0])+Number(1);
                 estoquePastilhas[fornecedor][classe]={};
-                estoquePastilhas[fornecedor][classe]["Id"]=contador;
+                estoquePastilhas[fornecedor][classe]["Id"]=contador[0];
                 estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidade;
             }
             localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
+            localStorage.setItem("contador", JSON.stringify(contador));
             alert("Pastilha cadastrada com sucesso!");
 
         }
+        else{
+            if(!estoquePastilhas[fornecedor]?.[classe]){
+                alert("Nenhuma pastilha foi cadastrada com essas informações.");
+            }
+            else if(!estoquePastilhas[fornecedor][classe]){
+                alert("A classe solicitada não foi cadastrada para essa fornecedor.");
+            }
+            else{
+                let estoqueQuantidade=Number(estoquePastilhas[fornecedor][classe]["Quantidade"])
+                let retirada=Number(quantidade)
+                if(estoqueQuantidade<retirada){
+                    alert("O número para retirada é maior que o estoque.");
+                }
+                else{
+                    retiradaObj={"Id":(historicoRetiradas.length)+1,"Fornecedor":fornecedor,"Classe":classe,"Quantidade":retirada};
+                    estoquePastilhas[fornecedor][classe]["Quantidade"]=estoqueQuantidade-retirada;
+                    historicoRetiradas.push(retiradaObj);
+                    if (estoquePastilhas[fornecedor][classe]["Quantidade"]==0){
+                        delete estoquePastilhas[fornecedor][classe];
+                    }
+                    localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
+                    localStorage.setItem("retiradas", JSON.stringify(historicoRetiradas));
+                    alert("Operação concluída!")
+                }
+            }
+        }
     }
     console.log(estoquePastilhas);
+    
 });
+
+console.log(contador);

@@ -93,6 +93,10 @@ nav img{
 .entrada{
     margin-left: 20px;
 }
+.link{
+    text-decoration: none;
+    
+}
 @media (max-width:600px){
     nav img{
         left: 0px;
