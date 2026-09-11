@@ -1,17 +1,23 @@
-const dadosSalvos = localStorage.getItem("dadosDoAluno");
+const dadosSalvos = localStorage.getItem("estoque");
 const objetoFinal = JSON.parse(dadosSalvos);
-console.log(objetoFinal.length);
+let contador=Number(0);
+let alerta=Number(0);
+
 
 let total_cadastrados=document.getElementById("total_cadastrados");
-total_cadastrados.textContent=objetoFinal.length;
+Object.keys(objetoFinal).forEach(chave=>{
+    Object.keys(objetoFinal[chave]).forEach(classe=>{
+        contador+=1;
+        if (objetoFinal[chave][classe]["Quantidade"]<2){
+            console.log("CHEGUEI AQUI");
+            alerta+=1;
+        }
+    })
+})
+total_cadastrados.textContent=contador;
 
 let alerta_estoque=document.getElementById("alerta_estoque");
-let quantidade_estoque=0;
-for (let i=0;i<objetoFinal.length;i++){
-    if (objetoFinal[i].Quantidade==1){
-        quantidade_estoque+=1;
-    }
-}
-alerta_estoque.textContent=quantidade_estoque;
+
+alerta_estoque.textContent=alerta;
 
 
