@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/fornecedor.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <!-- estrutura base das paginas  -->
+    <aside class="sidebar">
+        <span class="material-symbols-outlined menu-icon">
+            menu
+        </span>
+        <a href="../index.html" class="nav-item ativo">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </a>
+        <a href="../templates/cadastro.html" class="nav-item">
+            <span class="material-symbols-outlined">
+                folder
+            </span>
+        </a>
+        <a href="../templates/entradas-e-saidas.html" class="nav-item">
+            <span class="material-symbols-outlined">
+                assignment
+            </span>
+        </a>
+    </aside>
+    <div class="main-container">
+        <header class="topbar">
+            <div class="logo">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+                <img class="logo" src="../img/logo-dda.png" alt="logo">
+            </div>
+
+            <div class="search-box">
+                <input placeholder="Pesquisar..." type="text">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </div>
+
+            <div class="user-menu">
+                <div class="badge-icon">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    <span class="count">
+                        1
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+                </div>
+                <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
+            </div>
+        </header>
+        <!-- estrutura base das paginas  -->
+        
+        <main id="display-content">
+            <label for="tipo"></label>
+            <select name="tipo" id="tipo">
+                <option>Cadastro</option>
+                <option>Retirada</option>
+            </select>
+            <div id="area-interacao">
+                <h1>Fornecedores</h1>
+            </div>
+            
+        </main>
+    </div>
+</body>
+
+</html>
