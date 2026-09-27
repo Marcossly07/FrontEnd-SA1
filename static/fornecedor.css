@@ -133,6 +133,8 @@ body {
 }
 
 #area-interacao{
+    display: flex;
+    justify-content: center;
     background-color: white;
     width: 750px;
     height: 450px;
