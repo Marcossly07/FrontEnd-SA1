@@ -67,17 +67,60 @@
         <!-- estrutura base das paginas  -->
         
         <main id="display-content">
-            <label for="tipo"></label>
-            <select name="tipo" id="tipo">
-                <option>Cadastro</option>
-                <option>Retirada</option>
-            </select>
             <div id="area-interacao">
-                <h1>Fornecedores</h1>
+                <h1>Cadastro de Fornecedor</h1>
+                <div id="forms">
+                        <!-- <label for="tipo">Ação desejada: </label>
+                         <select name="tipo" id="tipo">
+                            <option>Cadastrar</option>
+                            <option>Retirar</option>
+                        </select> -->
+                        <br>
+                        <form action="" id="forms">
+
+                            <div class="form-group">
+                                <label for="nome">Nome do Fornecedor:</label>
+                                <br>
+                                <input type="text" name="nome" id="nome" placeholder="Digite o nome do fornecedor" required>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div id="row">
+                                <div class="form-group">
+                                    <label for="pastilha">Pastilha:</label>
+                                    <input type="text" id="pastilha" name="pastilha" placeholder=" " required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="preco">Preço (R$): </label>
+                                    <input type="number" step="0.01" min="0.00" id="preco" name="preco" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="codigo-fornecedor">Cod. do Fornecedor</label>
+                                    <input type="text" id="codigo-fornecedor" name="codigo-fornecedor" required>
+                                </div>
+                                <button type="submit">Adicionar</button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fornecedor</th>
+                                        <th>Pastilha</th>
+                                        <th>Preço</th>
+                                        <th>Código forn.</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body-table">
+    
+                                </tbody>
+                            </table>
+                        </form>
+                </div>
             </div>
             
         </main>
     </div>
+    <script src="../scripts/fornecedor.js"></script>
 </body>
 
 </html>
