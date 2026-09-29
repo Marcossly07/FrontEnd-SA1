@@ -82,6 +82,18 @@ forms.addEventListener("submit", function(event){
                     alert("POUCA QUANTIDADE!");
                 }
             alert("Pastilha cadastrada com sucesso!");
+            const formData = new FormData(this);
+            fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(estoquePastilhas)
+            })
+            .then(response=>{
+                if (response.ok){
+                    this.reset();
+                }
+            })
+            console.log(formData);
         }
         else{
             if(!estoquePastilhas[fornecedor]?.[classe]){
