@@ -18,6 +18,11 @@ body {
     background-color: #838a95;
 }
 
+.nav-item-ativo {
+    color: #06ff38;
+    transform: scale(1.3);
+}
+
 
 .sidebar {
     width: 65px;
@@ -103,7 +108,7 @@ body {
 
 .material-symbols-outlined:hover {
     color: #06ff38;
-    transform: scale(1.5);
+    transform: scale(1.3);
 }
 
 .user-menu {
@@ -185,10 +190,10 @@ body {
 }
 
 .card-verde {
-    border: #3fd116 4px solid;
-    background-color: #72db55;
+    border: #347721 4px solid;
+    background-color: #448631;
     color: #ffffff;
-    box-shadow: -4px 4px 0 #88e76a, -9px 9px 0 #a3f08a, -14px 14px 0 #c0f9b0;
+    box-shadow: -4px 4px 0 #5f974e, -9px 9px 0 #83ca6c, -14px 14px 0 #c0f9b0;
 }
 
 .card-cinza:hover { box-shadow: -6px 6px 0 #858585, -12px 12px 0 #999, -18px 18px 0 #bcbcbc; }
