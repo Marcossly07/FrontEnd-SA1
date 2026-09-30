@@ -1,6 +1,5 @@
 const dadosSalvos = localStorage.getItem("estoque");
 const objetoFinal = JSON.parse(dadosSalvos);
-console.log(objetoFinal)
 const dadosRetiradas = localStorage.getItem("retiradas")
 const retiradasHistorico = JSON.parse(dadosRetiradas);
 let produtos_cadastrados = objetoFinal;
@@ -34,37 +33,6 @@ formulario.addEventListener('submit', function (event) {
     }
 })
 
-const tbodyEntradas = document.getElementById("tabela-entradas");
-let linhas_entradas = "";
-Object.keys(objetoFinal).forEach(chave => {
-    Object.keys(objetoFinal[chave]).forEach(classe => {
-        if(objetoFinal[chave][classe]["Quantidade"]>1){
-            linhas_entradas += `
-                <tr>
-                    <td>${objetoFinal[chave][classe]["Id"]}</td>
-                    <td>${chave}</td>
-                    <td>${classe}</td>
-                    <td>${objetoFinal[chave][classe]["Quantidade"]}</td>
-                    <td>${objetoFinal[chave][classe]["Quantidade"] * 90},00</td>
-                    <td><button>Nota Fiscal</button></td>
-                </tr>
-            `;}
-        else{
-            console.log(objetoFinal[chave][classe]["Quantidade"])
-            linhas_entradas += `
-                <tr class="pouca_quantidade">
-                    <td>${objetoFinal[chave][classe]["Id"]}</td>
-                    <td>${chave}</td>
-                    <td>${classe}</td>
-                    <td>${objetoFinal[chave][classe]["Quantidade"]}</td>
-                    <td>${objetoFinal[chave][classe]["Quantidade"] * 90},00</td>
-                    <td><button><a href="../templates/cadastro.html" class="link">Solicitar</a></button></td>
-                </tr>`;
-        }
-    })
-
-    tbodyEntradas.innerHTML = linhas_entradas;
-})
 const tbodySaidas = document.getElementById("tabela-saidas");
 let linhas_saidas = "";
 if (retiradasHistorico) {
@@ -84,3 +52,27 @@ if (retiradasHistorico) {
 
 }
 
+async function verPastilhas() {
+    const resposta=await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    const dados=await resposta.json();
+    return dados
+};
+
+const dados=verPastilhas()
+verPastilhas().then(dados=>{
+    const tbodyEntradas = document.getElementById("tabela-entradas");
+    let linhas_entradas = "";
+    console.log(dados);
+    Object.keys(dados).forEach(chave =>{
+        console.log(chave);
+        Object.keys(chave).forEach(classe =>{
+            console.log(classe);
+            linhas_entradas+=`
+                <tr>
+                    <td>${dados[chave][classe]}</td>
+                <td><button>Imprimir</button></td>
+        </tr>`;
+        });
+    });
+    tbodyEntradas.innerHTML=linhas_entradas;
+})

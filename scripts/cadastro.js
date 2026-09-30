@@ -12,10 +12,10 @@ const paragrafoTipo = document.getElementById("paragrafo-tipo")
 
 
 let estoquePastilhas = JSON.parse(localStorage.getItem("estoque")) || {};
-let historicoRetiradas=JSON.parse(localStorage.getItem("retiradas"))||[];
-let contador=JSON.parse(localStorage.getItem("contador"))||[];
+let historicoRetiradas = JSON.parse(localStorage.getItem("retiradas")) || [];
+let contador = JSON.parse(localStorage.getItem("contador")) || [];
 
-forms.addEventListener("input", function (){
+forms.addEventListener("input", function () {
     const dataAtual = new Date()
     const ano = dataAtual.getFullYear();
     const mes = dataAtual.getMonth() + 1; // Soma 1 porque começa do zero
@@ -31,7 +31,7 @@ forms.addEventListener("input", function (){
     const quantidadeNumr = Number(quantidadeText)
     let valorTotal = 0
 
-    for(let i = 0; i < quantidadeNumr; i++){
+    for (let i = 0; i < quantidadeNumr; i++) {
         valorTotal += pacote
     }
 
@@ -46,87 +46,33 @@ forms.addEventListener("input", function (){
     paragrafoTipo.textContent = `Tipo: ${tipo}`
 });
 
-forms.addEventListener("submit", function(event){
+forms.addEventListener("submit", function (event) {
     event.preventDefault();
-    
-    const cadastrante = document.getElementById("cadastrante").value;
-    const senha = document.getElementById("senha").value;
     const quantidade = document.getElementById("quantidade").value;
     const fornecedor = document.getElementById("fornecedor").value;
     const classe = document.getElementById("classe").value;
     const tipo = document.getElementById("tipo").value;
-    
-    
-    if(senha === "123" && cadastrante === "Jadson"){
-        if (contador.length==0){
-            contador.push(Number(0));
-        }
-        if(tipo=="Cadastro"){
-            if(!estoquePastilhas[fornecedor]){
-                estoquePastilhas[fornecedor]={};
+
+    const pastilha_cadastrada={
+        "fornecedor":fornecedor,
+        "classe":classe,
+        "quantidade":quantidade
+    };
+
+    const formData = new FormData(this);
+    fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pastilha_cadastrada)
+    })
+        .then(response => {
+            if (response.ok) {
+                this.reset();
             }
-            if(estoquePastilhas[fornecedor][classe]){
-                let quantidadeAtual=Number(estoquePastilhas[fornecedor][classe]["Quantidade"]) || 0;
-                estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidadeAtual+Number(quantidade);
-                contador[0]=Number(contador[0])+Number(1);
-            }
-            else{
-                contador[0]=Number(contador[0])+Number(1);
-                estoquePastilhas[fornecedor][classe]={};
-                estoquePastilhas[fornecedor][classe]["Id"]=contador[0];
-                estoquePastilhas[fornecedor][classe]["Quantidade"]=quantidade;
-            }
-            localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
-            localStorage.setItem("contador", JSON.stringify(contador));
-                        if (quantidade==1){
-                    alert("POUCA QUANTIDADE!");
-                }
-            alert("Pastilha cadastrada com sucesso!");
-            const formData = new FormData(this);
-            fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas",{
-                method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify(estoquePastilhas)
-            })
-            .then(response=>{
-                if (response.ok){
-                    this.reset();
-                }
-            })
-            console.log(formData);
-        }
-        else{
-            if(!estoquePastilhas[fornecedor]?.[classe]){
-                alert("Nenhuma pastilha foi cadastrada com essas informações.");
-            }
-            else if(!estoquePastilhas[fornecedor][classe]){
-                alert("A classe solicitada não foi cadastrada para essa fornecedor.");
-            }
-            else{
-                let estoqueQuantidade=Number(estoquePastilhas[fornecedor][classe]["Quantidade"])
-                let retirada=Number(quantidade)
-                if(estoqueQuantidade<retirada){
-                    alert("O número para retirada é maior que o estoque.");
-                }
-                else{
-                    retiradaObj={"Id":(historicoRetiradas.length)+1,"Fornecedor":fornecedor,"Classe":classe,"Quantidade":retirada};
-                    estoquePastilhas[fornecedor][classe]["Quantidade"]=estoqueQuantidade-retirada;
-                    historicoRetiradas.push(retiradaObj);
-                    if (estoquePastilhas[fornecedor][classe]["Quantidade"]==0){
-                        delete estoquePastilhas[fornecedor][classe];
-                    }
-                    else if(estoquePastilhas[fornecedor][classe]["Quantidade"]==1){
-                        alert("POUCA QUANTIDADE!");
-                    }
-                    localStorage.setItem("estoque", JSON.stringify(estoquePastilhas));
-                    localStorage.setItem("retiradas", JSON.stringify(historicoRetiradas));
-                    alert("Operação concluída!")
-                }
-            }
-        }
-    }
-    console.log(estoquePastilhas);
-    
+        })
+    console.log(formData);
+
+
 });
 
 console.log(contador);
