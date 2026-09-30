@@ -166,14 +166,19 @@ body {
 
 
 button{
-    background-color: #21c241;
+    background-color: #17e440 ;
     border: none;
     border-radius: 8px;
+    border: solid 1px;
     width: 100px;
 }
-
+button:hover{
+    background-color: #21c241;
+    border: solid 1px;
+}
 button:active{
-    background-color: #06ff38 ;
+    background-color: #1c8631;
+    border: solid 1px;
 } 
 
 table{
