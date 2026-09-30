@@ -76,53 +76,50 @@
                             <option>Retirar</option>
                         </select> -->
                     <br>
-                    <form action="" id="forms">
+                    <form action="https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor" method="post" id="forms">
 
                         <div class="form-group">
                             <label for="nome">Nome do Fornecedor:</label>
                             <br>
-                            <input type="text" name="nome" id="nome" placeholder="Digite o nome do fornecedor" required>
+                            <input type="text" name="nome" id="nome" placeholder="Ex: W Fer Ferramentas" required>
                         </div>
                         <br>
                         <hr>
                         <br>
                         <div id="row">
                             <div class="form-group">
-                                <label for="pastilha">Pastilha:</label>
-                                <input type="text" id="pastilha" name="pastilha" placeholder=" " required>
+                                <label for="cnpj">CNPJ:</label>
+                                <input type="text" id="cnpj" name="cnpj" placeholder="Ex: 35.290.702/0001-31 " required>
                             </div>
                             <div class="form-group">
-                                <label for="preco">Preço (R$): </label>
-                                <input type="number" step="0.01" min="0.00" id="preco" name="preco" required>
+                                <label for="telefone">Telefone: </label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="EX: (62) 3586-5146" required>
                             </div>
                             <div class="form-group">
-                                <label for="codigo-fornecedor">Cod. do Fornecedor</label>
-                                <input type="text" id="codigo-fornecedor" name="codigo-fornecedor" required>
+                                <label for="email">E-mail:</label>
+                                <input type="email" id="email" name="email" placeholder="Ex: exemplo@gmail.com" required>
                             </div>
                             <button type="submit">Adicionar</button>
                         </div>
+                        <hr>
+                        <br>
                         <table>
                             <thead>
                                 <tr>
                                     <th>Fornecedor</th>
-                                    <th>Pastilha</th>
-                                    <th>Preço</th>
-                                    <th>Código forn.</th>
+                                    <th>CNPJ</th>
+                                    <th>Telefone</th>
+                                    <th>E-mail</th>
                                 </tr>
                             </thead>
                             <tbody id="body-table">
-
                             </tbody>
                         </table>
                     </form>
-
-
                 </div>
             </div>
-
         </main>
     </div>
     <script src="../scripts/fornecedor.js"></script>
 </body>
-
 </html>
