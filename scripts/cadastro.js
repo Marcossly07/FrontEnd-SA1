@@ -64,17 +64,37 @@ forms.addEventListener("submit", async function (event) {
         const pastilhas= await resposta.json();
         for (const cadastro of pastilhas){
             if (cadastro["fornecedor"]==pastilha_cadastrada["fornecedor"]&&cadastro["classe"]==pastilha_cadastrada["classe"]){
-                pastilha_cadastrada["quantidade"]=Number(pastilha_cadastrada["quantidade"])+Number(cadastro["quantidade"]);
-                const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`,{
-                    method:"PUT",
-                    headers:{
-                        "Content-type":"application/json"
-                    },
-                    body:JSON.stringify(pastilha_cadastrada)
-                })
-                forms.reset();
-                console.log("id do elemento: ",cadastro["id"]);
-                alert("pastilha cadastrada com sucesso!");
+                if (tipo=="Cadastro"){
+                    pastilha_cadastrada["quantidade"]=Number(pastilha_cadastrada["quantidade"])+Number(cadastro["quantidade"]);
+                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`,{
+                        method:"PUT",
+                        headers:{
+                            "Content-type":"application/json"
+                        },
+                        body:JSON.stringify(pastilha_cadastrada)
+                    })
+                    forms.reset();
+                    console.log("id do elemento: ",cadastro["id"]);
+                    alert("pastilha cadastrada com sucesso!");
+                }
+                else{
+                    if(Number(cadastro["quantidade"]<Number(pastilha_cadastrada))){
+                        alert("O número de retirada é maior que o estoque!")
+                    }
+                    else{
+                        pastilha_cadastrada["quantidade"]=Number(cadastro["quantidade"])-Number(pastilha_cadastrada["quantidade"]);
+                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`,{
+                        method:"PUT",
+                        headers:{
+                            "Content-type":"application/json"
+                        },
+                        body:JSON.stringify(pastilha_cadastrada)
+                    })
+                    forms.reset();
+                    console.log("id do elemento: ",cadastro["id"]);
+                    alert("Pastilha retirada com sucesso!");
+                    }
+                }
                 return true
             }
             return false
