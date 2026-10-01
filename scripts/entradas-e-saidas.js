@@ -8,23 +8,23 @@ formulario.addEventListener('submit', function (event) {
     async function buscarId() {
         const buscar = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${inputid}`);
         const dados = await buscar.json();
-        if (buscar.status==200){
+        if (buscar.status == 200) {
             return dados
         }
         return false
-        
+
     }
-    const dados=buscarId()
-    buscarId().then(dados=>{
+    const dados = buscarId()
+    buscarId().then(dados => {
         console.log(dados);
-        if (dados["retirada"]=="sim"){
-            dados["retirada"]="Retirada";
+        if (dados["retirada"] == "sim") {
+            dados["retirada"] = "Retirada";
         }
-        else{
-            dados["retirada"]="Estoque";
+        else {
+            dados["retirada"] = "Estoque";
         }
-        if (dados){
-                    linhas += `
+        if (dados) {
+            linhas += `
                     <tr>
                         <td>${dados["id"]}</td>
                         <td>${dados["fornecedor"]}</td>
@@ -32,13 +32,25 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["quantidade"]}</td>
                         <td>${dados["quantidade"] * 90},00</td>
                         <td>${dados["retirada"]}</td>
-                        <td><button>🗑️</button></td>
+                        <td><button class="botao-excluir">🗑️</button></td>
                         </tr>
                     `;
-        tbody.innerHTML = linhas;
+            tbody.innerHTML = linhas;
+            async function deletarPastilha(id) {
+                const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${id}`, {
+                    method: "DELETE"
+                })
+                console.log(resposta.status);
+                if (resposta.status == 200) {
+                    alert("Pastilha excluida com sucesso!")
+                    location.reload();
+                }
+            }
+            const botaoDeletar = document.getElementsByClassName("botao-excluir");
+            botaoDeletar[0].addEventListener("click", function(){deletarPastilha(dados["id"])});
         }
     })
-    
+
 })
 
 
