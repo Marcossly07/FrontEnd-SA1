@@ -46,55 +46,57 @@ forms.addEventListener("submit", async function (event) {
     const fornecedor = document.getElementById("fornecedor").value;
     const classe = document.getElementById("classe").value;
     const tipo = document.getElementById("tipo").value;
-    const cadastrante=document.getElementById("cadastrante").value;
-    const pastilha_cadastrada={
-        "fornecedor":fornecedor,
-        "classe":classe,
-        "quantidade":quantidade,
-        "cadastrante":cadastrante,
-        "retirada":"não"
+    const cadastrante = document.getElementById("cadastrante").value;
+    const pastilha_cadastrada = {
+        "fornecedor": fornecedor,
+        "classe": classe,
+        "quantidade": quantidade,
+        "cadastrante": cadastrante,
+        "retirada": "não"
     };
     async function verificarPastilhas() {
-        const resposta= await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
-        const pastilhas= await resposta.json();
-        for (const cadastro of pastilhas){
-            if (cadastro["fornecedor"]==pastilha_cadastrada["fornecedor"]&&cadastro["classe"]==pastilha_cadastrada["classe"]){
-                if (tipo=="Cadastro"){
-                    pastilha_cadastrada["quantidade"]=Number(pastilha_cadastrada["quantidade"])+Number(cadastro["quantidade"]);
-                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`,{
-                        method:"PUT",
-                        headers:{
-                            "Content-type":"application/json"
+        const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
+        const pastilhas = await resposta.json();
+        for (const cadastro of pastilhas) {
+            if (cadastro["fornecedor"] == pastilha_cadastrada["fornecedor"] && cadastro["classe"] == pastilha_cadastrada["classe"]) {
+                if (tipo == "Cadastro") {
+                    pastilha_cadastrada["quantidade"] = Number(pastilha_cadastrada["quantidade"]) + Number(cadastro["quantidade"]);
+                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-type": "application/json"
                         },
-                        body:JSON.stringify(pastilha_cadastrada)
+                        body: JSON.stringify(pastilha_cadastrada)
                     })
                     forms.reset();
                     alert("pastilha cadastrada com sucesso!");
                 }
-                else{
-                    if(Number(cadastro["quantidade"]<Number(pastilha_cadastrada))){
+                else {
+                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada))) {
                         alert("O número de retirada é maior que o estoque!")
                     }
-                    else{
-                        pastilha_cadastrada["quantidade"]=Number(cadastro["quantidade"])-Number(pastilha_cadastrada["quantidade"]);
-                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`,{
-                        method:"PUT",
-                        headers:{
-                            "Content-type":"application/json"
-                        },
-                        body:JSON.stringify(pastilha_cadastrada)
-                    })
-                    pastilha_cadastrada["retirada"]="sim";
-                    await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas"),{
-                        method:"POST",
-                        headers:{
-                            "Content-type":"application/json"
-                        },
-                        body:JSON.stringify(pastilha_cadastrada)
-                    }
-                    forms.reset();
-                    console.log("id do elemento: ",cadastro["id"]);
-                    alert("Pastilha retirada com sucesso!");
+                    else {
+                        console.log("cheguei aqui");
+                        pastilha_cadastrada["quantidade"] = Number(cadastro["quantidade"]) - Number(pastilha_cadastrada["quantidade"]);
+                        const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify(pastilha_cadastrada)
+                        })
+                        pastilha_cadastrada["quantidade"]=quantidade;
+                        pastilha_cadastrada["retirada"] = "sim";
+                        const enviarRetirada=await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify(pastilha_cadastrada)
+                        })
+                        forms.reset();
+                        console.log("id do elemento: ", cadastro["id"]);
+                        alert("Pastilha retirada com sucesso!");
                     }
                 }
                 return true
@@ -108,14 +110,20 @@ forms.addEventListener("submit", async function (event) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(conteudo)
         })
+        console.log("pastilha cadastrada com sucesso!")
     }
     async function processarCadastro() {
-        const jaExiste=await verificarPastilhas();
-        if (jaExiste===false){
-            await cadastrarPastilhas(pastilha_cadastrada);
-            forms.reset();
-            alert("Pastilha cadastrada com sucesso!");
+        console.log("cheguei em processarcadastro")
+        const jaExiste = await verificarPastilhas();
+        if (jaExiste === false) {
+            console.log("entrei no jaexiste")
+            console.log(pastilha_cadastrada)
+            if (pastilha_cadastrada["retirada"] == "não") {
+                await cadastrarPastilhas(pastilha_cadastrada);
+                forms.reset();
+                alert("Pastilha cadastrada com sucesso!");
+            }
         }
     }
-    processarCadastro(); 
+    processarCadastro();
 });
