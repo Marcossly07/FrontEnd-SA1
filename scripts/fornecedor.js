@@ -1,6 +1,8 @@
 const form = document.getElementById("forms");
 const btnConfirm = document.getElementById("btn-confirm");
 const tbody = document.getElementById("body-table");
+const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
+let idEmEdicao = null;// null = modo cadastro | número = modo edição
 
 async function listarFornecedor() {
     const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor")
@@ -54,44 +56,16 @@ function tratarFornecedores(lista) {
         btnEditar.addEventListener("click", (event) => {
             event.preventDefault();
             
-            let emEdicao = false;
-            
-            if(!emEdicao){
-                const h1 = document.getElementById("titulo")
-                h1.textContent = "Edição do Fornecedor"
-    
-                const btnConfirm = document.getElementById("btn-confirm")
-                btnConfirm.textContent = "Salvar"
-    
-                const inputNome = document.getElementById("nome");
-                inputNome.value = fornecedor.nome
-    
-                const inputCnpj = document.getElementById("cnpj");
-                inputCnpj.value = fornecedor.cnpj
-    
-                const inputTelefone = document.getElementById("telefone");
-                inputTelefone.value = fornecedor.telefone
-    
-                const inputEmail = document.getElementById("email");
-                inputEmail.value = fornecedor.email
+            idEmEdicao = fornecedor.id; //Guarda quem esta sendo editado
 
-                const nome = 
+            document.getElementById("titulo").textContent = "Edição do Fornecedor"
+            btnConfirm.textContent = "Salvar";
 
-                let emEdicao = true;
-            }
-            else{
-                // 2. Salva os dados: pega os valores dos inputs e volta para texto
-                fornecedor.nome = inputNome.value
-                fornecedor.cnpj = inputCnpj.value
-                fornecedor.telefone = inputTelefone.value
-                fornecedor.email = inputEmail.value
-
-                console.log("iaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                console.log("Dados atualizados no objeto:", fornecedor);
-                // Aqui você pode fazer um fetch() para atualizar no seu banco de dados
-                let emEdicao = false;
-            }
-            
+            //Mostra os dados do fornecedor na tela
+            document.getElementById("nome").value = fornecedor.nome;
+            document.getElementById("cnpj").value = fornecedor.cnpj
+            document.getElementById("telefone").value = fornecedor.telefone
+            document.getElementById("email").value = fornecedor.email
         });
 
         // Cria o botão de Excluir
@@ -101,10 +75,26 @@ function tratarFornecedores(lista) {
         btnExcluir.style.backgroundColor = "#ED2100"
 
         btnExcluir.addEventListener("click", () => {
-            if (confirm(`Excluir fornecedor ${fornecedor.nome}?`)) {
-                novaLinha.remove();
+            if (!confirm(`Excluir fornecedor ${fornecedor.nome}?`)) return;
+
+            async function excluirFornecedor(id) {
+                try{
+                    const resposta = await fetch (`https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor/${id}`,{
+                        method: "DELETE"
+                    })
+                    if(!resposta.ok){
+                        throw new Error(`Erro HTTP: ${resposta.status}`)
+                    }
+                    novaLinha.remove(); // só remove da tela se o servidor confirmou
+                }
+                catch(erro){
+                    console.error(
+                        "Não foi possivel ex"
+                    )
+                }
             }
-        });
+            excluirFornecedor(fornecedor.id)
+            });
 
         tdAcoes.appendChild(btnEditar);
         tdAcoes.appendChild(btnExcluir);
@@ -141,9 +131,10 @@ form.addEventListener("submit", function (event) {
 
     async function adicionarFornecedor(fornecedor) {
         try {
-
-            const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor", {
-                method: "POST",
+            const url = idEmEdicao ? `${API_URL}/${idEmEdicao}`: API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
+            const metodo = idEmEdicao ? "PUT": "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
+            const resposta = await fetch(url, {
+                method: metodo,
                 headers: {
                     "Content-Type": "application/json"
                 },
