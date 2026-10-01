@@ -27,6 +27,8 @@ function tratarFornecedores(lista) {
         const telefone = fornecedor.telefone
         const email = fornecedor.email
 
+        const divRow = document.getElementById("row");
+
         const novaLinha = document.createElement("tr");
 
         const tdNome = document.createElement("td");
@@ -53,9 +55,14 @@ function tratarFornecedores(lista) {
         btnEditar.style.backgroundColor = "#FFDE21"
 
 
+        const btnCancelar = document.createElement("button");
+        btnCancelar.textContent = "Cancelar";
+        btnCancelar.style.width = "55px"
+        btnCancelar.style.backgroundColor = "#ED2100"
+
         btnEditar.addEventListener("click", (event) => {
             event.preventDefault();
-            
+
             idEmEdicao = fornecedor.id; //Guarda quem esta sendo editado
 
             document.getElementById("titulo").textContent = "Edição do Fornecedor"
@@ -66,7 +73,14 @@ function tratarFornecedores(lista) {
             document.getElementById("cnpj").value = fornecedor.cnpj
             document.getElementById("telefone").value = fornecedor.telefone
             document.getElementById("email").value = fornecedor.email
+
+            divRow.appendChild(btnCancelar);
         });
+
+
+        btnCancelar.addEventListener("click", (event) => {
+            window.location.reload()
+        })
 
         // Cria o botão de Excluir
         const btnExcluir = document.createElement("button");
@@ -78,23 +92,24 @@ function tratarFornecedores(lista) {
             if (!confirm(`Excluir fornecedor ${fornecedor.nome}?`)) return;
 
             async function excluirFornecedor(id) {
-                try{
-                    const resposta = await fetch (`https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor/${id}`,{
+                try {
+                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor/${id}`, {
                         method: "DELETE"
                     })
-                    if(!resposta.ok){
+                    if (!resposta.ok) {
                         throw new Error(`Erro HTTP: ${resposta.status}`)
                     }
                     novaLinha.remove(); // só remove da tela se o servidor confirmou
                 }
-                catch(erro){
+                catch (erro) {
                     console.error(
                         "Não foi possivel ex"
                     )
                 }
             }
             excluirFornecedor(fornecedor.id)
-            });
+        });
+
 
         tdAcoes.appendChild(btnEditar);
         tdAcoes.appendChild(btnExcluir);
@@ -131,8 +146,8 @@ form.addEventListener("submit", function (event) {
 
     async function adicionarFornecedor(fornecedor) {
         try {
-            const url = idEmEdicao ? `${API_URL}/${idEmEdicao}`: API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
-            const metodo = idEmEdicao ? "PUT": "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
+            const url = idEmEdicao ? `${API_URL}/${idEmEdicao}` : API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
+            const metodo = idEmEdicao ? "PUT" : "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
             const resposta = await fetch(url, {
                 method: metodo,
                 headers: {
