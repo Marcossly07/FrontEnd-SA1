@@ -9,12 +9,6 @@ const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
 const paragrafoClasse = document.getElementById("paragrafo-classe")
 const paragrafoTipo = document.getElementById("paragrafo-tipo")
 
-
-
-let estoquePastilhas = JSON.parse(localStorage.getItem("estoque")) || {};
-let historicoRetiradas = JSON.parse(localStorage.getItem("retiradas")) || [];
-let contador = JSON.parse(localStorage.getItem("contador")) || [];
-
 forms.addEventListener("input", function () {
     const dataAtual = new Date()
     const ano = dataAtual.getFullYear();
@@ -74,7 +68,6 @@ forms.addEventListener("submit", async function (event) {
                         body:JSON.stringify(pastilha_cadastrada)
                     })
                     forms.reset();
-                    console.log("id do elemento: ",cadastro["id"]);
                     alert("pastilha cadastrada com sucesso!");
                 }
                 else{
@@ -110,10 +103,9 @@ forms.addEventListener("submit", async function (event) {
     async function processarCadastro() {
         const jaExiste=await verificarPastilhas();
         if (jaExiste===false){
-            console.log("jinja nao cadastrado!")
             await cadastrarPastilhas(pastilha_cadastrada);
             forms.reset();
-            alert("pastilha cadastrada com sucesso!");
+            alert("Pastilha cadastrada com sucesso!");
         }
     }
     processarCadastro(); 
