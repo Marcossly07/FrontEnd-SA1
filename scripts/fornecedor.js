@@ -2,7 +2,7 @@ const form = document.getElementById("forms");
 const btnConfirm = document.getElementById("btn-confirm");
 const tbody = document.getElementById("body-table");
 const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
-let idEmEdicao = null;// null = modo cadastro | número = modo edição
+let idEmEdicao = null;// null = modo cadastro | número = modo edição.
 
 async function listarFornecedor() {
     const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor")
