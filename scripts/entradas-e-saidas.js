@@ -62,17 +62,17 @@ const dados=verPastilhas()
 verPastilhas().then(dados=>{
     const tbodyEntradas = document.getElementById("tabela-entradas");
     let linhas_entradas = "";
-    console.log(dados);
-    Object.keys(dados).forEach(chave =>{
-        console.log(chave);
-        Object.keys(chave).forEach(classe =>{
-            console.log(classe);
+    for (const chave of dados){
             linhas_entradas+=`
                 <tr>
-                    <td>${dados[chave][classe]}</td>
+                    <td>${chave["id"]}</td>
+                    <td>${chave["fornecedor"]}</td>
+                    <td>${chave["classe"]}</td>
+                    <td>${chave["quantidade"]}</td>
+                    <td>${chave["quantidade"]*90},00</td>
                 <td><button>Imprimir</button></td>
         </tr>`;
-        });
-    });
+        };
     tbodyEntradas.innerHTML=linhas_entradas;
-})
+    });
+    
