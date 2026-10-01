@@ -8,7 +8,11 @@ formulario.addEventListener('submit', function (event) {
     async function buscarId() {
         const buscar = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${inputid}`);
         const dados = await buscar.json();
-        return dados
+        if (buscar.status==200){
+            return dados
+        }
+        return false
+        
     }
     const dados=buscarId()
     buscarId().then(dados=>{
@@ -19,7 +23,8 @@ formulario.addEventListener('submit', function (event) {
         else{
             dados["retirada"]="Estoque";
         }
-        linhas += `
+        if (dados){
+                    linhas += `
                     <tr>
                         <td>${dados["id"]}</td>
                         <td>${dados["fornecedor"]}</td>
@@ -27,10 +32,11 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["quantidade"]}</td>
                         <td>${dados["quantidade"] * 90},00</td>
                         <td>${dados["retirada"]}</td>
-                        <td><button>Nota Fiscal</button></td>
+                        <td><button>🗑️</button></td>
                         </tr>
                     `;
         tbody.innerHTML = linhas;
+        }
     })
     
 })
