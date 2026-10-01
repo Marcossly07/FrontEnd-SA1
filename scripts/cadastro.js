@@ -51,7 +51,8 @@ forms.addEventListener("submit", async function (event) {
         "fornecedor":fornecedor,
         "classe":classe,
         "quantidade":quantidade,
-        "cadastrante":cadastrante
+        "cadastrante":cadastrante,
+        "retirada":"não"
     };
     async function verificarPastilhas() {
         const resposta= await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
@@ -83,6 +84,14 @@ forms.addEventListener("submit", async function (event) {
                         },
                         body:JSON.stringify(pastilha_cadastrada)
                     })
+                    pastilha_cadastrada["retirada"]="sim";
+                    await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas"),{
+                        method:"POST",
+                        headers:{
+                            "Content-type":"application/json"
+                        },
+                        body:JSON.stringify(pastilha_cadastrada)
+                    }
                     forms.reset();
                     console.log("id do elemento: ",cadastro["id"]);
                     alert("Pastilha retirada com sucesso!");
