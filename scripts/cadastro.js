@@ -106,9 +106,10 @@ forms.addEventListener("submit", async function (event) {
                 }
                 return true
             }
-            return false
         };
+        return false
     }
+
     async function cadastrarPastilhas(conteudo) {
         const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
             method: "POST",
@@ -121,12 +122,16 @@ forms.addEventListener("submit", async function (event) {
         console.log("cheguei em processarcadastro")
         const jaExiste = await verificarPastilhas();
         if (jaExiste === false) {
-            console.log("entrei no jaexiste")
-            console.log(pastilha_cadastrada)
-            if (pastilha_cadastrada["retirada"] == "não") {
+            console.log("entrei no jaexiste");
+            console.log(pastilha_cadastrada);
+            console.log(tipo);
+            if (pastilha_cadastrada["retirada"] == "não" && tipo=="Cadastro") {
                 await cadastrarPastilhas(pastilha_cadastrada);
                 forms.reset();
                 alert("Pastilha cadastrada com sucesso!");
+            }
+            else{
+                alert("Operação inválida!");
             }
         }
     }
