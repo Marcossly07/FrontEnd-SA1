@@ -19,3 +19,5 @@ pessoa consiga utilizar o sistema com facilidade.
 Além disso, o design foi pensado para comunicar 
 claramente a presença de diversas funcionalidades,
 tornando a navegação mais dinâmica e eficiente.
+
+Grupo formado pelos alunos: Marcos Vinicius, Hilquias Azevedo e Magdiel Furtunato

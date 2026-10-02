@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fornecedor</title>
     <link rel="stylesheet" href="../static/fornecedor.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -69,17 +69,12 @@
                 <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
             </div>
         </header>
-        <!-- estrutura base das paginas  -->
+        <!-- estrutura base das paginas.  -->
 
         <main id="display-content">
             <div id="area-interacao">
                 <h1 id="titulo">Cadastro de Fornecedor</h1>
-                <div id="forms">
-                    <!-- <label for="tipo">Ação desejada: </label>
-                         <select name="tipo" id="tipo">
-                            <option>Cadastrar</option>
-                            <option>Retirar</option>
-                        </select> -->
+                <div id="area-form">
                     <br>
                     <form action="https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor" method="post" id="forms">
 
@@ -108,6 +103,16 @@
                         </div>
                         <hr>
                         <br>
+                        <div id="row-filtro">
+                            <div class="form-group">
+                                <label for="filtro">Filtro:</label>
+                                <input type="text" id="filtro" name="filtro">
+                            </div>
+                            <button type="button" id="btn-filtro">Filtrar</button>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
                         <table>
                             <thead>
                                 <tr>
@@ -115,7 +120,6 @@
                                     <th>CNPJ</th>
                                     <th>Telefone</th>
                                     <th>E-mail</th>
-                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="body-table">
