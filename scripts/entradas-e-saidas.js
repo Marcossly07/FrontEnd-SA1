@@ -80,8 +80,7 @@ verPartilhasRetiradas().then(retiradas => {
     tbodySaidas.innerHTML = linhas_saidas;
 
 }
-const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api";
-
+)
 
 function renderizarTabela(tbodyElement, listaDados, incluirFuncao = false) {
   tbodyElement.innerHTML = ''; // Limpa o conteúdo anterior
