@@ -47,7 +47,6 @@ input.addEventListener("input", function () {
 
     div.innerText = `${item.fornecedor} | Qtd: ${item.quantidade}`;
 
-
     div.style.padding = "8px";
     div.style.cursor = "pointer";
     div.style.background = "#767676";
