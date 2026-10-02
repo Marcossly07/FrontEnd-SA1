@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela inicial</title>
+    <title>Tela inicial DDA</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
@@ -52,7 +52,8 @@
             </div>
 
             <div class="search-box">
-                <input placeholder="Pesquisar..." type="text">
+                <input placeholder="Pesquisar..." type="text" id="Pesquisa">
+                <Ul id="lista"></Ul>
                 <span class="material-symbols-outlined">
                     search
                 </span>
@@ -82,7 +83,7 @@
             <div class="cards-grid">
 
                 <div class="card card-cinza" title="Itens Cadastrados">
-                    <div class="title">TOTAL DE ITENS CADASTRADOS</div>
+                    <div class="title">TOTAL DE PASTILHAS</div>
                     <div class="value" id="quantidade">0</div>
                     <div class="subtitle green">___________ 70%</div>
                 </div>
@@ -115,11 +116,9 @@
 
                 <div class="card card-verde" title="Alto nivel de estoque">
                     <div class="title">
-                        ALTO ESTOQUE
+                        Fornecedores
                     </div>
-                    <div class="main-text">
-                        PASTILHAS SEMIMETÁLICAS
-                    </div>
+                    <div class="main-text" id="qtdFornecedores">0</div>
                     <div>
                     </div>
                 </div>
