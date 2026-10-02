@@ -13,6 +13,11 @@ body {
     background-color: #838a95;
 }
 
+#simbolo-4 {
+    color: #06ff38;
+    transform: scale(1.5);
+
+}
 
 .sidebar {
     width: 65px;
