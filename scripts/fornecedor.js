@@ -1,11 +1,44 @@
 const form = document.getElementById("forms");
 const btnConfirm = document.getElementById("btn-confirm");
+const btnFiltro = document.getElementById("btn-filtro")
 const tbody = document.getElementById("body-table");
 const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
 let idEmEdicao = null;// null = modo cadastro | número = modo edição.
+const btnCancelar = document.createElement("button");
 
-async function listarFornecedor() {
-    const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor")
+btnFiltro.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const rowFiltro = document.getElementById("row-filtro");
+
+    const filtro = document.getElementById("filtro").value.trim(); //elimina partes vazias
+
+    try {
+        const lista = await listarFornecedor(filtro);
+        tbody.innerHTML = "";       // limpa a tabela antes de redesenhar
+        tratarFornecedores(lista);
+    } catch (erro) {
+        console.error("Erro ao filtrar:", erro);
+    }
+
+    if(filtro){
+        
+        //Editando o botão de cancelar
+        btnCancelar.textContent = "Cancelar";
+        btnCancelar.style.width = "100px"
+        btnCancelar.style.backgroundColor = "#ED2100"
+
+    rowFiltro.appendChild(btnCancelar);
+
+    btnCancelar.addEventListener("click", (event) => {
+        window.location.reload()
+    })
+    }
+
+});
+
+async function listarFornecedor(nomeFornecedor) {
+    const url = nomeFornecedor ? `${API_URL}?nome=${nomeFornecedor}`: API_URL;
+    const resposta = await fetch(url)
 
     if (!resposta.ok) {
         throw new Error(`Erro: ${resposta.status}`)
@@ -14,7 +47,6 @@ async function listarFornecedor() {
     return dados
 }
 
-const dados = listarFornecedor()
 
 listarFornecedor().then((dados) => {
     console.log(dados)
@@ -26,26 +58,27 @@ function tratarFornecedores(lista) {
         const cnpj = fornecedor.cnpj
         const telefone = fornecedor.telefone
         const email = fornecedor.email
-
+        
         const divRow = document.getElementById("row");
-
+        
+        
         const novaLinha = document.createElement("tr");
-
+        
         const tdNome = document.createElement("td");
         tdNome.textContent = nome;
-
+        
         const tdCnpj = document.createElement("td");
         tdCnpj.textContent = cnpj
-
+        
         const tdTelefone = document.createElement("td");
         tdTelefone.textContent = telefone
-
+        
         const tdEmail = document.createElement("td");
         tdEmail.textContent = email
-
+        
         // 1. Cria a célula que vai conter os botões de ação
         const tdAcoes = document.createElement("td");
-
+        
         // Cria o botão de Editar/Salvar
         const btnEditar = document.createElement("button");
         btnEditar.textContent = "Editar";
@@ -53,44 +86,41 @@ function tratarFornecedores(lista) {
         btnEditar.style.marginLeft = "20px";
         btnEditar.style.width = "55px"
         btnEditar.style.backgroundColor = "#FFDE21"
-
-
-        const btnCancelar = document.createElement("button");
+        
+        //Editando o botão de cancelar
         btnCancelar.textContent = "Cancelar";
         btnCancelar.style.width = "55px"
         btnCancelar.style.backgroundColor = "#ED2100"
-
+        
         btnEditar.addEventListener("click", (event) => {
             event.preventDefault();
-
+            
             idEmEdicao = fornecedor.id; //Guarda quem esta sendo editado
-
+            
             document.getElementById("titulo").textContent = "Edição do Fornecedor"
             btnConfirm.textContent = "Salvar";
-
+            
             //Mostra os dados do fornecedor na tela
             document.getElementById("nome").value = fornecedor.nome;
             document.getElementById("cnpj").value = fornecedor.cnpj
             document.getElementById("telefone").value = fornecedor.telefone
             document.getElementById("email").value = fornecedor.email
-
+            
             divRow.appendChild(btnCancelar);
         });
-
-
-        btnCancelar.addEventListener("click", (event) => {
-            window.location.reload()
+        
+        btnCancelar.addEventListener("click", () => {
         })
-
+        
         // Cria o botão de Excluir
         const btnExcluir = document.createElement("button");
         btnExcluir.textContent = "Excluir";
         btnExcluir.style.width = "55px"
         btnExcluir.style.backgroundColor = "#ED2100"
-
+        
         btnExcluir.addEventListener("click", () => {
             if (!confirm(`Excluir fornecedor ${fornecedor.nome}?`)) return;
-
+            
             async function excluirFornecedor(id) {
                 try {
                     const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor/${id}`, {
@@ -109,22 +139,20 @@ function tratarFornecedores(lista) {
             }
             excluirFornecedor(fornecedor.id)
         });
-
-
+        
+        
         tdAcoes.appendChild(btnEditar);
         tdAcoes.appendChild(btnExcluir);
-
+        
         novaLinha.appendChild(tdNome);
         novaLinha.appendChild(tdCnpj);
         novaLinha.appendChild(tdTelefone);
         novaLinha.appendChild(tdEmail);
         novaLinha.appendChild(tdAcoes);
-
+        
         tbody.appendChild(novaLinha);
     });
 }
-
-
 
 listarFornecedor().then(tratarFornecedores);
 

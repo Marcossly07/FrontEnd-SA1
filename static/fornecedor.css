@@ -144,7 +144,7 @@ body {
     border: solid;
 }
 
-#forms{
+#area-form{
     display: flex;
     flex-direction: column;
     width: 700px;
@@ -163,8 +163,22 @@ body {
     margin-bottom: 30px;
 }
 
+#row-filtro{
+    display: flex;
+    gap: 20px;
+}
 
+#row-filtro button{
+    background-color: #bcc8db;
+}
 
+#row-filtro button:hover{
+    background-color: #a2abbb;
+}
+
+#row-filtro button:active{
+    background-color: #686d77;
+}
 button{
     background-color: #17e440 ;
     border: none;
