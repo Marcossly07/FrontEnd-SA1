@@ -57,6 +57,10 @@ forms.addEventListener("submit", async function (event) {
     async function verificarPastilhas() {
         const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
         const pastilhas = await resposta.json();
+        if (pastilhas.length==0){
+            console.log("não tem pastilha");
+            return false
+        }
         for (const cadastro of pastilhas) {
             if (cadastro["fornecedor"] == pastilha_cadastrada["fornecedor"] && cadastro["classe"] == pastilha_cadastrada["classe"]) {
                 if (tipo == "Cadastro") {
