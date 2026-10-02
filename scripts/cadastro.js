@@ -76,7 +76,8 @@ forms.addEventListener("submit", async function (event) {
                     alert("pastilha cadastrada com sucesso!");
                 }
                 else {
-                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada))) {
+                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada["quantidade"]))) {
+                        console.log("NUMERO MAIOR QUE O E4SPERADO");
                         alert("O número de retirada é maior que o estoque!")
                     }
                     else {
