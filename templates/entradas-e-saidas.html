@@ -11,18 +11,66 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="../index.html"><img class="logo" src="../img/logo-dda.png" alt="logo-dda"></a>
-            <h1>Histórico</h1>
-        </nav>
-    </header>
+<!-- estrutura base das paginas  -->
+    <aside class="sidebar">
+        <span class="material-symbols-outlined menu-icon">
+            menu
+        </span>
+        <a href="../index.html" class="nav-item ativo">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </a>
+        <a href="../templates/cadastro.html" class="nav-item">
+            <span class="material-symbols-outlined">
+                folder
+            </span>
+        </a>
+        <a href="../templates/entradas-e-saidas.html" class="nav-item">
+            <span class="material-symbols-outlined">
+                assignment
+            </span>
+        </a>
+    </aside>
+    <div class="main-container">
+        <header class="topbar">
+            <div class="logo">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+                <img class="logo" src="../img/logo-dda.png" alt="logo">
+            </div>
+
+            <div class="search-box">
+                <input placeholder="Pesquisar..." type="text">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </div>
+
+            <div class="user-menu">
+                <div class="badge-icon">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    <span class="count">
+                        1
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+                </div>
+                <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
+            </div>
+        </header>
+        <!-- estrutura base das paginas  -->
     <main>
         <div class="adicionar-cor">
         <section class="filtro">
             <h2>Filtro</h2>
             <form id="form-id">
-                <input type="text" placeholder="Classe" id="input-id">
+                <input type="text" placeholder="Id" id="input-id">
                 <button type="submit">Buscar</button>
             </form>
             <div class="tabela-responsiva">

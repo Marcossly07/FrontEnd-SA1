@@ -57,6 +57,7 @@ forms.addEventListener("submit", async function (event) {
     async function verificarPastilhas() {
         const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
         const pastilhas = await resposta.json();
+        console.log(pastilhas);
         for (const cadastro of pastilhas) {
             if (cadastro["fornecedor"] == pastilha_cadastrada["fornecedor"] && cadastro["classe"] == pastilha_cadastrada["classe"]) {
                 if (tipo == "Cadastro") {
@@ -72,7 +73,7 @@ forms.addEventListener("submit", async function (event) {
                     alert("pastilha cadastrada com sucesso!");
                 }
                 else {
-                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada))) {
+                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada["quantidade"]))) {
                         alert("O número de retirada é maior que o estoque!")
                     }
                     else {
@@ -85,9 +86,9 @@ forms.addEventListener("submit", async function (event) {
                             },
                             body: JSON.stringify(pastilha_cadastrada)
                         })
-                        pastilha_cadastrada["quantidade"]=quantidade;
+                        pastilha_cadastrada["quantidade"] = quantidade;
                         pastilha_cadastrada["retirada"] = "sim";
-                        const enviarRetirada=await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
+                        const enviarRetirada = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
                             method: "POST",
                             headers: {
                                 "Content-type": "application/json"
@@ -101,8 +102,9 @@ forms.addEventListener("submit", async function (event) {
                 }
                 return true
             }
-            return false
         };
+        console.log("cheguei no false");
+        return false
     }
     async function cadastrarPastilhas(conteudo) {
         const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
@@ -115,14 +117,21 @@ forms.addEventListener("submit", async function (event) {
     async function processarCadastro() {
         console.log("cheguei em processarcadastro")
         const jaExiste = await verificarPastilhas();
+        console.log(jaExiste);
         if (jaExiste === false) {
             console.log("entrei no jaexiste")
             console.log(pastilha_cadastrada)
-            if (pastilha_cadastrada["retirada"] == "não") {
-                await cadastrarPastilhas(pastilha_cadastrada);
-                forms.reset();
-                alert("Pastilha cadastrada com sucesso!");
+            if (tipo == "Cadastro") {
+                if (pastilha_cadastrada["retirada"] == "não") {
+                    await cadastrarPastilhas(pastilha_cadastrada);
+                    forms.reset();
+                    alert("Pastilha cadastrada com sucesso!");
+                }
             }
+            else{
+                alert("Operação inválida!");
+            }
+
         }
     }
     processarCadastro();
