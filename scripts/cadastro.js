@@ -1,3 +1,14 @@
+async function fornecedores() {
+    const selectFornecedor=document.getElementById("fornecedor");
+    const resposta= await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor");
+    const objResposta= await resposta.json();
+    console.log(objResposta);
+    for (const chave of objResposta){
+        selectFornecedor.innerHTML+=`<option>${chave["nome"]}</option>`
+    }
+    
+}
+fornecedores();
 const forms = document.getElementById("cadastro");
 const paragrafoCadastrante = document.getElementById("paragrafo-cadastrante")
 const paragrafoData = document.getElementById("paragrafo-data")
