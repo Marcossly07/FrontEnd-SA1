@@ -143,16 +143,17 @@ body {
     align-items: center;
     flex-direction: column;
     background-color: white;
-    width: 750px;
+    width: auto;
     height: auto;
     border-radius: 6px;
+    padding: 20px;
     border: solid;
 }
 
 #area-form{
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: auto;
     height: auto;
     
 }
@@ -213,4 +214,5 @@ th{
 
 td{
     border: solid black 1px;
+    width: auto;
 }
