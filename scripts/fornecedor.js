@@ -5,6 +5,7 @@ const tbody = document.getElementById("body-table");
 const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
 let idEmEdicao = null;// null = modo cadastro | número = modo edição.
 const btnCancelar = document.createElement("button");
+let existente = false
 
 btnFiltro.addEventListener("click", async (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ btnFiltro.addEventListener("click", async (event) => {
 
     rowFiltro.appendChild(btnCancelar);
 
-    btnCancelar.addEventListener("click", (event) => {
+    btnCancelar.addEventListener("click", () => {
         window.location.reload()
     })
     }
@@ -44,13 +45,27 @@ async function listarFornecedor(nomeFornecedor) {
         throw new Error(`Erro: ${resposta.status}`)
     }
     const dados = await resposta.json();
-    return dados
+
+    form.addEventListener("input", () => {
+        existente = false
+        const nome = document.getElementById("nome").value;
+        const cnpj = document.getElementById("cnpj").value;
+        console.log("Dados", nome,cnpj)
+        for(const i of dados ){
+            if(i["nome"] == nome || i["cnpj"] == cnpj){
+                existente = true
+                break
+            }
+            else{
+                existente = false
+            }
+        }
+        console.log(existente)
+    })
+    
+    return dados   
 }
 
-
-listarFornecedor().then((dados) => {
-    console.log(dados)
-});
 
 function tratarFornecedores(lista) {
     lista.forEach(fornecedor => {
@@ -110,7 +125,7 @@ function tratarFornecedores(lista) {
         });
         
         btnCancelar.addEventListener("click", () => {
-        })
+        });
         
         // Cria o botão de Excluir
         const btnExcluir = document.createElement("button");
@@ -157,46 +172,55 @@ function tratarFornecedores(lista) {
 listarFornecedor().then(tratarFornecedores);
 
 
+
 form.addEventListener("submit", function (event) {
     event.preventDefault();
+    let dados = []
 
     const nome = document.getElementById("nome").value;
     const cnpj = document.getElementById("cnpj").value;
     const telefone = document.getElementById("telefone").value;
     const email = document.getElementById("email").value;
 
-    const fornecedor = {
-        nome: nome,
-        cnpj: cnpj,
-        telefone: telefone,
-        email: email
+    if(existente){
+        alert(`Fornecedor ja existente, altere o nome ou o CNPJ`)
     }
 
-    async function adicionarFornecedor(fornecedor) {
-        try {
-            const url = idEmEdicao ? `${API_URL}/${idEmEdicao}` : API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
-            const metodo = idEmEdicao ? "PUT" : "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
-            const resposta = await fetch(url, {
-                method: metodo,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(fornecedor)
-            })
-            if (!resposta.ok) {
-                throw new Error(
-                    `Erro HTTP: ${resposta.status}`
+    else{
+
+        const fornecedor = {
+            nome: nome,
+            cnpj: cnpj,
+            telefone: telefone,
+            email: email
+        }
+    
+        async function adicionarFornecedor(fornecedor) {
+            try {
+                const url = idEmEdicao ? `${API_URL}/${idEmEdicao}` : API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
+                const metodo = idEmEdicao ? "PUT" : "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
+                const resposta = await fetch(url, {
+                    method: metodo,
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(fornecedor)
+                })
+                if (!resposta.ok) {
+                    throw new Error(
+                        `Erro HTTP: ${resposta.status}`
+                    );
+                }
+            } catch (erro) {
+                console.error(
+                    "Não foi possível consultar os produtos:",
+                    erro
                 );
             }
-        } catch (erro) {
-            console.error(
-                "Não foi possível consultar os produtos:",
-                erro
-            );
+    
+            //Atualiza a pagina automaticamente
+            window.location.reload()
         }
-
-        //Atualiza a pagina automaticamente
-        window.location.reload()
+        adicionarFornecedor(fornecedor)
     }
-    adicionarFornecedor(fornecedor)
 });

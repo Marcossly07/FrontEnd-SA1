@@ -89,11 +89,11 @@
                         <div id="row">
                             <div class="form-group">
                                 <label for="cnpj">CNPJ:</label>
-                                <input type="text" id="cnpj" name="cnpj" placeholder="Ex: 35.290.702/0001-31 " required>
+                                <input type="text" id="cnpj" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" placeholder="Ex: 00.000.000/0000-00" title="Digite o CNPJ no formato 00.000.000/0000-00" required>
                             </div>
                             <div class="form-group">
                                 <label for="telefone">Telefone: </label>
-                                <input type="tel" id="telefone" name="telefone" placeholder="EX: (62) 3586-5146" required>
+                                <input type="tel" id="telefone" name="telefone" pattern="\(\d{2}\) \d{4}-\d{4}"  placeholder="Ex: (62) 3586-5146" required title="Digite o número no formato (00) 0000-0000">
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail:</label>
