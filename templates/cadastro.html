@@ -25,7 +25,7 @@
         </a>
         <a href="../templates/cadastro.html" class="nav-item" title="cadastro" id="item-2">
             <span class="material-symbols-outlined">
-                create_new_folder
+                edit_document
             </span>
         </a>
         <a href="../templates/entradas-e-saidas.html" class="nav-item" title="Historico">
@@ -33,9 +33,9 @@
                 overview
             </span>
         </a>
-         <a href="../templates/fornecedor.html" class="nav-item" title="Cadastrar fornecedor">
-           <span class="material-symbols-outlined">
-                 local_shipping
+        <a href="../templates/fornecedor.html" class="nav-item" title="Cadastrar fornecedor">
+            <span class="material-symbols-outlined">
+                local_shipping
             </span>
         </a>
 
@@ -74,61 +74,67 @@
             </div>
         </header>
         <!-- estrutura base das paginas  -->
-    <main class="main">
-        
-        <div class="area-de-interacao">
-            <form id="cadastro" action="https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas" method="post">
-                <label for="cadastrante">Cadastrante:</label>
-                <br>
-                <input type="text" name="cadastrante" id="cadastrante" placeholder="Digite o nome do cadastrante" required>
-                <br><br>
-                <label for="quantidade">Quantidade(pacote):</label>
-                <br>
-                <input type="number" min="1" max="100" name="quantidade" id="quantidade" placeholder="UND" required>
-                <br><br>
-                <label for="fornecedor">Fornecedor:</label>
-                <br>
-                <select id="fornecedor" name="fornecedor">
-                    <option>Sandvik Coromant</option>
-                    <option>Widia</option>
-                    <option>Mitsubishi Materials</option>
-                    <option>ZCC-CT</option>
-                </select>
-                <br><br>
-                <label for="classe">Classe:</label>
-                <br>
-                <select name="classe" id="classe">
-                    <option >P</option>
-                    <option >M</option>
-                    <option >K</option>
-                    <option >N</option>
-                    <option >S</option>
-                    <option >H</option>
-                </select>
-                <br><br>
-                <label for="tipo">Tipo:</label>
-                <select id="tipo" name="tipo">
-                    <option>Cadastro</option>
-                    <option>Retirada</option>
-                </select>
-                <br><br>
-                <button type="submit">Finalizar</button>
-            </form>
-            <div class="cheque">
-                <img src="../img/logo-dda.png" alt="" width="100" height="50">
-                <p id="paragrafo-cadastrante">Cadastrante: </p>
-                <p id="paragrafo-data">Data: </p>
-                <p id="paragrafo-quantidade">Quantidade: </p>
-                <p id="paragrafo-valor-unidade">Valor por unidade: </p>
-                <p id="paragrafo-valor-pacote">Valor por pacote: </p>
-                <p id="paragrafo-valor-total">Valor total: </p>
-                <p id="paragrafo-fornecedor">Fornecedor:</p>
-                <p id="paragrafo-classe">Classe:</p>
-                <p id="paragrafo-tipo">Tipo:</p>
+        <main class="main">
+
+            <div class="area-de-interacao">
+                <h1 id="titulo">Cadastro</h1>
+                <div id="area-form">
+                    <form id="cadastro" action="https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas"
+                        method="post">
+                        <label for="cadastrante">Cadastrante:</label>
+                        <br>
+                        <input type="text" name="cadastrante" id="cadastrante"
+                            placeholder="Digite o nome do cadastrante" required>
+                        <br><br>
+                        <label for="quantidade">Quantidade(pacote):</label>
+                        <br>
+                        <input type="number" min="1" max="100" name="quantidade" id="quantidade" placeholder="UND"
+                            required>
+                        <br><br>
+                        <label for="fornecedor">Fornecedor:</label>
+                        <br>
+                        <select id="fornecedor" name="fornecedor">
+                            <option>Sandvik Coromant</option>
+                            <option>Widia</option>
+                            <option>Mitsubishi Materials</option>
+                            <option>ZCC-CT</option>
+                        </select>
+                        <br><br>
+                        <label for="classe">Classe:</label>
+                        <br>
+                        <select name="classe" id="classe">
+                            <option>P</option>
+                            <option>M</option>
+                            <option>K</option>
+                            <option>N</option>
+                            <option>S</option>
+                            <option>H</option>
+                        </select>
+                        <br><br>
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" name="tipo">
+                            <option>Cadastro</option>
+                            <option>Retirada</option>
+                        </select>
+                        <br><br>
+                        <button type="submit">Finalizar</button>
+                    </form>
+                    <div class="cheque">
+                        <img src="../img/logo-dda.png" alt="" width="100" height="50">
+                        <p id="paragrafo-cadastrante">Cadastrante: </p>
+                        <p id="paragrafo-data">Data: </p>
+                        <p id="paragrafo-quantidade">Quantidade: </p>
+                        <p id="paragrafo-valor-unidade">Valor por unidade: </p>
+                        <p id="paragrafo-valor-pacote">Valor por pacote: </p>
+                        <p id="paragrafo-valor-total">Valor total: </p>
+                        <p id="paragrafo-fornecedor">Fornecedor:</p>
+                        <p id="paragrafo-classe">Classe:</p>
+                        <p id="paragrafo-tipo">Tipo:</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
-    <script src="../scripts/cadastro.js"></script>
+        </main>
+        <script src="../scripts/cadastro.js"></script>
 </body>
 
 </html>

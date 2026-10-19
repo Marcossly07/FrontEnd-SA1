@@ -170,13 +170,22 @@ body {
 
 .area-de-interacao{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     width: 750px;
     height: 450px;
-    justify-content: center;
-    align-items: center;
     border-radius: 6px;
     border: solid;
+}
+
+#area-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 350px;
 }
 
 @media(max-width: 2000px){
