@@ -38,6 +38,15 @@ forms.addEventListener("input", function () {
     paragrafoFornecedor.textContent = `Fornecedor: ${fornecedor}`
     paragrafoClasse.textContent = `Classe: ${classe}`
     paragrafoTipo.textContent = `Tipo: ${tipo}`
+
+    console.log(tipo)
+    console.log(typeof(tipo))
+    if(tipo==="Retirada"){
+        document.getElementById("titulo").textContent = "Cadastro de Retirada"
+    }
+    else{
+        document.getElementById("titulo").textContent = "Cadastro"
+    }
 });
 
 forms.addEventListener("submit", async function (event) {
