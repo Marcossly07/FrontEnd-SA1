@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/login.css"
-    <title>login</title>
+    <link rel="stylesheet" href="/static/login.css">
+    <title>Login</title>
 </head>
 <body>
     <div class="box_login">
+        <div class="cartao_login">
+            <img src="/img/logo-dda.png" alt="" class="logo">
+        </div>
+        <div class="contedos_de_avatar"></div>
+        <i class="if"></i>
         <header>
-            <h1>
+            <h1 class="titulo">
                 login
             </h1>
         </header>
-        <div>
-            <label for="">Nome de usuario</label>
-            <input type="text">
+        <div class="campo-nome" id="campo-nome">
+            <br>
+            <input type="text" placeholder="Nome">
         </div>
 
         <div class="campo-senha">
-            <label for="">Senha</label>
+            <br>
             <input type="password" id="senha" placeholder="Digite sua senha">
-            <button type="button" class="btn-toggle" onclick="alternarVisibilidade()">ver</button>
+            <button type="button" class="btn-toggle" onclick="alternarVisibilidade()">Visualizar</button>
         </div>
+        <button class="botao_enter">Entra</button>
     </div>
 
     <Script src="../scripts/login.js"></Script>
