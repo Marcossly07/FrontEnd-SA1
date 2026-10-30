@@ -45,14 +45,6 @@
                 </span>
                 <img class="logo" src="../img/logo-dda.png" alt="logo">
             </div>
-
-            <div class="search-box">
-                <input placeholder="Pesquisar..." type="text">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
-            </div>
-
             <div class="user-menu">
                 <div class="badge-icon">
                     <span class="material-symbols-outlined">
@@ -76,10 +68,10 @@
                 <h1 id="titulo">Cadastro de Fornecedor</h1>
                 <div id="area-form">
                     <br>
+                    <label for="nome">Nome do Fornecedor:</label>
                     <form action="https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor" method="post" id="forms">
 
                         <div class="form-group">
-                            <label for="nome">Nome do Fornecedor:</label>
                             <br>
                             <input type="text" name="nome" id="nome" placeholder="Ex: W Fer Ferramentas" required>
                         </div>
@@ -129,6 +121,10 @@
                 </div>
             </div>
         </main>
+
+        <footer>
+            LTDA DDA
+        </footer>
     </div>
     <script src="../scripts/fornecedor.js"></script>
 </body>
