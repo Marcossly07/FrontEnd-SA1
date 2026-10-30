@@ -130,29 +130,6 @@ body {
 
 /* estrutura base das paginas */
 
-
-.opcoes{
-    display: flex;
-    justify-content: center;
-}
-.opcoes button{
-    background-color: transparent;
-    font-size: larger;
-    border: 2px solid #1d325f;
-    border-top: none;
-}
-
-.exibicao{
-    display: flex;
-    background-color: #1d325f;
-    width: 100%;
-    height: 55px;
-    justify-content: center;
-}
-
-.exibicao h1{
-    color: white;
-}
 .main{
     display: flex;
     justify-content: center;
@@ -188,8 +165,48 @@ body {
     height: 350px;
 }
 
-@media(max-width: 2000px){
-    a{
-        left: -200px;
+@media(max-width: 780px){
+    body {
+        flex-direction: column;
     }
+
+    .sidebar {
+        width: 100%;
+        height: 50px;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 0;
+        gap: 0;
+    }
+
+    .main {
+        margin-top: 50px;
+    }
+
+    .area-de-interacao {
+        width: 700px;
+        height: 700px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    #area-form {
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        justify-content: left;
+        align-items: normal;
+    }
+
+    .cheque {
+        height: 300px;
+        width: 200px;
+        margin-left: 0%;
+        margin-top: 20px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    
 }
