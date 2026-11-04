@@ -13,9 +13,6 @@
 <body>
     <!-- Menu do lado -->
     <aside class="sidebar">
-        <span class="material-symbols-outlined menu-icon">
-            menu
-        </span>
         <a href="../index.html" class="nav-item-ativo" title="inicio">
             <span class="material-symbols-outlined">
                 home
@@ -41,15 +38,7 @@
     </aside>
 
     <div class="main-container">
-
-
         <header class="topbar">
-            <div class="logo">
-                <span class="material-symbols-outlined">
-                    settings
-                </span>
-            </div>
-
             <div class="search-box">
                 <input placeholder="Pesquisar..." type="text" id="pesquisa">
                 <div id="resultado"></div>
@@ -83,19 +72,19 @@
             <div class="cards-grid">
 
                 <div class="card card-cinza" title="Itens Cadastrados">
-                    <div class="title">TOTAL DE PASTILHAS</div>
+                    <div class="title-c">TOTAL DE PASTILHAS</div>
                     <div class="value" id="quantidade">0</div>
                     <div class="subtitle green">___________ 70%</div>
                 </div>
 
                 <div class="card card-vermelho" title="Alerta de estoque">
-                    <div class="title">ALERTA DE ESTOQUE MINIMO</div>
+                    <div class="title-v">ALERTA DE ESTOQUE MINIMO</div>
                     <div class="value" id="alerta_de_estoque_min">12</div>
                     <div class="subtitle">___________ pastilha de freio</div>
                 </div>
 
                 <div class="card card-azul" title="Dados">
-                    <div class="title">DADOS DE</div>
+                    <div class="title-a">DADOS DE</div>
                     <div class="main-text" style="font-size: 28px;">ESTOQUE</div>
                     <svg class="graph-line" viewBox="0 0 100 40">
                         <polyline points="0,30 30,30 50,10 70,20 95,5" fill="none" stroke="#76ff03" stroke-width="3" />
@@ -104,7 +93,7 @@
                 </div>
 
                 <div class="card card-amarelo" title="Altas">
-                    <div class="title">
+                    <div class="title-a">
                         PASTILHAS EM ALTA
                     </div>
                     <div class="main-text">
@@ -115,7 +104,7 @@
                 </div>
 
                 <div class="card card-verde" title="Alto nivel de estoque">
-                    <div class="title">
+                    <div class="title-d">
                         Fornecedores
                     </div>
                     <div class="main-text" id="fornecedores">0</div>
@@ -127,7 +116,7 @@
 
             <!-- parte branca de baixo, vou colocar os graficos -->
             <div class="parte-branca-do-meio">
-               <img class="grafico" src="img/grafico.jpg" alt="">
+               
 
             </div>
 
