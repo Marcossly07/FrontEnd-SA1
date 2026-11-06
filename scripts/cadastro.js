@@ -1,6 +1,6 @@
 async function fornecedores() {
     const selectFornecedor=document.getElementById("fornecedor");
-    const resposta= await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor");
+    const resposta= await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     const objResposta= await resposta.json();
     console.log(objResposta);
     for (const chave of objResposta){
@@ -75,7 +75,7 @@ forms.addEventListener("submit", async function (event) {
         "retirada": "não"
     };
     async function verificarPastilhas() {
-        const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas")
+        const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas")
         const pastilhas = await resposta.json();
         if (pastilhas.length==0){
             console.log("não tem pastilha");
@@ -85,7 +85,7 @@ forms.addEventListener("submit", async function (event) {
             if (cadastro["fornecedor"] == pastilha_cadastrada["fornecedor"] && cadastro["classe"] == pastilha_cadastrada["classe"]) {
                 if (tipo == "Cadastro") {
                     pastilha_cadastrada["quantidade"] = Number(pastilha_cadastrada["quantidade"]) + Number(cadastro["quantidade"]);
-                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`, {
+                    const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${cadastro["id"]}`, {
                         method: "PUT",
                         headers: {
                             "Content-type": "application/json"
@@ -103,7 +103,7 @@ forms.addEventListener("submit", async function (event) {
                     else {
                         console.log("cheguei aqui");
                         pastilha_cadastrada["quantidade"] = Number(cadastro["quantidade"]) - Number(pastilha_cadastrada["quantidade"]);
-                        const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${cadastro["id"]}`, {
+                        const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${cadastro["id"]}`, {
                             method: "PUT",
                             headers: {
                                 "Content-type": "application/json"
@@ -112,7 +112,7 @@ forms.addEventListener("submit", async function (event) {
                         })
                         pastilha_cadastrada["quantidade"]=quantidade;
                         pastilha_cadastrada["retirada"] = "sim";
-                        const enviarRetirada=await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
+                        const enviarRetirada=await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas", {
                             method: "POST",
                             headers: {
                                 "Content-type": "application/json"
@@ -131,7 +131,7 @@ forms.addEventListener("submit", async function (event) {
     }
 
     async function cadastrarPastilhas(conteudo) {
-        const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas", {
+        const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(conteudo)

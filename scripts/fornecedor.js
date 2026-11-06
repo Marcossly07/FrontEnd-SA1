@@ -2,7 +2,7 @@ const form = document.getElementById("forms");
 const btnConfirm = document.getElementById("btn-confirm");
 const btnFiltro = document.getElementById("btn-filtro")
 const tbody = document.getElementById("body-table");
-const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
+const API_URL = "https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas";
 let idEmEdicao = null;// null = modo cadastro | número = modo edição.
 const btnCancelar = document.createElement("button");
 let existente = false
@@ -138,7 +138,7 @@ function tratarFornecedores(lista) {
             
             async function excluirFornecedor(id) {
                 try {
-                    const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor/${id}`, {
+                    const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${id}`, {
                         method: "DELETE"
                     })
                     if (!resposta.ok) {

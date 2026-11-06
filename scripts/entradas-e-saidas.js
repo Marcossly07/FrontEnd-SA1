@@ -6,7 +6,7 @@ formulario.addEventListener('submit', function (event) {
     linhas = ``;
     const inputid = document.getElementById("input-id").value.toUpperCase();
     async function buscarId() {
-        const buscar = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${inputid}`);
+        const buscar = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${inputid}`);
         const dados = await buscar.json();
         if (buscar.status == 200) {
             return dados
@@ -37,7 +37,7 @@ formulario.addEventListener('submit', function (event) {
                     `;
             tbody.innerHTML = linhas;
             async function deletarPastilha(id) {
-                const resposta = await fetch(`https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas/${id}`, {
+                const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${id}`, {
                     method: "DELETE"
                 })
                 console.log(resposta.status);
@@ -55,7 +55,7 @@ formulario.addEventListener('submit', function (event) {
 
 
 async function verPartilhasRetiradas() {
-    const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     const dados = await resposta.json();
     return dados
 }
@@ -84,7 +84,7 @@ verPartilhasRetiradas().then(retiradas => {
 
 
 async function verPastilhas() {
-    const resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     const dados = await resposta.json();
     return dados
 };
