@@ -1,0 +1,283 @@
+/* estrutura base das paginas */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'principal', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background-color: #838a95;
+}
+
+#simbolo-4 {
+    color: #06ff38;
+    transform: scale(1.5);
+
+}
+
+.sidebar {
+    width: 65px;
+    background-color: #1a2b4c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    gap: 35px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.sidebar .menu-icon {
+    cursor: pointer;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.topbar {
+    height: 65px;
+    background-color: #1a2b4c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #ffffff;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    max-width: 100px;
+    height: auto;
+}
+
+.search-box {
+    position: relative;
+    width: 320px;
+    max-width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 6px 35px 6px 15px;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    outline: none;
+}
+
+.search-box span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.badge-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.material-symbols-outlined {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.material-symbols-outlined:hover {
+    color: #06ff38;
+    transform: scale(1.5);
+}
+
+.badge-icon .count {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 9px;
+    border-radius: 50%;
+    padding: 2px 4px;
+}
+
+/* estrutura base das paginas */
+
+#display-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7%;
+}
+
+#area-interacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    padding: 20px;
+    border: solid;
+}
+
+#area-form {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+#row-filtro {
+    display: flex;
+    gap: 20px;
+}
+
+#row-filtro button {
+    background-color: #bcc8db;
+}
+
+#row-filtro button:hover {
+    background-color: #a2abbb;
+}
+
+#row-filtro button:active {
+    background-color: #686d77;
+}
+
+button {
+    background-color: #17e440;
+    border: none;
+    border-radius: 8px;
+    border: solid 1px;
+    width: 100px;
+}
+
+button:hover {
+    background-color: #21c241;
+    border: solid 1px;
+}
+
+button:active {
+    background-color: #1c8631;
+    border: solid 1px;
+}
+
+table {
+    width: 100%;
+    border: solid black 1px;
+
+}
+
+th {
+    border: solid black 1px;
+    background-color: #c2c7cf;
+}
+
+td {
+    border: solid black 1px;
+    width: auto;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+@media (max-width: 800px) {
+    #row {
+        flex-direction: column;
+    }
+
+    #area-interação {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        flex-direction: column;
+    }
+
+    #area-interação {
+        width: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: 50px;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 0;
+        gap: 0;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .topbar {
+        height: 55px;
+        padding: 0;
+    }
+
+    td {
+        height: 10px;
+        width: auto;
+        font-size: 10px;
+    }
+    
+    #area-interacao {
+        width: 413px;
+    }
+
+    form{
+        width: 400px;
+        margin: 10px;
+    }
+
+    
+}
