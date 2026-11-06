@@ -1,6 +1,6 @@
 async function mostrarQuantidade() {
   try {
-    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     let dados = await resposta.json();
 
     let total = 0;
@@ -23,7 +23,7 @@ mostrarQuantidade();
 
 
 async function carregarD() {
-  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
   dados = await resposta.json();
 }
 
@@ -98,7 +98,7 @@ function mostrarInfo(item) {
 }
 
 async function mostrarQuantidadeFornecedores() {
-  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
   let dados = await resposta.json();
 
   let unicos = [...new Set(dados.map(item => item.fornecedor))];
@@ -109,7 +109,7 @@ async function mostrarQuantidadeFornecedores() {
 mostrarQuantidadeFornecedores();
 
 async function alertaEstoqueMinimo() {
-  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
   let dados = await resposta.json();
 
   let limite = 5;
