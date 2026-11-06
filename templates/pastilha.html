@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastilhas</title>
+    <link rel="stylesheet" href="../static/pastilha.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <!-- Menu do lado -->
+    <aside class="sidebar">
+        <span class="material-symbols-outlined menu-icon">
+            menu
+        </span>
+        <a href="../index.html" class="nav-item ativo" title="inicio" id="simbolo-1">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </a>
+        <a href="../templates/cadastro.html" class="nav-item" title="cadastro" id="simbolo-2">
+            <span class="material-symbols-outlined">
+                edit_document
+            </span>
+        </a>
+        <a href="../templates/entradas-e-saidas.html" class="nav-item" title="Historico" id="simbolo-3">
+            <span class="material-symbols-outlined">
+                overview
+            </span>
+        </a>
+         <a href="../templates/fornecedor.html" class="nav-item" title="Cadastrar fornecedor" id="simbolo-4">
+           <span class="material-symbols-outlined">
+                 local_shipping
+            </span>
+        </a>
+    </aside>
+    <div class="main-container">
+        <header class="topbar">
+            <div class="logo">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+            </div>
+            <div class="user-menu">
+                <div class="badge-icon">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    <span class="count">
+                        1
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+                </div>
+                <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
+            </div>
+        </header>
+        <!-- estrutura base das paginas.  -->
+
+        <main id="display-content">
+            <div id="area-interacao">
+                <h1 id="titulo">Cadastro de Pastilha</h1>
+                <div id="area-form">
+                    <br>
+                    <label for="codigo">ID Interno:</label>
+                    <form action="https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor" method="post" id="forms">
+
+                        <div class="form-group">
+                            <br>
+                            <input type="text" name="codigo" id="codigo" placeholder="Ex:PAS-000001" required>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="classe">Classe:</label>
+                                <input type="text" id="classe" name="classe" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modelo">Modelo: </label>
+                                <input type="text" id="modelo" name="modelo" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <input type="text" id="cod-fabricante" name="cod-fabricante" placeholder="" required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="fornecedor">Fornecedor:</label>
+                                <select name="fornecedor" id="fornecedor"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" id="btn-confirm">Adicionar</button>
+                        </div>
+                        <hr>
+                        <br>
+                        <div id="row-filtro">
+                            <div class="form-group">
+                                <label for="filtro">Filtro:</label>
+                                <input type="text" id="filtro" name="filtro" placeholder="Digite o nome">
+                            </div>
+                            <button type="button" id="btn-filtro">Filtrar</button>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Classe</th>
+                                    <th>Modelo</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody id="body-table">
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            LTDA DDA
+        </footer>
+    </div>
+    <script src="../scripts/fornecedor.js"></script>
+</body>
+</html>
