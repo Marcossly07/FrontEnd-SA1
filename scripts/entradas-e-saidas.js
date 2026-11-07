@@ -32,6 +32,7 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["quantidade"]}</td>
                         <td>${dados["quantidade"] * 90},00</td>
                         <td>${dados["retirada"]}</td>
+                        <td>${new Date(dados["hora"]).toLocaleDateString('pt-BR')}</td>
                         <td><button class="botao-excluir">🗑️</button></td>
                         </tr>
                     `;
@@ -72,6 +73,7 @@ verPartilhasRetiradas().then(retiradas => {
             <td>${chave["classe"]}</td>
             <td>${chave["quantidade"]}</td>
             <td>R$${chave["quantidade"] * 90},00</td>
+            <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
             <td><button>Imprimir</button></td>
         </tr>
             `;
@@ -95,15 +97,31 @@ verPastilhas().then(dados => {
     let linhas_entradas = "";
     for (const chave of dados) {
         if (chave["retirada"] == "não") {
-            linhas_entradas += `
+            if (chave["quantidade"]>1){
+                linhas_entradas += `
                     <tr>
                         <td>${chave["id"]}</td>
                         <td>${chave["fornecedor"]}</td>
                         <td>${chave["classe"]}</td>
                         <td>${chave["quantidade"]}</td>
                         <td>${chave["quantidade"] * 90},00</td>
-                    <td><button>Imprimir</button></td>
+                        <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
+                        <td><button>Imprimir</button></td>
             </tr>`;
+            }
+            else{
+                linhas_entradas += `
+                    <tr>
+                        <td class="pouca_quantidade">${chave["id"]}</td>
+                        <td class="pouca_quantidade">${chave["fornecedor"]}</td>
+                        <td class="pouca_quantidade">${chave["classe"]}</td>
+                        <td class="pouca_quantidade">${chave["quantidade"]}</td>
+                        <td class="pouca_quantidade">${chave["quantidade"] * 90},00</td>
+                        <td class="pouca_quantidade">${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
+                        <td><button class="pouca_quantidade">Imprimir</button></td>
+            </tr>`;
+            }
+
         }
     };
     tbodyEntradas.innerHTML = linhas_entradas;

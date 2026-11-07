@@ -72,7 +72,8 @@ forms.addEventListener("submit", async function (event) {
         "classe": classe,
         "quantidade": quantidade,
         "cadastrante": cadastrante,
-        "retirada": "não"
+        "retirada": "não",
+        "hora": new Date()
     };
     async function verificarPastilhas() {
         const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas")
@@ -101,6 +102,9 @@ forms.addEventListener("submit", async function (event) {
                         alert("O número de retirada é maior que o estoque!")
                     }
                     else {
+                        if(Number(cadastro["quantidade"] ==Number(pastilha_cadastrada["quantidade"]))){
+                            alert("A quantidade retirada é igual a que está no estoque!")
+                        }
                         console.log("cheguei aqui");
                         pastilha_cadastrada["quantidade"] = Number(cadastro["quantidade"]) - Number(pastilha_cadastrada["quantidade"]);
                         const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${cadastro["id"]}`, {
