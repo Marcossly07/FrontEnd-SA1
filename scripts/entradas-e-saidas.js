@@ -32,6 +32,7 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["quantidade"]}</td>
                         <td>${dados["quantidade"] * 90},00</td>
                         <td>${dados["retirada"]}</td>
+                        <td>${new Date(dados["hora"]).toLocaleDateString('pt-BR')}</td>
                         <td><button class="botao-excluir">🗑️</button></td>
                         </tr>
                     `;
@@ -72,6 +73,7 @@ verPartilhasRetiradas().then(retiradas => {
             <td>${chave["classe"]}</td>
             <td>${chave["quantidade"]}</td>
             <td>R$${chave["quantidade"] * 90},00</td>
+            <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
             <td><button>Imprimir</button></td>
         </tr>
             `;
@@ -102,7 +104,8 @@ verPastilhas().then(dados => {
                         <td>${chave["classe"]}</td>
                         <td>${chave["quantidade"]}</td>
                         <td>${chave["quantidade"] * 90},00</td>
-                    <td><button>Imprimir</button></td>
+                        <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
+                        <td><button>Imprimir</button></td>
             </tr>`;
         }
     };

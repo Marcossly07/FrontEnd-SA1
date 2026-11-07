@@ -72,7 +72,8 @@ forms.addEventListener("submit", async function (event) {
         "classe": classe,
         "quantidade": quantidade,
         "cadastrante": cadastrante,
-        "retirada": "não"
+        "retirada": "não",
+        "hora": new Date()
     };
     async function verificarPastilhas() {
         const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas")
