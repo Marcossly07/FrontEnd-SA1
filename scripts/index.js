@@ -11,8 +11,7 @@ async function mostrarQuantidade() {
       }
     });
 
-    document.getElementById("quantidade").innerText =
-      "" + total;
+    document.getElementById("quantidade").innerText =+"" + total;
 
   } catch (erro) {
     console.log("Erro:", erro);
@@ -20,7 +19,6 @@ async function mostrarQuantidade() {
 }
 
 mostrarQuantidade();
-
 
 async function carregarD() {
   let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");

@@ -7,3 +7,5 @@ function alternarVisibilidade() {
         campoSenha.type = 'password';
     }
 }
+
+const nome = getElementById
