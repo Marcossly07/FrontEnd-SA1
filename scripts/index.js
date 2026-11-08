@@ -11,8 +11,7 @@ async function mostrarQuantidade() {
       }
     });
 
-    document.getElementById("quantidade").innerText =
-      "" + total;
+    document.getElementById("quantidade").innerText =+"" + total;
 
   } catch (erro) {
     console.log("Erro:", erro);
@@ -20,7 +19,6 @@ async function mostrarQuantidade() {
 }
 
 mostrarQuantidade();
-
 
 async function carregarD() {
   let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
