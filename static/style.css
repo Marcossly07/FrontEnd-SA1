@@ -18,56 +18,69 @@ body {
     background-color: #bbbaba;
 }
 
-  .sidebar {
-      width: 60px;
-      height: 100vh;
-      background-color: #1c3155;
-      padding-top: 20px;
-      overflow: hidden;
-      transition: width 0.3s ease;
-    }
+.sidebar {
+    width: 60px;
+    height: 100vh;
+    background-color: #1c3155;
+    padding-top: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+    position: sticky;
+    top: 0;
+}
 
-    .sidebar:hover {
-      width: 200px;
-    }
+.sidebar:hover {
+    width: 220px;
+}
 
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      padding: 15px 18px;
-      color: #94a3b8;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.2s, color 0.2s;
-    }
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 15px 18px;
+    color: #94a3b8;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
 
-    .sidebar a:hover {
-      background-color: #334155;
-      color: #ffffff;
-    }
+.sidebar a:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
 
-    .sidebar svg {
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-      fill: currentColor;
-    }
+.sidebar svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    fill: currentColor;
+}
 
-    .sidebar span {
-      margin-left: 20px;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
+.sidebar span {
+    margin-left: 20px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
 
-    .sidebar:hover span {
-      opacity: 1;
-    }
+.sidebar:hover span {
+    opacity: 1;
+}
 
 .main-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     min-width: 0;
+}
+
+.logo {
+      width: 50px;   /* Define a largura fixa */
+  height: auto;
+}
+
+.sys { 
+    font-size: 200px;
+    
 }
 
 .topbar {
@@ -114,11 +127,6 @@ body {
     
 }
 
-.material-symbols-outlined:hover {
-    color: #f3f4f3;
-    transform: scale(1.3);
-}
-
 .user-menu {
     display: flex;
     align-items: center;
@@ -128,6 +136,7 @@ body {
 .badge-icon {
     position: relative;
     cursor: pointer;
+
 }
 
 .badge-icon .count {
@@ -220,7 +229,7 @@ body {
     border-radius: 5px;
     position: relative;
     top: -19px;
-    background-color: #4740a0;
+    background-color: #333e6f;
     padding: 9px 15px 17px 20px;
     left: -23px;
      max-width: 1200px;
@@ -370,6 +379,64 @@ body {
 
     .topbar {
         height: 55px;
+    }
+
+    .card .value {
+        font-size: 36px;
+    }
+}
+
+/* TABLETS */
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar:hover {
+        width: 180px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    body {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 60px;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .sidebar:hover {
+        width: 60px;
+    }
+
+    .sidebar span {
+        display: none;
+    }
+
+    .main-container {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .topbar {
+        height: 55px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
     }
 
     .card .value {
