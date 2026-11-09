@@ -175,14 +175,13 @@ listarFornecedor().then(tratarFornecedores);
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
-    let dados = []
 
     const nome = document.getElementById("nome").value;
     const cnpj = document.getElementById("cnpj").value;
     const telefone = document.getElementById("telefone").value;
     const email = document.getElementById("email").value;
 
-    if(existente){
+    if(!idEmEdicao && existente){
         alert(`Fornecedor ja existente, altere o nome ou o CNPJ`)
     }
 
