@@ -67,36 +67,43 @@
                 <h1 id="titulo">Cadastro de Pastilha</h1>
                 <div id="area-form">
                     <br>
-                    <label for="codigo">ID Interno:</label>
-                    <form action="https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor" method="post" id="forms">
+                    <label for="id">Id interno:</label>
+                    <form id="forms">
 
                         <div class="form-group">
                             <br>
-                            <input type="text" name="codigo" id="codigo" placeholder="Ex:PAS-000001" required>
+                            <input type="text" name="id" id="id" placeholder="Ex:PAS-99999" pattern="PAS-[0-9]{5}" title="Digite o ID interno no formato PAS-99999" required>
                         </div>
                         <br>
                         <hr>
                         <br>
                         <div class="row">
                             <div class="form-group">
+                                <label for="codigo">Codigo (ISO):</label>
+                                <input type="text" id="codigo" name="codigo" placeholder="Ex: CNMG 120408" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="classe">Classe:</label>
-                                <input type="text" id="classe" name="classe" placeholder="" required>
+                                <select name="classe" id="classe" required>
+                                    <option value="P">P - Aços</option>
+                                    <option value="M">M - Inoxidáveis</option>
+                                    <option value="K">K - Ferros fundidos</option>
+                                    <option value="N">N - Não ferrosos</option>
+                                    <option value="S">S - Superligas e titânio</option>
+                                    <option value="H">H - Aços endurecidos</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="modelo">Modelo: </label>
-                                <input type="text" id="modelo" name="modelo" placeholder="" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="descricao">Descrição:</label>
-                                <input type="text" id="cod-fabricante" name="cod-fabricante" placeholder="" required>
-                            </div>
-                            <br>
-                        </div>
-                        <div class="row">
                             <div class="form-group">
                                 <label for="fornecedor">Fornecedor:</label>
-                                <select name="fornecedor" id="fornecedor"></select>
+                                <select name="fornecedor" id="fornecedor" required>
+                                    <option value="">Carregando...</option>
+                                </select>
                             </div>
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade: </label>
+                                <input type="number" id="quantidade" name="quantidade" min="0" max="100" required>
+                            </div>
+                            <br>
                         </div>
                         <div class="row">
                             <button type="submit" id="btn-confirm">Adicionar</button>
@@ -106,7 +113,7 @@
                         <div id="row-filtro">
                             <div class="form-group">
                                 <label for="filtro">Filtro:</label>
-                                <input type="text" id="filtro" name="filtro" placeholder="Digite o nome">
+                                <input type="text" id="filtro" name="filtro" placeholder="Digite o ID interno">
                             </div>
                             <button type="button" id="btn-filtro">Filtrar</button>
                         </div>
@@ -117,9 +124,11 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Codigo</th>
                                     <th>Classe</th>
-                                    <th>Modelo</th>
-                                    <th>Descrição</th>
+                                    <th>Fornecedor</th>
+                                    <th>Quantidade</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="body-table">
@@ -130,10 +139,7 @@
             </div>
         </main>
 
-        <footer>
-            LTDA DDA
-        </footer>
     </div>
-    <script src="../scripts/fornecedor.js"></script>
+    <script src="../scripts/pastilha.js"></script>
 </body>
 </html>
