@@ -10,7 +10,7 @@ body {
     font-family: 'principal', sans-serif;
     display: flex;
     min-height: 100vh;
-    background-color: #838a95;
+    background-color: #bbbaba;
 }
 
 #simbolo-4 {
@@ -19,32 +19,60 @@ body {
 
 }
 
-.sidebar {
-    width: 65px;
-    background-color: #1a2b4c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 15px;
-    gap: 35px;
-    color: #ffffff;
-    flex-shrink: 0;
-}
+  .sidebar {
+      width: 60px;
+      height: 100vh;
+      background-color: #203252;
+      padding-top: 20px;
+      overflow: hidden;
+      transition: width 0.3s ease;
+    }
 
-.sidebar .menu-icon {
-    cursor: pointer;
-}
+    .nome_sys {
+        font-family: "tema";
+        justify-content: center;
+        color: white;
+        top: -15px;
+        left: -22px;
+        position: relative;
+        color: #b7bfc0;
+    }
 
-.sidebar .nav-item {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 0;
-    color: #ffffff;
-    cursor: pointer;
-    text-decoration: none;
-}
+    .sidebar:hover {
+      width: 200px;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 18px;
+      color: #94a3b8;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #334155;
+      color: #ffffff;
+    }
+
+    .sidebar svg {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      fill: currentColor;
+    }
+
+    .sidebar span {
+      margin-left: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+      opacity: 1;
+    }
 
 .main-container {
     flex: 1;
@@ -53,24 +81,31 @@ body {
     min-width: 0;
 }
 
+
 .topbar {
     height: 65px;
-    background-color: #1a2b4c;
+    background-color: #fafcfe;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 25px;
-    color: #ffffff;
+    color: #101010;
+    box-shadow:  0px 2px 0 #858585, 0px 4px 0 #999, 0px 8px 0 #a2a2a2, 0px 12px 0 #b3b2b2;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    font-size: 18px;
-    max-width: 100px;
-    height: auto;
+    width: 300px;
+  height: 70px;
+  position: relative;
+  top: -20px; 
+}
+
+.logo1 {
+    top: 10px;
+    width: 60px;
+   height: 60px;
+   position: relative;
+   border: #000000 1px;
 }
 
 .search-box {
