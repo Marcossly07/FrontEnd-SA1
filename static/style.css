@@ -20,7 +20,7 @@ body {
 
   .sidebar {
       width: 60px;
-      height: 100vh;
+      height: 200vh;
       background-color: #1c3155;
       padding-top: 20px;
       overflow: hidden;
