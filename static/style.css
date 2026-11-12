@@ -61,14 +61,18 @@ body {
     z-index: 1000;
 }
 
-.nome_sys {
+h2 {
     font-family: "tema";
-    justify-content: center;
     color: #b7bfc0;
-    top: -35px;
-    left: 40px;
-    position: relative;
-    white-space: nowrap;
+     margin-left: 0px;
+    opacity: 0;
+    left: 10px;
+    font-size: 22px;
+}
+
+h2:hover {
+     opacity: 1;
+    visibility: visible;
 }
 
 /* expansao do menu */
@@ -76,6 +80,7 @@ body {
 .sidebar:hover {
     width: 200px;
 }
+
 
 
 .sidebar a {
@@ -109,6 +114,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease;
+    font-size: 15px;
 }
 
 .sidebar:hover span {
@@ -163,10 +169,10 @@ body {
 }
 
 .logo1 {
-    top: 10px;
-    width: 60px;
-    height: 60px;
-
+    left: 5px;
+    top: 15px;
+    width: 50px;
+    height: 50px;
     position: relative;
     object-fit: contain;
 }
@@ -482,12 +488,20 @@ body {
 @media screen and (max-width: 1200px) {
 
     .sidebar {
-        width: 55px;
+        width: 59px;
         min-width: 55px;
+    }
+
+    .sidebar span {
+        font-size: 14px;
     }
 
     .sidebar:hover {
         width: 180px;
+    }
+
+    .nome_sys {
+        font-size: 13px;
     }
 
     .logo {
@@ -517,7 +531,7 @@ body {
 
     .sidebar {
         width: 50px;
-        min-width: 50px;
+        min-width: 56px;
         height: 100vh;
         padding-top: 15px;
     }
@@ -535,11 +549,12 @@ body {
     }
 
     .nome_sys {
-        font-size: 11px;
+        top: -40px;
+        left: 30px;
     }
 
     .topbar {
-        min-height: 65px;
+        min-height: 40px;
         height: auto;
 
         padding: 10px;
@@ -556,8 +571,9 @@ body {
     }
 
     .logo1 {
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
+        left: 3px;
         top: 0;
     }
 
@@ -609,35 +625,17 @@ body {
         min-width: 22px;
     }
 
-
-    .main-container {
-        flex: 1;
-        width: auto;
-        min-width: 0;
-    }
-
-    .topbar {
-        width: 100%;
-
-        height: 55px;
-        min-height: 55px;
-
-        padding: 5px 10px;
-        gap: 5px;
-
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-
     .nome_sys {
-    font-family: "tema";
-    justify-content: center;
-    color: #b7bfc0;
-    top: -33px;
-    left: 36px;
-    position: relative;
-    white-space: nowrap;
-}
+        font-family: "tema";
+        color: #b7bfc0;
+        top: -33px;
+        left: 36px;
+        position: relative;
+    }
+
+    .sidebar span {
+        font-size: 12px;
+    }
 
     .logo {
         width: 100px;
@@ -650,15 +648,7 @@ body {
         width: 35px;
         height: 35px;
         top: -1;
-        left: 7px;
-    }
-
-    .search-box {
-        display: none;
-    }
-
-    .user-menu {
-        gap: 8px;
+        left: 11px;
     }
 
     .dashboard-content {
@@ -673,11 +663,8 @@ body {
         width: 100%;
     }
 
-    .card {
-        width: 100%;
-        min-width: 0;
-        min-height: 115px;
-        padding: 15px;
+    .sidebar span {
+        font-size: 14px;
     }
 
     .card .value {
@@ -686,34 +673,6 @@ body {
 
     .card .main-text {
         font-size: 18px;
-    }
-
-
-    .title-v,
-    .title-a,
-    .title-c,
-    .title-am,
-    .title-d {
-        max-width: calc(100% + 23px);
-        font-size: 14px;
-    }
-
-
-    .parte-branca-do-meio {
-        width: 100%;
-        height: 190px;
-        padding: 8px;
-    }
-
-    .grafico {
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .graph-line {
-        width: 70px;
     }
 }
 
@@ -725,10 +684,10 @@ body {
         max-width: 42px;
     }
 
-    .sidebar a {
-        padding: 12px 9px;
+    .nome_sys {
+      left: 20px; 
     }
-    
+
 
     .sidebar svg {
         width: 20px;
@@ -736,21 +695,13 @@ body {
         min-width: 20px;
     }
 
-    .dashboard-content {
-        padding: 30px;
-        gap: 15px;
+    .sidebar span {
+        font-size: 6px;
     }
 
-    .topbar {
-        padding: 5px;
-    }
-
-    .logo {
-        width: 85px;
-    }
-
-    .user-menu {
-        gap: 5px;
+    .logo1 {
+        width: 90px;
+        left: 10px;
     }
 
     .card {
