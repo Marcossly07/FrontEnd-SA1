@@ -223,3 +223,45 @@ form.addEventListener("submit", function (event) {
         adicionarFornecedor(fornecedor)
     }
 });
+
+const inputs = document.querySelectorAll('.cnpj-tel');
+
+  inputs.forEach(input => {
+    input.addEventListener('input', function () {
+      // 1. Verifica se há letras ou símbolos inválidos e exibe o alerta
+      const regexInvalidos = /[^0-9().\/+\-\s]/g;
+
+      if (regexInvalidos.test(this.value)) {
+        alert('Atenção: Apenas números são permitidos neste campo.');
+      }
+
+      // 2. Remove tudo que não for número
+      let valor = this.value.replace(/\D/g, '');
+
+      // 3. Aplica a máscara verificando diretamente o ID do campo
+      if (this.id === 'telefone') {
+        valor = valor.substring(0, 11); // Limita a 11 dígitos
+        
+        if (valor.length > 10) {
+          valor = valor.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (valor.length > 6) {
+          valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (valor.length > 2) {
+          valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        } else if (valor.length > 0) {
+          valor = valor.replace(/^(\d*)/, '($1');
+        }
+      } 
+      else if (this.id === 'cnpj') {
+        valor = valor.substring(0, 14); // Limita a 14 dígitos
+        
+        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+      }
+
+      // 4. Atualiza o campo com o valor formatado
+      this.value = valor;
+    });
+});
