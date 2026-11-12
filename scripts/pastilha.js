@@ -30,8 +30,8 @@ async function carregarFornecedores() {
         const fornecedores = await resposta.json();
 
         selectFornecedor.add(new Option("Selecione", ""));
-        fornecedores.forEach(f => {
-            selectFornecedor.add(new Option(f.nome, f.nome));
+        fornecedores.forEach(fornecedor => {
+            selectFornecedor.add(new Option(fornecedor.nome, fornecedor.nome));
         });
     } catch (erro) {
         console.error("Erro ao carregar fornecedores:", erro);
@@ -153,6 +153,7 @@ function tratarPastilhas(lista) {
         btnExcluir.addEventListener("click", () => {
             if (!confirm(`Excluir a pastilha ${pastilha.codigo}?`)) return;
             excluirPastilha(pastilha.id, novaLinha);
+            window.location.reload();
         });
 
         tdAcoes.appendChild(btnEditar);
@@ -204,15 +205,14 @@ form.addEventListener("submit", function (event) {
         return;
     }
 
+    console.log(idPastilha)
     // Duplicada = mesmo código + mesmo fornecedor (ignora a própria pastilha em edição)
-    const existente = listaAtual.some(p =>
-        p.id !== idEmEdicao &&
-        String(p.codigo).toUpperCase() === codigo &&
-        String(p.fornecedor).toLowerCase() === fornecedor.toLowerCase()
+    const existente = listaAtual.some(pastilha =>
+        pastilha.id !== idEmEdicao && String(pastilha.idPastilha).toUpperCase() === idPastilha.toUpperCase()
     );
 
     if (existente) {
-        alert("Pastilha já existente, altere o código ou o fornecedor.");
+        alert("Pastilha já existente, altere o ID interno ou código.");
         return;
     }
 

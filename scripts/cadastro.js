@@ -1,14 +1,40 @@
-async function fornecedores() {
-    const selectFornecedor=document.getElementById("fornecedor");
-    const resposta= await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
-    const objResposta= await resposta.json();
-    console.log(objResposta);
-    for (const chave of objResposta){
-        selectFornecedor.innerHTML+=`<option>${chave["nome"]}</option>`
+async function fornecedoresEPastilhas() {
+    const selectFornecedor = document.getElementById("fornecedor");
+    const selectPastilha = document.getElementById("classe");
+
+    const respostaFornecedor = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor");
+    const objRespostaFornecedor = await respostaFornecedor.json();
+
+    const respostaPastilha = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    const objRespostaPastilhas = await respostaPastilha.json();
+
+    // Preenche fornecedores
+    selectFornecedor.replaceChildren(new Option("Selecione", ""));
+    for (const fornecedor of objRespostaFornecedor) {
+        selectFornecedor.add(new Option(fornecedor["nome"], fornecedor["nome"]));
     }
-    
+
+    // Classe começa vazia
+    selectPastilha.replaceChildren(new Option("Selecione", ""));
+
+    // Quando o fornecedor mudar, atualiza as classes
+    selectFornecedor.addEventListener("change", function () {
+        const fornecedorSelecionado = selectFornecedor.value;
+
+        selectPastilha.replaceChildren(new Option("Selecione", ""));
+
+        const classes = objRespostaPastilhas
+            .filter(pastilha => pastilha["fornecedor"] === fornecedorSelecionado)
+            .map(pastilha => pastilha["classe"]);
+
+        // remove repetidas
+        for (const classe of new Set(classes)) {
+            selectPastilha.add(new Option(classe, classe));
+        }
+    });
 }
-fornecedores();
+fornecedoresEPastilhas();
+
 const forms = document.getElementById("cadastro");
 const paragrafoCadastrante = document.getElementById("paragrafo-cadastrante")
 const paragrafoData = document.getElementById("paragrafo-data")
