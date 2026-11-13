@@ -1,267 +1,452 @@
+
 const form = document.getElementById("forms");
 const btnConfirm = document.getElementById("btn-confirm");
-const btnFiltro = document.getElementById("btn-filtro")
+const btnFiltro = document.getElementById("btn-filtro");
 const tbody = document.getElementById("body-table");
+const divRow = document.getElementById("row");
+const rowFiltro = document.getElementById("row-filtro");
+
 const API_URL = "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor";
-let idEmEdicao = null;// null = modo cadastro | número = modo edição.
+
+let idEmEdicao = null;
+let existente = false;
+let fornecedores = [];
+
 const btnCancelar = document.createElement("button");
-let existente = false
+btnCancelar.textContent = "Cancelar";
+btnCancelar.type = "button";
+btnCancelar.style.backgroundColor = "#ED2100";
 
-btnFiltro.addEventListener("click", async (event) => {
-    event.preventDefault();
-    const rowFiltro = document.getElementById("row-filtro");
+btnCancelar.style.border = "solid 1px black"
+btnCancelar.style.color = "black";
+btnCancelar.style.width = "100px";
+btnCancelar.style.display = "none";
 
-    const filtro = document.getElementById("filtro").value.trim(); //elimina partes vazias
+// ==========================================
+// 1. FUNÇÕES AUXILIARES
+// ==========================================
 
-    try {
-        const lista = await listarFornecedor(filtro);
-        tbody.innerHTML = "";       // limpa a tabela antes de redesenhar
-        tratarFornecedores(lista);
-    } catch (erro) {
-        console.error("Erro ao filtrar:", erro);
-    }
-
-    if(filtro){
-        
-        //Editando o botão de cancelar
-        btnCancelar.textContent = "Cancelar";
-        btnCancelar.style.width = "100px"
-        btnCancelar.style.backgroundColor = "#ED2100"
-
-    rowFiltro.appendChild(btnCancelar);
-
-    btnCancelar.addEventListener("click", () => {
-        window.location.reload()
-    })
-    }
-
-});
-
-async function listarFornecedor(nomeFornecedor) {
-    const url = nomeFornecedor ? `${API_URL}?nome=${nomeFornecedor}`: API_URL;
-    const resposta = await fetch(url)
-
-    if (!resposta.ok) {
-        throw new Error(`Erro: ${resposta.status}`)
-    }
-    const dados = await resposta.json();
-
-    form.addEventListener("input", () => {
-        existente = false
-        const nome = document.getElementById("nome").value;
-        const cnpj = document.getElementById("cnpj").value;
-        console.log("Dados", nome,cnpj)
-        for(const i of dados ){
-            if(i["nome"] == nome || i["cnpj"] == cnpj){
-                existente = true
-                break
-            }
-            else{
-                existente = false
-            }
-        }
-        console.log(existente)
-    })
-    
-    return dados   
+function limparNumeros(valor) {
+    return valor.replace(/\D/g, "");
 }
 
 
+
+function validarCamposCnpjTel() {
+
+    const cnpj = document.getElementById("cnpj").value;
+    const telefone = document.getElementById("telefone").value;
+
+    const cnpjNumeros = cnpj.replace(/\D/g, "");
+    const telNumeros = telefone.replace(/\D/g, "");
+
+    const cnpjRepetido = /^(\d)\1+$/.test(cnpjNumeros);
+
+    console.log("CNPJ:", cnpjNumeros);
+    console.log("Quantidade:", cnpjNumeros.length);
+    console.log("É repetido?", cnpjRepetido);
+
+    if (cnpjNumeros.length !== 14) {
+        alert("CNPJ precisa ter 14 números.");
+        return false;
+    }
+
+    if (cnpjRepetido) {
+        alert("CNPJ não pode ter todos os números iguais.");
+        return false;
+    }
+
+    if (telNumeros.length < 10 || telNumeros.length > 11) {
+        alert("Telefone inválido ou incompleto!");
+        return false;
+    }
+
+    if (/^(\d)\1+$/.test(telNumeros)) {
+        alert("Telefone não pode ter números repetidos.");
+        return false;
+    }
+
+    return true;
+}
+
+// ==========================================
+// 2. VERIFICAR FORNECEDORES EXISTENTES
+// ==========================================
+
+async function listarFornecedor(nomeFornecedor = "") {
+    const url = nomeFornecedor
+        ? `${API_URL}?nome=${encodeURIComponent(nomeFornecedor)}`
+        : API_URL;
+
+    const resposta = await fetch(url);
+
+    if (!resposta.ok) {
+        throw new Error(`Erro HTTP: ${resposta.status}`);
+    }
+
+    return await resposta.json();
+}
+
+async function verificarFornecedor() {
+    const nome = document.getElementById("nome").value.trim();
+    const cnpj = limparNumeros(
+        document.getElementById("cnpj").value
+    );
+
+    try {
+        fornecedores = await listarFornecedor();
+
+        existente = fornecedores.some(i => {
+            // Durante a edição, ignora o próprio fornecedor
+            if (idEmEdicao && String(i.id) === String(idEmEdicao)) {
+                return false;
+            }
+
+            const nomeBanco = i.nome.trim().toLowerCase();
+            const cnpjBancoLimpo = limparNumeros(i.cnpj);
+
+            return (
+                (nome && nomeBanco === nome.toLowerCase()) ||
+                (cnpj && cnpjBancoLimpo === cnpj)
+            );
+        });
+
+    } catch (erro) {
+        console.error("Erro ao verificar fornecedor:", erro);
+        existente = false;
+    }
+}
+
+// Verifica duplicidade quando os campos são alterados
+form.addEventListener("input", () => {
+    verificarFornecedor();
+});
+
+// ==========================================
+// 3. LISTAR E EXIBIR FORNECEDORES
+// ==========================================
+
 function tratarFornecedores(lista) {
+    tbody.innerHTML = "";
+
     lista.forEach(fornecedor => {
-        const nome = fornecedor.nome
-        const cnpj = fornecedor.cnpj
-        const telefone = fornecedor.telefone
-        const email = fornecedor.email
-        
-        const divRow = document.getElementById("row");
-        
-        
+
         const novaLinha = document.createElement("tr");
-        
+
         const tdNome = document.createElement("td");
-        tdNome.textContent = nome;
-        
+        tdNome.textContent = fornecedor.nome;
+
         const tdCnpj = document.createElement("td");
-        tdCnpj.textContent = cnpj
-        
+        tdCnpj.textContent = fornecedor.cnpj;
+
         const tdTelefone = document.createElement("td");
-        tdTelefone.textContent = telefone
-        
+        tdTelefone.textContent = fornecedor.telefone;
+
         const tdEmail = document.createElement("td");
-        tdEmail.textContent = email
-        
-        // 1. Cria a célula que vai conter os botões de ação
+        tdEmail.textContent = fornecedor.email;
+
         const tdAcoes = document.createElement("td");
-        
-        // Cria o botão de Editar/Salvar
+
+        // BOTÃO EDITAR
         const btnEditar = document.createElement("button");
         btnEditar.textContent = "Editar";
+        btnEditar.type = "button";
         btnEditar.style.marginRight = "5px";
         btnEditar.style.marginLeft = "20px";
-        btnEditar.style.width = "55px"
-        btnEditar.style.backgroundColor = "#FFDE21"
-        
-        //Editando o botão de cancelar
-        btnCancelar.textContent = "Cancelar";
-        btnCancelar.style.width = "55px"
-        btnCancelar.style.backgroundColor = "#ED2100"
-        
-        btnEditar.addEventListener("click", (event) => {
-            event.preventDefault();
-            
-            idEmEdicao = fornecedor.id; //Guarda quem esta sendo editado
-            
-            document.getElementById("titulo").textContent = "Edição do Fornecedor"
-            btnConfirm.textContent = "Salvar";
-            
-            //Mostra os dados do fornecedor na tela
-            document.getElementById("nome").value = fornecedor.nome;
-            document.getElementById("cnpj").value = fornecedor.cnpj
-            document.getElementById("telefone").value = fornecedor.telefone
-            document.getElementById("email").value = fornecedor.email
-            
-            divRow.appendChild(btnCancelar);
+        btnEditar.style.width = "55px";
+        btnEditar.style.backgroundColor = "#FFDE21";
+
+        btnEditar.addEventListener("click", () => {
+            editarFornecedor(fornecedor);
         });
-        
-        btnCancelar.addEventListener("click", () => {
-        });
-        
-        // Cria o botão de Excluir
+
+        // BOTÃO EXCLUIR
         const btnExcluir = document.createElement("button");
         btnExcluir.textContent = "Excluir";
-        btnExcluir.style.width = "55px"
-        btnExcluir.style.backgroundColor = "#ED2100"
-        
+        btnExcluir.type = "button";
+        btnExcluir.style.width = "55px";
+        btnExcluir.style.backgroundColor = "#ED2100";
+
         btnExcluir.addEventListener("click", () => {
-            if (!confirm(`Excluir fornecedor ${fornecedor.nome}?`)) return;
-            
-            async function excluirFornecedor(id) {
-                try {
-                    const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${id}`, {
-                        method: "DELETE"
-                    })
-                    if (!resposta.ok) {
-                        throw new Error(`Erro HTTP: ${resposta.status}`)
-                    }
-                    novaLinha.remove(); // só remove da tela se o servidor confirmou
-                }
-                catch (erro) {
-                    console.error(
-                        "Não foi possivel ex"
-                    )
-                }
-            }
-            excluirFornecedor(fornecedor.id)
+            excluirFornecedor(fornecedor.id, fornecedor.nome);
         });
-        
-        
+
         tdAcoes.appendChild(btnEditar);
         tdAcoes.appendChild(btnExcluir);
-        
+
         novaLinha.appendChild(tdNome);
         novaLinha.appendChild(tdCnpj);
         novaLinha.appendChild(tdTelefone);
         novaLinha.appendChild(tdEmail);
         novaLinha.appendChild(tdAcoes);
-        
+
         tbody.appendChild(novaLinha);
     });
 }
 
-listarFornecedor().then(tratarFornecedores);
+// ==========================================
+// 4. EDITAR FORNECEDOR
+// ==========================================
 
+function editarFornecedor(fornecedor) {
 
+    idEmEdicao = fornecedor.id;
 
-form.addEventListener("submit", function (event) {
+    document.getElementById("titulo").textContent =
+        "Edição do Fornecedor";
+
+    btnConfirm.textContent = "Salvar";
+
+    document.getElementById("nome").value = fornecedor.nome;
+    document.getElementById("cnpj").value = fornecedor.cnpj;
+    document.getElementById("telefone").value = fornecedor.telefone;
+    document.getElementById("email").value = fornecedor.email;
+
+    divRow.appendChild(btnCancelar);
+    btnCancelar.style.display = "inline-block";
+
+    verificarFornecedor();
+}
+
+// ==========================================
+// 5. CANCELAR EDIÇÃO
+// ==========================================
+
+function cancelarEdicao() {
+
+    idEmEdicao = null;
+    existente = false;
+
+    form.reset();
+
+    document.getElementById("titulo").textContent =
+        "Cadastro do Fornecedor";
+
+    btnConfirm.textContent = "Cadastrar";
+
+    btnCancelar.style.display = "none";
+}
+
+btnCancelar.addEventListener("click", cancelarEdicao);
+
+// ==========================================
+// 6. EXCLUIR FORNECEDOR
+// ==========================================
+
+async function excluirFornecedor(id, nome) {
+
+    if (!confirm(`Excluir fornecedor ${nome}?`)) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE"
+        });
+
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+        }
+
+        alert("Fornecedor excluído com sucesso!");
+
+        const lista = await listarFornecedor();
+        tratarFornecedores(lista);
+
+    } catch (erro) {
+        console.error("Não foi possível excluir o fornecedor:", erro);
+        alert("Erro ao excluir fornecedor.");
+    }
+}
+
+// ==========================================
+// 7. CADASTRAR E ATUALIZAR FORNECEDOR
+// ==========================================
+
+form.addEventListener("submit", async function(event) {
+
     event.preventDefault();
 
-    const nome = document.getElementById("nome").value;
+    // Primeiro valida CNPJ e telefone
+    if (!validarCamposCnpjTel()) {
+        return;
+    }
+
+    const nome = document.getElementById("nome").value.trim();
     const cnpj = document.getElementById("cnpj").value;
     const telefone = document.getElementById("telefone").value;
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
 
-    if(!idEmEdicao && existente){
-        alert(`Fornecedor ja existente, altere o nome ou o CNPJ`)
+    if (!nome) {
+        alert("Informe o nome do fornecedor.");
+        return;
     }
 
-    else{
+    // Atualiza a verificação antes de salvar
+    await verificarFornecedor();
 
-        const fornecedor = {
-            nome: nome,
-            cnpj: cnpj,
-            telefone: telefone,
-            email: email
+    if (!idEmEdicao && existente) {
+        alert("Fornecedor já existente, altere o nome ou o CNPJ.");
+        return;
+    }
+
+    const fornecedor = {
+        nome,
+        cnpj,
+        telefone,
+        email
+    };
+
+    try {
+        const url = idEmEdicao
+            ? `${API_URL}/${idEmEdicao}`
+            : API_URL;
+
+        const metodo = idEmEdicao ? "PUT" : "POST";
+
+        const resposta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(fornecedor)
+        });
+
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
         }
-    
-        async function adicionarFornecedor(fornecedor) {
-            try {
-                const url = idEmEdicao ? `${API_URL}/${idEmEdicao}` : API_URL; //verifica se tem id na variavel, se tiver ele salva a url com id, senão ele so salva a url normal
-                const metodo = idEmEdicao ? "PUT" : "POST" //se tiver id o metodo sera o "PUT", caso contrario será o "POST"
-                const resposta = await fetch(url, {
-                    method: metodo,
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(fornecedor)
-                })
-                if (!resposta.ok) {
-                    throw new Error(
-                        `Erro HTTP: ${resposta.status}`
-                    );
-                }
-            } catch (erro) {
-                console.error(
-                    "Não foi possível consultar os produtos:",
-                    erro
-                );
-            }
-    
-            //Atualiza a pagina automaticamente
-            window.location.reload()
-        }
-        adicionarFornecedor(fornecedor)
+
+        alert(
+            idEmEdicao
+                ? "Fornecedor atualizado com sucesso!"
+                : "Fornecedor cadastrado com sucesso!"
+        );
+
+        window.location.reload();
+
+    } catch (erro) {
+        console.error("Não foi possível salvar o fornecedor:", erro);
+        alert("Erro ao salvar fornecedor.");
     }
 });
 
-const inputs = document.querySelectorAll('.cnpj-tel');
+// ==========================================
+// 8. FILTRAR FORNECEDORES
+// ==========================================
 
-  inputs.forEach(input => {
-    input.addEventListener('input', function () {
-      // 1. Verifica se há letras ou símbolos inválidos e exibe o alerta
-      const regexInvalidos = /[^0-9().\/+\-\s]/g;
+btnFiltro.addEventListener("click", async (event) => {
 
-      if (regexInvalidos.test(this.value)) {
-        alert('Atenção: Apenas números são permitidos neste campo.');
-      }
+    event.preventDefault();
 
-      // 2. Remove tudo que não for número
-      let valor = this.value.replace(/\D/g, '');
+    const filtro = document.getElementById("filtro").value.trim();
 
-      // 3. Aplica a máscara verificando diretamente o ID do campo
-      if (this.id === 'telefone') {
-        valor = valor.substring(0, 11); // Limita a 11 dígitos
-        
-        if (valor.length > 10) {
-          valor = valor.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        } else if (valor.length > 6) {
-          valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-        } else if (valor.length > 2) {
-          valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-        } else if (valor.length > 0) {
-          valor = valor.replace(/^(\d*)/, '($1');
+    try {
+        const lista = await listarFornecedor(filtro);
+
+        tratarFornecedores(lista);
+
+        if (filtro) {
+            if (!rowFiltro.contains(btnCancelar)) {
+                rowFiltro.appendChild(btnCancelar);
+            }
+
+            btnCancelar.style.display = "inline-block";
         }
-      } 
-      else if (this.id === 'cnpj') {
-        valor = valor.substring(0, 14); // Limita a 14 dígitos
-        
-        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
-        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
-        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-      }
 
-      // 4. Atualiza o campo com o valor formatado
-      this.value = valor;
+    } catch (erro) {
+        console.error("Erro ao filtrar:", erro);
+    }
+});
+
+// ==========================================
+// 9. MÁSCARA DE CNPJ E TELEFONE
+// ==========================================
+
+const inputs = document.querySelectorAll(".cnpj-tel");
+
+inputs.forEach(input => {
+
+    input.addEventListener("input", function() {
+
+        const regexInvalidos = /[^0-9().\/+\-\s]/g;
+
+        if (regexInvalidos.test(this.value)) {
+            alert("Atenção: Apenas números são permitidos neste campo.");
+        }
+
+        let valor = limparNumeros(this.value);
+
+        // MÁSCARA DE TELEFONE
+        if (this.id === "telefone") {
+
+            valor = valor.substring(0, 11);
+
+            if (valor.length > 10) {
+                valor = valor.replace(
+                    /^(\d{2})(\d{5})(\d{4})/,
+                    "($1) $2-$3"
+                );
+
+            } else if (valor.length > 6) {
+                valor = valor.replace(
+                    /^(\d{2})(\d{4})(\d{0,4})/,
+                    "($1) $2-$3"
+                );
+
+            } else if (valor.length > 2) {
+                valor = valor.replace(
+                    /^(\d{2})(\d{0,5})/,
+                    "($1) $2"
+                );
+
+            } else if (valor.length > 0) {
+                valor = valor.replace(/^(\d*)/, "($1");
+            }
+        }
+
+        // MÁSCARA DE CNPJ
+        else if (this.id === "cnpj") {
+
+    valor = valor.substring(0, 14);
+
+    valor = valor.replace(
+        /^(\d{2})(\d)/,
+        "$1.$2"
+    );
+
+    valor = valor.replace(
+        /^(\d{2})\.(\d{3})(\d)/,
+        "$1.$2.$3"
+    );
+
+    valor = valor.replace(
+        /^(\d{2})\.(\d{3})\.(\d{3})(\d)/,
+        "$1.$2.$3/$4"
+    );
+
+    valor = valor.replace(
+        /(\d{4})(\d{1,2})$/,
+        "$1-$2"
+    );
+}
+
+        this.value = valor;
     });
 });
+
+// ==========================================
+// 10. CARREGAR FORNECEDORES AO INICIAR
+// ==========================================
+
+async function inicializar() {
+    try {
+        const lista = await listarFornecedor();
+        fornecedores = lista;
+        tratarFornecedores(lista);
+
+    } catch (erro) {
+        console.error("Erro ao carregar fornecedores:", erro);
+    }
+}
+
+inicializar();
