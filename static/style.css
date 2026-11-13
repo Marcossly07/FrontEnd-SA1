@@ -13,7 +13,7 @@
     font-family: 'tema';
     font-style: normal;
     font-weight: 400;
-    src: url('/fonts/Heavitas.ttf') format('truetype');
+    src: url('/fonts/Impact.ttf') format('truetype');
 }
 
 
@@ -61,20 +61,23 @@ body {
     z-index: 1000;
 }
 
-h2 {
-    font-family: "tema";
-    color: #b7bfc0;
-     margin-left: 0px;
-    opacity: 0;
-    left: 10px;
-    font-size: 22px;
+#nome_sys {
+    color: white;
+    font-family: 'tema';
+    display: flexbox;
+    letter-spacing: 2px;
+      margin-left: 20px;
+      position: relative;
+      top: -30px;
+      left: 40px;
+    font-size: 14px;
+    display: flax;
 }
 
-h2:hover {
-     opacity: 1;
+#nome_sys:hover {
+ opacity: 1;
     visibility: visible;
 }
-
 /* expansao do menu */
 
 .sidebar:hover {
@@ -500,8 +503,9 @@ h2:hover {
         width: 180px;
     }
 
-    .nome_sys {
-        font-size: 13px;
+    #nome_sys {
+        position: relative;
+        top: -30px;
     }
 
     .logo {
@@ -548,9 +552,9 @@ h2:hover {
         margin-left: 12px;
     }
 
-    .nome_sys {
-        top: -40px;
-        left: 30px;
+    #nome_sys {
+        position: relative;
+        top: -44px;
     }
 
     .topbar {
@@ -625,12 +629,11 @@ h2:hover {
         min-width: 22px;
     }
 
-    .nome_sys {
-        font-family: "tema";
-        color: #b7bfc0;
-        top: -33px;
-        left: 36px;
+    #nome_sys {
         position: relative;
+        top: -35px;
+        left: 37px;
+        font-size: 12px;
     }
 
     .sidebar span {
@@ -684,8 +687,9 @@ h2:hover {
         max-width: 42px;
     }
 
-    .nome_sys {
-      left: 20px; 
+    #nome_sys {
+        position: relative;
+        top: 10px; 
     }
 
 

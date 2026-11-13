@@ -12,10 +12,10 @@
 
 <body>
   
- <aside class="sidebar">
+    <aside class="sidebar">
         <div class="logo">
             <img src="/img/logo.png" alt="Logo" class="logo1">
-            <span class="nome_sys">Stock System</span>
+            <h2 id="nome_sys">Stock System</h2>
         </div>
 
         <a href="/index.html">
@@ -71,14 +71,6 @@
 
     <div class="main-container">
         <header class="topbar">
-            <
-
-            <div class="search-box">
-                <input placeholder="Pesquisar..." type="text">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
-            </div>
 
             <div class="user-menu">
                 <div class="badge-icon">
@@ -91,13 +83,13 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                     <span class="material-symbols-outlined">account_circle</span>
-                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
                 </div>
-                <span class="material-symbols-outlined" style="cursor: pointer;">logout</span>
             </div>
         </header>
+
         <!-- estrutura base das paginas  -->
     <main>
+        <div class="area_conteudo">
         <div class="adicionar-cor">
         <section class="filtro">
             <h2>Filtro</h2>
@@ -166,6 +158,7 @@
                 </table>
             </div>
         </section>
+        </div>
     </main>
     <script src="../scripts/entradas-e-saidas.js"></script>
 </body>
