@@ -14,6 +14,11 @@
 <body>
 
     <aside class="sidebar">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo" class="logo1">
+            <h2 id="nome_sys">Stock System</h2>
+        </div>
+
         <a href="/index.html">
             <svg viewBox="0 0 24 24">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -23,17 +28,20 @@
 
         <a href="/templates/cadastro.html">
             <svg viewBox="0 0 24 24">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-            </svg>
-            <span>Cadastro</span>
-        </a>
-
-        <a href="/templates/fornecedor.html">
-            <svg viewBox="0 0 24 24">
                 <path
-                    d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
+                    d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.3L18.5 8 12 11.7 5.5 8 12 4.3zM5 9.7l6 3.4v6.2l-6-3.4V9.7zm8 9.6v-6.2l6-3.4v6.2l-6 3.4z" />
+                <path d="M19 14v2h2v2h-2v2h-2v-2h-2v-2h2v-2h2z" />
             </svg>
-            <span>Histórico</span>
+            <span>Entrada e <br> Saida </span>
+
+            <a href="/templates/pastilha.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                </svg>
+                <span>Cadastrar <br> Pastilha</span>
+            </a>
+
+
         </a>
 
         <a href="/templates/fornecedor.html" class="logout">
@@ -44,8 +52,15 @@
             <span>Cadastrar <br> Fornecedores</span>
         </a>
 
+        <a href="/templates/entradas-e-saidas.html">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
+            </svg>
+            <span>Histórico</span>
+        </a>
 
-        <a href="/templates/login.html" class="logout">
+        <a href="/templates/login.html" class="logout" id="sair">
             <svg viewBox="0 0 24 24">
                 <path
                     d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
@@ -58,7 +73,7 @@
     <div class="main-container">
         <header class="topbar">
             <div class="search-box">
-                <input placeholder="Pesquisar..." type="text" id="pesquisa">
+                <input placeholder="Pesquisar pastilha..." type="text" id="pesquisa">
                 <div id="resultado"></div>
                 <div id="infoProduto"></div>
                 <span class="material-symbols-outlined">
@@ -96,7 +111,7 @@
 
                 <div class="card card-vermelho" title="Alerta de estoque">
                     <div class="title-v">ALERTA DE ESTOQUE MINIMO</div>
-                    <div class="value" id="alerta_de_estoque_min">12</div>
+                    <div class="value" id="alerta_de_estoque_min">0</div>
                     <div class="subtitle">___________ pastilha de freio</div>
                 </div>
 
