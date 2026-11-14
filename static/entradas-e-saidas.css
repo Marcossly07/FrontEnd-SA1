@@ -277,7 +277,7 @@ nav {
 
 
 main {
-    padding: 100px;
+    padding: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -298,31 +298,35 @@ form input {
 form button {
     height: 24px;
 }
+tr {
+    background-color: #f7f7f7;
+}
 
 .adicionar-cor {
+    border: #000000 solid 1px;
     position: relative;
     align-items: center;
     border-radius: 4px;
     padding: 10px;
     width: 100%;
-    background-color: #c4c2c2;
+    background-color: #35486d;
     justify-content: center;
 }
 
 .filtro {
-    padding: 20px;
+    padding: 2px;
     border-radius: 4px;
     color: white;
     margin-left: 20px;
     margin-bottom: 20px;
     background-color: #35486d;
-    height: 150px;
-    width: 580px;
+    height: 90px;
+    width: 260px;
     align-self: center;
 }
 
 .pouca_quantidade {
-    background-color: red;
+    background-color: rgb(226, 62, 62);
     color: white;
 }
 
@@ -338,27 +342,25 @@ table button {
 }
 
 .area_conteudo {
-    padding: 5px;
+    padding: 6px;
     align-items: center;
-    display: flexbox;
-    justify-content: center;
-    width: 650px;
-    height: 600px;
+    width: 600px;
     border-radius: 4px;
     border: #000000 solid 1.5px;
     background-color: white;
+    
 }
 
 table,
 th,
 td {
-    border: 1px solid #3f3f3f;
+    border: 1.1px solid #030202;
 }
 
 .saida {
+    color: #000000;
     padding: 30px;
     margin-bottom: 30px;
-    margin-left: 20px;
 }
 
 nav img {
@@ -368,8 +370,24 @@ nav img {
 }
 
 .entrada {
-border-radius: 4px;
-    margin-left: 20px;
+    color: #000000;
+border-radius: 8px;
+    margin-left: 30px;
+}
+
+#titulo {
+    background-color: #5a9462;
+    color: white;
+}
+
+.excluir {
+    background-color: rgb(184, 77, 77);
+}
+
+#titulo1 {
+    background-color: #45598f;
+    border: #000000 solid 2px;
+    color: white;
 }
 
 .link {
@@ -377,11 +395,20 @@ border-radius: 4px;
 
 }
 
-@media (max-width:600px) {
+@media (max-width:800px) {
     nav img {
         left: 0px;
         width: 70px;
         height: 70px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .area_conteudo {
+        transform: scale(0.85);
+        border: #000000 solid 1.3px;
     }
 
     .tabela-responsiva {
@@ -395,4 +422,35 @@ border-radius: 4px;
         border-collapse: collapse;
         min-width: 600px;
     }
+}
+
+@media (max-width:600px) {
+    .area_conteudo {
+        transform: scale(0.5);
+        border: #000000 solid 1.3px;
+    }
+
+}
+
+@media (max-width:400px) {
+    .area_conteudo {
+        transform: scale(0.8);
+    }
+
+    
+    main {
+        padding: 2px;
+    }
+}
+
+@media (max-width:300px) {
+    .area_conteudo {
+        transform: scale(0.7);
+        border: #000000 solid 1.3px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
 }
