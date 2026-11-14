@@ -1,6 +1,6 @@
 async function mostrarQuantidade() {
   try {
-    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/pastilhas");
+    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     let dados = await resposta.json();
 
     let total = 0;
