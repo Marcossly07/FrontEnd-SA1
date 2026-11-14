@@ -101,7 +101,7 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: #334155;
+    background-color: #a1b1c8;
     color: #ffffff;
 }
 
@@ -485,6 +485,10 @@ body {
 .parte-branca-do-meio img,
 .parte-branca-do-meio canvas {
     max-width: 100%;
+}
+
+#sair {
+
 }
 
 
