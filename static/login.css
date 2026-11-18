@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@font-face {
+    font-family: 'Overl';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Gothical.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'tema';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Impact.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: hidden;
+    font-family: 'Poppins', Arial, sans-serif;
+
+    background:
+        radial-gradient(ellipse at 68% 88%, rgba(143, 169, 255, .95), transparent 52%),
+        radial-gradient(ellipse at 52% 20%, #adadadcc, transparent 43%),
+        radial-gradient(ellipse at 4% 5%, rgba(23, 20, 63, 0.9), transparent 55%),
+        linear-gradient(135deg, #25464d, #11152f);
+}
+
+.login-card {
+    width: min(378px, 100%);
+    min-height: 495px;
+    padding: 40px 33px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    background: linear-gradient(
+        145deg,
+        rgba(58, 84, 126, 0.45),
+        rgba(61, 76, 116, 0.38),
+        rgba(154, 178, 255, .58)
+    );
+    box-shadow: 0 20px 70px rgba(7, 5, 27, .12);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255, 255, 255, .18);
+}
+
+.dda {
+    position: relative;
+    top: -5px;
+    left: 40px;
+    color: #a3aab4;
+    font-size: 12px;
+}
+
+.titulo {
+    font-family: 'tema';
+    font-size: 20px;
+    position: relative;
+    top: -10px;
+    color: rgb(174, 181, 194);
+}
+
+.avatar {
+    width: 132px;
+    height: 132px;
+    margin-bottom: 7px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar svg {
+    width: 100%;
+    height: 100%;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.input-row {
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+.input-row + .input-row {
+    margin-top: 33px;
+}
+
+.icon {
+    font-size: 19px;
+}
+
+.input-row input {
+    width: 100%;
+    min-width: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+    font: 400 15px 'Poppins', sans-serif;
+}
+
+.input-row input::placeholder {
+    color: white;
+    opacity: .94;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+    margin: 31px -2px 34px;
+
+    color: rgba(255, 255, 255, .78);
+    font-size: 11px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+}
+
+.remember input {
+    accent-color: #28213d;
+}
+
+.form-options a {
+    color: rgba(255, 255, 255, .72);
+    text-decoration: none;
+    font-style: italic;
+}
+
+.form-options a:hover {
+    color: white;
+}
+
+.Grupo {
+    font-weight: bold;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+    position: relative;
+    top: 60px;
+}
+.Overl {
+    font-family: 'Overl';
+    font-size: 40px;
+    position: relative;
+    top: 39px;
+    color: white;
+}
+
+button {
+    width: 100%;
+    height: 51px;
+
+    border: none;
+    border-radius: 16px;
+
+    background: linear-gradient(
+        105deg,
+        #002c65,
+        #6d74c3
+    );
+
+    color: white;
+
+    font: 600 14px 'Poppins', sans-serif;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+}
