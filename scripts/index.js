@@ -1,17 +1,15 @@
 async function mostrarQuantidade() {
   try {
-    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/pastilhas");
+    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
     let dados = await resposta.json();
 
     let total = 0;
 
-    dados.forEach(item => {
-      if (item.retirada === "não") {
-      total += Number(item.quantidade);
-      }
+    dados.forEach(pastilha => {
+      total += Number(pastilha.quantidade);
     });
 
-    document.getElementById("quantidade").innerText =+"" + total;
+    document.getElementById("quantidade").innerText = total;
 
   } catch (erro) {
     console.log("Erro:", erro);
@@ -19,13 +17,6 @@ async function mostrarQuantidade() {
 }
 
 mostrarQuantidade();
-
-async function carregarD() {
-  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/pastilhas");
-  dados = await resposta.json();
-}
-
-carregarD();
 
 const input = document.getElementById("pesquisa");
 const resultado = document.getElementById("resultado");
@@ -96,25 +87,93 @@ function mostrarInfo(item) {
 }
 
 async function mostrarQuantidadeFornecedores() {
-  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
+  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor");
   let dados = await resposta.json();
 
-  let unicos = [...new Set(dados.map(item => item.fornecedor))];
-
-  document.getElementById("fornecedores").innerText = unicos.length;
+  document.getElementById("fornecedores").innerText = dados.length;
 }
 
 mostrarQuantidadeFornecedores();
 
 async function alertaEstoqueMinimo() {
-  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
+  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
   let dados = await resposta.json();
 
-  let limite = 5;
-
+  let limite = 20;
+  let maiorQuantidade = ""
+  dados.forEach(pastilha => {
+    if (pastilha.quantidade <= 20) {
+      document.getElementById("alerta_de_estoque_min").innerText = `${pastilha.idPastilha} EM FALTA!`
+    }
+    else {
+      document.getElementById("alerta_de_estoque_min").innerText = `.....`
+    }
+  });
   let baixos = dados.filter(item => Number(item.quantidade) <= limite);
-
-  document.getElementById("alerta_de_estoque_min").innerText = baixos.length;
 }
 
 alertaEstoqueMinimo();
+
+async function cincoMenoresEstoques() {
+  try {
+    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let dados = await resposta.json();
+
+    // ordena do menor para o maior e pega as 5 primeiras
+    let menores = [...dados]
+      .sort((a, b) => Number(a.quantidade) - Number(b.quantidade))
+      .slice(0, 5);
+
+    let container = document.getElementById("menores_estoques");
+    container.innerHTML = "";
+
+    menores.forEach(pastilha => {
+      let linha = document.createElement("div");
+      linha.style.display = "flex";
+      linha.style.justifyContent = "flex-start";
+      linha.style.gap = "8px";
+
+      let nome = document.createElement("span");
+      nome.innerText = (pastilha.idPastilha ?? pastilha.fornecedor ?? pastilha.id) + ":";
+
+      let qtd = document.createElement("strong");
+      qtd.innerText = pastilha.quantidade;
+
+      linha.appendChild(nome);
+      linha.appendChild(qtd);
+      container.appendChild(linha);
+    });
+
+  } catch (erro) {
+    console.log("Erro:", erro);
+  }
+}
+
+cincoMenoresEstoques();
+
+async function pastilhaEmAlta() {
+  try {
+    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let dados = await resposta.json();
+
+    if (!dados.length) return;
+
+    // encontra a pastilha com a maior quantidade
+    let maior = dados.reduce((max, atual) =>
+      Number(atual.quantidade) > Number(max.quantidade) ? atual : max
+    );
+
+    document.getElementById("pastilha_em_alta").innerText =
+      maior.idPastilha ?? maior.fornecedor ?? maior.id;
+
+    document.getElementById("pastilha_em_alta_qtd").innerText =
+      `Qtd: ${maior.quantidade}`;
+
+  } catch (erro) {
+    console.log("Erro:", erro);
+  }
+}
+
+pastilhaEmAlta();
+// document.getElementById("alerta_de_estoque_min").innerText = baixos.length;
+

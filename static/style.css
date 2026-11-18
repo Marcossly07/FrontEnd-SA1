@@ -495,7 +495,11 @@ body {
     max-width: 100%;
 }
 
-
+#pastilha_em_alta_qtd{
+}
+#pastilha_em_alta_qtd p{
+    color: white;
+}
 @media screen and (max-width: 1200px) {
 
     .sidebar {
