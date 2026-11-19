@@ -179,7 +179,7 @@ forms.addEventListener("submit", async function (event) {
         cadastrante: cadastrante,
         retirada: "não",
         hora: new Date(),
-        valor: Number(quantidade) * valorUnidade
+        valorUnidade: valorUnidade
     };
 
     const url =
@@ -203,6 +203,7 @@ forms.addEventListener("submit", async function (event) {
                 // Soma a quantidade ao estoque existente
                 const novaQuantidade =
                     Number(cadastroExistente.quantidade) + quantidade;
+                const novoValor= Number(cadastroExistente.quantidade)
 
                 const respostaAtualizacao = await fetch(
                     `${url}/${cadastroExistente.id}`,
