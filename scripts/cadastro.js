@@ -1,189 +1,339 @@
-async function fornecedoresEPastilhas() {
-    const selectFornecedor = document.getElementById("fornecedor");
-    const selectPastilha = document.getElementById("classe");
-
-    const respostaFornecedor = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor");
-    const objRespostaFornecedor = await respostaFornecedor.json();
-
-    const respostaPastilha = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
-    const objRespostaPastilhas = await respostaPastilha.json();
-
-    // Preenche fornecedores
-    selectFornecedor.replaceChildren(new Option("Selecione", ""));
-    for (const fornecedor of objRespostaFornecedor) {
-        selectFornecedor.add(new Option(fornecedor["nome"], fornecedor["nome"]));
-    }
-
-    // Classe começa vazia
-    selectPastilha.replaceChildren(new Option("Selecione", ""));
-
-    // Quando o fornecedor mudar, atualiza as classes
-    selectFornecedor.addEventListener("change", function () {
-        const fornecedorSelecionado = selectFornecedor.value;
-
-        selectPastilha.replaceChildren(new Option("Selecione", ""));
-
-        const classes = objRespostaPastilhas
-            .filter(pastilha => pastilha["fornecedor"] === fornecedorSelecionado)
-            .map(pastilha => pastilha["classe"]);
-
-        // remove repetidas
-        for (const classe of new Set(classes)) {
-            selectPastilha.add(new Option(classe, classe));
-        }
-    });
-}
-fornecedoresEPastilhas();
+let pastilhasDisponiveis = [];
+let valorUnidade = 0;
 
 const forms = document.getElementById("cadastro");
-const paragrafoCadastrante = document.getElementById("paragrafo-cadastrante")
-const paragrafoData = document.getElementById("paragrafo-data")
-const paragrafoQuantidade = document.getElementById("paragrafo-quantidade")
-const paragrafoValorUnidade = document.getElementById("paragrafo-valor-unidade")
-const paragrafoValorPacote = document.getElementById("paragrafo-valor-pacote")
-const paragrafoValorTotal = document.getElementById("paragrafo-valor-total")
-const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor")
-const paragrafoClasse = document.getElementById("paragrafo-classe")
-const paragrafoTipo = document.getElementById("paragrafo-tipo")
 
-forms.addEventListener("input", function () {
-    const dataAtual = new Date()
+const selectFornecedor = document.getElementById("fornecedor");
+const selectPastilha = document.getElementById("classe");
+
+const paragrafoCadastrante = document.getElementById("paragrafo-cadastrante");
+const paragrafoData = document.getElementById("paragrafo-data");
+const paragrafoQuantidade = document.getElementById("paragrafo-quantidade");
+const paragrafoValorUnidade =document.getElementById("paragrafo-valor-pacote");
+const paragrafoValorTotal = document.getElementById("paragrafo-valor-total");
+const paragrafoFornecedor = document.getElementById("paragrafo-fornecedor");
+const paragrafoClasse = document.getElementById("paragrafo-classe");
+const paragrafoTipo = document.getElementById("paragrafo-tipo");
+
+// Formata os valores em reais
+function formatarMoeda(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+// Busca fornecedores e pastilhas
+async function fornecedoresEPastilhas() {
+    try {
+        const selectFornecedor = document.getElementById("fornecedor");
+        const selectPastilha = document.getElementById("classe");
+
+        // Busca fornecedores
+        const respostaFornecedor = await fetch(
+            "https://6ab95468f84897980b728b5b.mockapi.io/api/fornecedor"
+        );
+
+        if (!respostaFornecedor.ok) {
+            throw new Error("Erro ao buscar fornecedores");
+        }
+
+        const objRespostaFornecedor = await respostaFornecedor.json();
+
+        console.log("Fornecedores recebidos:", objRespostaFornecedor);
+
+        // Busca pastilhas
+        const respostaPastilha = await fetch(
+            "https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas"
+        );
+
+        if (!respostaPastilha.ok) {
+            throw new Error("Erro ao buscar pastilhas");
+        }
+
+        pastilhasDisponiveis = await respostaPastilha.json();
+
+        console.log("Pastilhas recebidas:", pastilhasDisponiveis);
+
+        // Limpa e preenche fornecedores
+        selectFornecedor.replaceChildren(
+            new Option("Selecione", "")
+        );
+
+        for (const fornecedor of objRespostaFornecedor) {
+            console.log("Fornecedor:", fornecedor.nome);
+
+            selectFornecedor.add(
+                new Option(fornecedor.nome, fornecedor.nome)
+            );
+        }
+
+        // Limpa classes
+        selectPastilha.replaceChildren(
+            new Option("Selecione", "")
+        );
+
+    } catch (erro) {
+        console.error("Erro ao carregar dados:", erro);
+        alert("Erro ao carregar fornecedores. Verifique o console.");
+    }
+}
+
+
+// Atualiza as classes conforme o fornecedor
+selectFornecedor.addEventListener("change", function () {
+    const fornecedorSelecionado = selectFornecedor.value;
+
+    selectPastilha.replaceChildren(new Option("Selecione", ""));
+
+    const classes = pastilhasDisponiveis
+        .filter(pastilha =>
+            pastilha.fornecedor === fornecedorSelecionado
+        )
+        .map(pastilha => pastilha.classe);
+
+    for (const classe of new Set(classes)) {
+        selectPastilha.add(new Option(classe, classe));
+    }
+
+    // Limpa o preço anterior
+    valorUnidade = 0;
+    atualizarResumo();
+});
+
+// Atualiza o preço ao selecionar uma classe
+selectPastilha.addEventListener("change", atualizarValor);
+
+// Atualiza os dados exibidos no formulário
+function atualizarResumo() {
+    const dataAtual = new Date();
+
     const ano = dataAtual.getFullYear();
-    const mes = dataAtual.getMonth() + 1; // Soma 1 porque começa do zero
+    const mes = dataAtual.getMonth() + 1;
     const dia = dataAtual.getDate();
+
     const cadastrante = document.getElementById("cadastrante").value;
     const quantidade = document.getElementById("quantidade").value;
-    const fornecedor = document.getElementById("fornecedor").value;
-    const classe = document.getElementById("classe").value;
+    const fornecedor = selectFornecedor.value;
+    const classe = selectPastilha.value;
     const tipo = document.getElementById("tipo").value;
 
-    const pacote = 90
-    const quantidadeText = quantidade
-    const quantidadeNumr = Number(quantidadeText)
-    let valorTotal = 0
+    const quantidadeNumerica = Number(quantidade) || 0;
 
-    for (let i = 0; i < quantidadeNumr; i++) {
-        valorTotal += pacote
-    }
+    const valorTotal = quantidadeNumerica * valorUnidade;
 
     paragrafoCadastrante.textContent = `Cadastrante: ${cadastrante}`;
-    paragrafoData.textContent = `Data: ${dia}/${mes}/${ano}`
-    paragrafoQuantidade.textContent = `Quantidade: ${quantidade}und (pacote)`
-    paragrafoValorUnidade.textContent = `Valor por unidade: R$9,00`
-    paragrafoValorPacote.textContent = `Valor por pacote: R$${pacote},00`
-    paragrafoValorTotal.textContent = `Valor total: R$${valorTotal},00`
-    paragrafoFornecedor.textContent = `Fornecedor: ${fornecedor}`
-    paragrafoClasse.textContent = `Classe: ${classe}`
-    paragrafoTipo.textContent = `Tipo: ${tipo}`
+    paragrafoData.textContent = `Data: ${dia}/${mes}/${ano}`;
 
-    console.log(tipo)
-    console.log(typeof(tipo))
-    if(tipo==="Retirada"){
-        document.getElementById("titulo").textContent = "Cadastro de Retirada"
-    }
-    else{
-        document.getElementById("titulo").textContent = "Cadastro"
-    }
-});
+    paragrafoQuantidade.textContent =
+        `Quantidade: ${quantidade} und (pacote)`;
 
+    paragrafoValorUnidade.textContent =
+        `Valor da unidade: ${formatarMoeda(valorUnidade)}`;
+    paragrafoValorTotal.textContent =
+        `Valor total: ${formatarMoeda(valorTotal)}`;
+
+    paragrafoFornecedor.textContent = `Fornecedor: ${fornecedor}`;
+    paragrafoClasse.textContent = `Classe: ${classe}`;
+    paragrafoTipo.textContent = `Tipo: ${tipo}`;
+
+    document.getElementById("titulo").textContent =
+        tipo === "Retirada" ? "Cadastro de Retirada" : "Cadastro";
+}
+
+// Input e change atualizam o resumo
+forms.addEventListener("input", atualizarResumo);
+forms.addEventListener("change", atualizarResumo);
+
+// Carrega os dados iniciais
+fornecedoresEPastilhas();
+
+// Envio do formulário
 forms.addEventListener("submit", async function (event) {
     event.preventDefault();
-    const quantidade = document.getElementById("quantidade").value;
-    const fornecedor = document.getElementById("fornecedor").value;
-    const classe = document.getElementById("classe").value;
+
+    const quantidade = Number(
+        document.getElementById("quantidade").value
+    );
+
+    const fornecedor = selectFornecedor.value;
+    const classe = selectPastilha.value;
     const tipo = document.getElementById("tipo").value;
     const cadastrante = document.getElementById("cadastrante").value;
-    const pastilha_cadastrada = {
-        "fornecedor": fornecedor,
-        "classe": classe,
-        "quantidade": quantidade,
-        "cadastrante": cadastrante,
-        "retirada": "não",
-        "hora": new Date()
-    };
-    async function verificarPastilhas() {
-        const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas")
-        const pastilhas = await resposta.json();
-        if (pastilhas.length==0){
-            console.log("não tem pastilha");
-            return false
-        }
-        for (const cadastro of pastilhas) {
-            if (cadastro["fornecedor"] == pastilha_cadastrada["fornecedor"] && cadastro["classe"] == pastilha_cadastrada["classe"]) {
-                if (tipo == "Cadastro") {
-                    pastilha_cadastrada["quantidade"] = Number(pastilha_cadastrada["quantidade"]) + Number(cadastro["quantidade"]);
-                    const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${cadastro["id"]}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-type": "application/json"
-                        },
-                        body: JSON.stringify(pastilha_cadastrada)
-                    })
-                    forms.reset();
-                    alert("pastilha cadastrada com sucesso!");
-                }
-                else {
-                    if (Number(cadastro["quantidade"] < Number(pastilha_cadastrada["quantidade"]))) {
-                        console.log("NUMERO MAIOR QUE O E4SPERADO");
-                        alert("O número de retirada é maior que o estoque!")
-                    }
-                    else {
-                        if(Number(cadastro["quantidade"] ==Number(pastilha_cadastrada["quantidade"]))){
-                            alert("A quantidade retirada é igual a que está no estoque!")
-                        }
-                        console.log("cheguei aqui");
-                        pastilha_cadastrada["quantidade"] = Number(cadastro["quantidade"]) - Number(pastilha_cadastrada["quantidade"]);
-                        const resposta = await fetch(`https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas/${cadastro["id"]}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-type": "application/json"
-                            },
-                            body: JSON.stringify(pastilha_cadastrada)
-                        })
-                        pastilha_cadastrada["quantidade"]=quantidade;
-                        pastilha_cadastrada["retirada"] = "sim";
-                        const enviarRetirada=await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas", {
-                            method: "POST",
-                            headers: {
-                                "Content-type": "application/json"
-                            },
-                            body: JSON.stringify(pastilha_cadastrada)
-                        })
-                        forms.reset();
-                        console.log("id do elemento: ", cadastro["id"]);
-                        alert("Pastilha retirada com sucesso!");
-                    }
-                }
-                return true
-            }
-        };
-        return false
+
+    // Validações
+    if (!fornecedor || !classe || !tipo || !cadastrante || !quantidade || quantidade <= 0) {
+        alert("Preencha todos os campos corretamente!");
+        return;
     }
 
-    async function cadastrarPastilhas(conteudo) {
-        const resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(conteudo)
-        })
-        console.log("pastilha cadastrada com sucesso!")
+    if (valorUnidade <= 0 || !Number.isFinite(valorUnidade)) {
+        alert("Selecione uma pastilha com preço válido!");
+        return;
     }
-    async function processarCadastro() {
-        console.log("cheguei em processarcadastro")
-        const jaExiste = await verificarPastilhas();
-        if (jaExiste === false) {
-            console.log("entrei no jaexiste");
-            console.log(pastilha_cadastrada);
-            console.log(tipo);
-            if (pastilha_cadastrada["retirada"] == "não" && tipo=="Cadastro") {
-                await cadastrarPastilhas(pastilha_cadastrada);
-                forms.reset();
-                alert("Pastilha cadastrada com sucesso!");
+
+    const pastilha_cadastrada = {
+        fornecedor: fornecedor,
+        classe: classe,
+        quantidade: quantidade,
+        cadastrante: cadastrante,
+        retirada: "não",
+        hora: new Date(),
+        valor: Number(quantidade) * valorUnidade
+    };
+
+    const url =
+        "https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas";
+
+    try {
+        const resposta = await fetch(url);
+        const pastilhas = await resposta.json();
+
+        // Procura o estoque correspondente
+        const cadastroExistente = pastilhas.find(cadastro =>
+            cadastro.fornecedor === fornecedor &&
+            cadastro.classe === classe &&
+            cadastro.retirada !== "sim"
+        );
+
+        if (tipo === "Cadastro") {
+
+            if (cadastroExistente) {
+
+                // Soma a quantidade ao estoque existente
+                const novaQuantidade =
+                    Number(cadastroExistente.quantidade) + quantidade;
+
+                const respostaAtualizacao = await fetch(
+                    `${url}/${cadastroExistente.id}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            ...cadastroExistente,
+                            quantidade: novaQuantidade,
+                            cadastrante: cadastrante,
+                            hora: new Date()
+                        })
+                    }
+                );
+
+                if (!respostaAtualizacao.ok) {
+                    throw new Error("Erro ao atualizar o estoque.");
+                }
+
+            } else {
+
+                // Cadastra uma nova pastilha
+                const respostaCadastro = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(pastilha_cadastrada)
+                });
+
+                if (!respostaCadastro.ok) {
+                    throw new Error("Erro ao cadastrar a pastilha.");
+                }
             }
-            else{
-                alert("Operação inválida!");
+
+            forms.reset();
+            valorUnidade = 0;
+            atualizarResumo();
+
+            // Limpa a classe selecionada
+            selectPastilha.replaceChildren(new Option("Selecione", ""));
+
+            alert("Pastilha cadastrada com sucesso!");
+
+        } else if (tipo === "Retirada") {
+
+            if (!cadastroExistente) {
+                alert("Não existe estoque dessa pastilha!");
+                return;
             }
+
+            const estoqueAtual = Number(cadastroExistente.quantidade);
+
+            if (quantidade > estoqueAtual) {
+                alert("O número de retirada é maior que o estoque!");
+                return;
+            }
+
+            const novoEstoque = estoqueAtual - quantidade;
+
+            // Atualiza o estoque
+            const respostaAtualizacao = await fetch(
+                `${url}/${cadastroExistente.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...cadastroExistente,
+                        quantidade: novoEstoque
+                    })
+                }
+            );
+
+            if (!respostaAtualizacao.ok) {
+                throw new Error("Erro ao atualizar o estoque.");
+            }
+
+            // Registra a retirada separadamente
+            const registroRetirada = {
+                ...pastilha_cadastrada,
+                retirada: "sim"
+            };
+
+            const respostaRetirada = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(registroRetirada)
+            });
+
+            if (!respostaRetirada.ok) {
+                throw new Error("Erro ao registrar a retirada.");
+            }
+
+            forms.reset();
+            valorUnidade = 0;
+            atualizarResumo();
+
+            selectPastilha.replaceChildren(new Option("Selecione", ""));
+
+            alert("Pastilha retirada com sucesso!");
+
+        } else {
+            alert("Tipo de operação inválido!");
         }
+
+    } catch (erro) {
+        console.error("Erro ao processar operação:", erro);
+        alert("Ocorreu um erro ao processar a operação.");
     }
-    processarCadastro();
 });
+
+function atualizarValor() {
+    const fornecedorSelecionado = selectFornecedor.value;
+    const classeSelecionada = selectPastilha.value;
+
+    const pastilhaSelecionada = pastilhasDisponiveis.find(pastilha =>
+        pastilha.fornecedor === fornecedorSelecionado &&
+        pastilha.classe === classeSelecionada
+    );
+
+    if (pastilhaSelecionada) {
+        valorUnidade = Number(pastilhaSelecionada.preco);
+    } else {
+        valorUnidade = 0;
+    }
+
+    atualizarResumo();
+}
