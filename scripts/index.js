@@ -1,12 +1,13 @@
 async function mostrarQuantidade() {
   try {
-    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     let dados = await resposta.json();
-
     let total = 0;
 
     dados.forEach(pastilha => {
-      total += Number(pastilha.quantidade);
+      if (pastilha.retirada=="não"){
+        total += Number(pastilha.quantidade);
+      }
     });
     
     if(total > 0){
@@ -101,17 +102,20 @@ async function mostrarQuantidadeFornecedores() {
 mostrarQuantidadeFornecedores();
 
 async function alertaEstoqueMinimo() {
-  let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+  let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
   let dados = await resposta.json();
 
   let limite = 20;
   let maiorQuantidade = ""
   dados.forEach(pastilha => {
-    if (pastilha.quantidade <= 20) {
-      document.getElementById("alerta_de_estoque_min").innerText = `${pastilha.idPastilha} EM FALTA!`
-    }
-    else {
-      document.getElementById("alerta_de_estoque_min").innerText = `.....`
+    if (pastilha.retirada=="não"){
+
+      if (pastilha.quantidade <= 20) {
+        document.getElementById("alerta_de_estoque_min").innerText = `${pastilha.idPastilha} EM FALTA!`
+      }
+      else {
+        document.getElementById("alerta_de_estoque_min").innerText = `.....`
+      }
     }
   });
   let baixos = dados.filter(item => Number(item.quantidade) <= limite);
@@ -121,17 +125,16 @@ alertaEstoqueMinimo();
 
 async function cincoMenoresEstoques() {
   try {
-    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     let dados = await resposta.json();
 
-    // ordena do menor para o maior e pega as 5 primeiras
-    let menores = [...dados]
+    // Considera apenas registros em que retirada seja "não"
+    let dadosValidos = dados.filter(item => item.retirada === "não");
+
+    // Ordena do menor para o maior e pega os 5 primeiros
+    let menores = [...dadosValidos]
       .sort((a, b) => Number(a.quantidade) - Number(b.quantidade))
       .slice(0, 5);
-
-    if (menores === null){
-      
-    }
 
     let container = document.getElementById("menores_estoques");
     container.innerHTML = "";
@@ -162,13 +165,16 @@ cincoMenoresEstoques();
 
 async function pastilhaEmAlta() {
   try {
-    let resposta = await fetch("https://6ab95468f84897980b728b5b.mockapi.io/api/pastilhas");
+    let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
     let dados = await resposta.json();
 
-    if (!dados.length) return;
+    // Considera apenas registros que não foram retirados
+    let dadosValidos = dados.filter(item => item.retirada === "não");
 
-    // encontra a pastilha com a maior quantidade
-    let maior = dados.reduce((max, atual) =>
+    if (!dadosValidos.length) return;
+
+    // Encontra a pastilha com a maior quantidade
+    let maior = dadosValidos.reduce((max, atual) =>
       Number(atual.quantidade) > Number(max.quantidade) ? atual : max
     );
 
