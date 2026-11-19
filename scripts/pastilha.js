@@ -102,7 +102,7 @@ function tratarPastilhas(lista) {
     lista.forEach(pastilha => {
         const novaLinha = document.createElement("tr");
 
-        [pastilha.idPastilha || pastilha.id, pastilha.codigo, pastilha.classe, pastilha.fornecedor, pastilha.quantidade].forEach(valor => {
+        [pastilha.idPastilha || pastilha.id, pastilha.codigo, pastilha.classe, pastilha.fornecedor, pastilha.preco].forEach(valor => {
             const td = document.createElement("td");
             td.textContent = valor ?? "";
             novaLinha.appendChild(td);
@@ -132,7 +132,7 @@ function tratarPastilhas(lista) {
             document.getElementById("id").value = pastilha.idPastilha;
             document.getElementById("codigo").value = pastilha.codigo;
             document.getElementById("classe").value = pastilha.classe;
-            document.getElementById("quantidade").value = pastilha.quantidade;
+            document.getElementById("preco").value = pastilha.preco;
 
             // Se o fornecedor não estiver mais na lista, adiciona para não perder o valor
             if (![...selectFornecedor.options].some(o => o.value === pastilha.fornecedor)) {
@@ -197,8 +197,8 @@ form.addEventListener("submit", function (event) {
         || (pastilhaEmEdicao && pastilhaEmEdicao.idPastilha) || "";
     const codigo = document.getElementById("codigo").value.trim().toUpperCase();
     const classe = document.getElementById("classe").value;
+    const preco = document.getElementById("preco").value;
     const fornecedor = selectFornecedor.value;
-    const quantidade = document.getElementById("quantidade").value;
 
     if (!fornecedor) {
         alert("Selecione um fornecedor.");
@@ -216,7 +216,7 @@ form.addEventListener("submit", function (event) {
         return;
     }
 
-    salvarPastilha({ idPastilha, codigo, classe, fornecedor, quantidade });
+    salvarPastilha({ idPastilha, codigo, classe, fornecedor, preco });
 });
 
 // ---------- Início ----------

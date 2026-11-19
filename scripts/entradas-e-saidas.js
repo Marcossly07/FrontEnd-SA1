@@ -30,7 +30,7 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["fornecedor"]}</td>
                         <td>${dados["classe"]}</td>
                         <td>${dados["quantidade"]}</td>
-                        <td>${dados["quantidade"] * 90},00</td>
+                        <td>${dados["valor"]},00</td>
                         <td>${dados["retirada"]}</td>
                         <td>${new Date(dados["hora"]).toLocaleDateString('pt-BR')}</td>
                         <td><button class="botao-excluir">🗑️</button></td>
@@ -72,7 +72,7 @@ verPartilhasRetiradas().then(retiradas => {
             <td>${chave["fornecedor"]}</td>
             <td>${chave["classe"]}</td>
             <td>${chave["quantidade"]}</td>
-            <td>R$${chave["quantidade"] * 90},00</td>
+            <td>R$${chave["valor"]},00</td>
             <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
             <td><button>Imprimir</button></td>
         </tr>
@@ -104,7 +104,7 @@ verPastilhas().then(dados => {
                         <td>${chave["fornecedor"]}</td>
                         <td>${chave["classe"]}</td>
                         <td>${chave["quantidade"]}</td>
-                        <td>${chave["quantidade"] * 90},00</td>
+                        <td>${chave["valor"]},00</td>
                         <td>${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
                         <td><button>Imprimir</button></td>
             </tr>`;
@@ -116,7 +116,7 @@ verPastilhas().then(dados => {
                         <td class="pouca_quantidade">${chave["fornecedor"]}</td>
                         <td class="pouca_quantidade">${chave["classe"]}</td>
                         <td class="pouca_quantidade">${chave["quantidade"]}</td>
-                        <td class="pouca_quantidade">${chave["quantidade"] * 90},00</td>
+                        <td class="pouca_quantidade">${chave["valor"]},00</td>
                         <td class="pouca_quantidade">${new Date(chave["hora"]).toLocaleDateString('pt-BR')}</td>
                         <td><button class="pouca_quantidade">Imprimir</button></td>
             </tr>`;
