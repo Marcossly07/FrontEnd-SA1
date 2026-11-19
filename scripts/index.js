@@ -8,8 +8,13 @@ async function mostrarQuantidade() {
     dados.forEach(pastilha => {
       total += Number(pastilha.quantidade);
     });
-
-    document.getElementById("quantidade").innerText = total;
+    
+    if(total > 0){
+      document.getElementById("quantidade").innerText = total;
+    }
+    else{
+      document.getElementById("quantidade").innerText = "NENHUMA PASTILHA NO ESTOQUE";
+    }
 
   } catch (erro) {
     console.log("Erro:", erro);
@@ -123,6 +128,10 @@ async function cincoMenoresEstoques() {
     let menores = [...dados]
       .sort((a, b) => Number(a.quantidade) - Number(b.quantidade))
       .slice(0, 5);
+
+    if (menores === null){
+      
+    }
 
     let container = document.getElementById("menores_estoques");
     container.innerHTML = "";
