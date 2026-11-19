@@ -263,7 +263,43 @@ forms.addEventListener("submit", async function (event) {
                 alert("O número de retirada é maior que o estoque!");
                 return;
             }
+            if (quantidade == estoqueAtual) {
 
+    // Registra a retirada no histórico
+    const registroRetirada = {
+        ...pastilha_cadastrada,
+        retirada: "sim"
+    };
+
+    const respostaRetirada = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(registroRetirada)
+    });
+
+    if (!respostaRetirada.ok) {
+        throw new Error("Erro ao registrar a retirada.");
+    }
+
+    // Depois de salvar no histórico, exclui o estoque
+    const respostaDelete = await fetch(
+        `${url}/${cadastroExistente.id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    if (!respostaDelete.ok) {
+        throw new Error("Erro ao excluir a pastilha do estoque.");
+    }
+
+    alert("Pastilha retirada com sucesso!");
+    location.reload();
+
+    return;
+}
             const novoEstoque = estoqueAtual - quantidade;
 
             // Atualiza o estoque

@@ -30,9 +30,10 @@ formulario.addEventListener('submit', function (event) {
                         <td>${dados["fornecedor"]}</td>
                         <td>${dados["classe"]}</td>
                         <td>${dados["quantidade"]}</td>
-                        <td>${Number(chave["valorUnidade"])*Number(chave["quantidade"])},00</td>
+                        <td>${Number(dados["valorUnidade"])*Number(dados["quantidade"])},00</td>
                         <td>${dados["retirada"]}</td>
                         <td>${new Date(dados["hora"]).toLocaleDateString('pt-BR')}</td>
+                        <td><button class="botao-excluir">🗑️</button></td>
                         </tr>
                     `;
             tbody.innerHTML = linhas;
