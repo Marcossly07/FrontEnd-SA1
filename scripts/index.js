@@ -105,13 +105,13 @@ async function alertaEstoqueMinimo() {
   let resposta = await fetch("https://6abae78c5b549d818d62b557.mockapi.io/api/v1/entradas-e-saidas");
   let dados = await resposta.json();
 
-  let limite = 20;
+  let limite = 2;
   let maiorQuantidade = ""
   dados.forEach(pastilha => {
     if (pastilha.retirada=="não"){
 
-      if (pastilha.quantidade <= 20) {
-        document.getElementById("alerta_de_estoque_min").innerText = `${pastilha.idPastilha} EM FALTA!`
+      if (pastilha.quantidade <= 2) {
+        document.getElementById("alerta_de_estoque_min").innerText = `${pastilha.fornecedor} - Classe ${pastilha.classe} EM FALTA!`
       }
       else {
         document.getElementById("alerta_de_estoque_min").innerText = `.....`
